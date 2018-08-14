@@ -1,11 +1,25 @@
 from django.db import models
 
 
-#model type
+class Type(models.Model):
+    type_name = models.CharField(max_length=255)
 
-#model tags
+    def __str__(self):
+        return self.type_name
 
-#model skills
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.tag_name
+
+
+class Skill(models.Model):
+    skill_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.skill_name
 
 
 class Project(models.Model):
@@ -16,11 +30,11 @@ class Project(models.Model):
     head = models.CharField(max_length=255)
     brief_summary = models.CharField(max_length=1000)
     content = models.CharField(max_length=1000)
-    type = models.CharField(max_length=255) #
     app_deadline = models.DateTimeField('application deadline')
     num_places = models.PositiveIntegerField()
-    required_skills = models.CharField(max_length=255) #
-    tags = models.CharField(max_length=255) #
+    type = models.ForeignKey(Type, null=True, blank=True, on_delete=models.CASCADE)
+    skill = models.ManyToManyField(Skill, related_name='skills')
+    tag = models.ManyToManyField(Tag, related_name='tags')
 
     def __str__(self):
         return self.project_name

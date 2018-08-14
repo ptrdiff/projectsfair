@@ -45,7 +45,7 @@
                 {% for project in latest_project_list %}
                     <div class="post">
                         <li><a href="{% url 'fairapp:detail' project.id %}">{{ project.project_name }}</a></li>
-                        {{ project.content }}
+                        {{ project.brief_summary }}
                     </div>
                 {% endfor %}
                 </ul>

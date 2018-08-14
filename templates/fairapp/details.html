@@ -1,4 +1,15 @@
-<h1>{{ project.project_name }}</h1>
-<h2>{{ project.head }}</h2>
-<h3>{{ project.start_date }}</h3>
-<h4>{{ project.end_date }}</h4>
+<html>
+<head>
+
+</head>
+<body>
+<h1> Проект: {{ project.project_name }}</h1>
+<h2> Руководитель: {{ project.head }}</h2>
+<h3> Время начала: {{ project.start_date }}</h3>
+<h3> Содержимое проекта: {{ project.content }}</h3>
+<h3> Требуемые навыки:</h3> <br/>{% for skill in project.skill.all %}{{ skill }}<br/>{% endfor %}
+<h3> Теги:</h3> <br/>{% for tag in project.tag.all %}{{ tag }}<br/>{% endfor %}
+<h3> Тип: {{ project.type }}</h3>
+<h4> Время окончания: {{ project.end_date }}</h4>
+</body>
+</html>
