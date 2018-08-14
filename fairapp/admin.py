@@ -13,7 +13,9 @@ class TagsInline(admin.TabularInline):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    fields = ['project_name', 'pub_date', 'start_date', 'end_date', 'head', 'brief_summary', 'content', 'app_deadline',
+    list_display = ['project_name', 'pub_date', 'head', 'type']
+    list_filter = ['head', 'type']
+    fields = ['project_name', 'pub_date', ('start_date', 'end_date'), 'head', 'brief_summary', 'content', 'app_deadline',
               'num_places', 'type'
               ]
     inlines = [SkillInline, TagsInline]
