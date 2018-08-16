@@ -1,11 +1,5 @@
-.page-header {
-    background-color: #b4baff;
-    margin-top: 0;
-    padding: 20px 20px 20px;
-}
-
-.page-content {
-    background-color: #a6ff8d;
-    margin-top: 0;
-    padding: 20px 20px 20px;
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
 }

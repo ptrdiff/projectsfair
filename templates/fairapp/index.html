@@ -1,57 +1,24 @@
-{% load static %}
-<html>
-    <head>
-        <title>Main Page</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
-         <!-- Grey with black text -->
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Active</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-              </li>
-            </ul>
-        </nav>
-        <div class="page-header">
-            <h1>Main page</h1>
-        </div>
-        <div class="page-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.
-        </div>
-            {% if latest_project_list %}
-                <ul>
-                {% for project in latest_project_list %}
-                    <div class="post">
-                        <li><a href="{% url 'fairapp:detail' project.id %}">{{ project.project_name }}</a></li>
-                        {{ project.brief_summary }}
-                    </div>
-                {% endfor %}
-                </ul>
-            {% else %}
-                <p>No polls are available.</p>
-            {% endif %}
+{% extends "fairapp/base_generic.html" %}
+{% block content %}
+<h1>Projects Fair Home</h1>
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+    mollit anim id est laborum. </p>
 
-    </body>
-</html>
+
+{% if latest_project_list %}
+    <ul>
+        {% for project in latest_project_list %}
+            <div class="post">
+                <li><a href="{% url 'fairapp:detail' project.id %}">{{ project.project_name }}</a></li>
+                {{ project.brief_summary }}
+            </div>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+{% endblock %}

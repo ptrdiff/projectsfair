@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Type(models.Model):
@@ -36,12 +36,15 @@ class Project(models.Model):
     type = models.ForeignKey(Type, null=True, blank=True, on_delete=models.CASCADE)
     skill = models.ManyToManyField(Skill, related_name='skills')
     tag = models.ManyToManyField(Tag, related_name='tags')
+    members = models.ManyToManyField(User, related_name='members')
 
     def __str__(self):
         return self.project_name
 
-    def get_absolute_url(self):
-        """
-        Returns the url to access a particular book instance.
-        """
-        return reverse('', args=[str(self.id)])
+
+class AppForProject(models.Model):
+    project = models.OneToOneField(Project, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    covering_letter = models.TextField(max_length=1000)
+
+
