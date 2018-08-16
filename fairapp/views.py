@@ -1,5 +1,7 @@
 from django.views import generic
 from .models import Project
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 
 class IndexView(generic.ListView):
@@ -15,3 +17,17 @@ class DetailView(generic.DetailView):
     model = Project
     template_name = 'fairapp/details.html'
 
+
+class ProjectCreate(CreateView):
+    model = Project
+    fields = '__all__'
+
+
+class ProjectUpdate(UpdateView):
+    model = Project
+    fields = '__all__'
+
+
+class ProjectDelete(DeleteView):
+    model = Project
+    success_url = reverse_lazy('fairapp:index')

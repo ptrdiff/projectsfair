@@ -25,12 +25,12 @@
           {% if user.is_authenticated %}
                <li>User: {{ user.get_username }}</li>
                <li><a href="{% url 'fairapp:logout'%}?next={{request.path}}">Logout</a></li>
+               <li><a href="{% url 'fairapp:project_create'%}">Create project</a></li>
           {% else %}
                <li><a href="{% url 'fairapp:login'%}?next={{request.path}}">Login</a></li>
           {% endif %}
-          <li><a href="">Home</a></li>
-          <li><a href="">All books</a></li>
-          <li><a href="">All authors</a></li>
+          <li><a href="{% url 'fairapp:index'%}">Home</a></li>
+
 
       </ul>
      {% endblock %}

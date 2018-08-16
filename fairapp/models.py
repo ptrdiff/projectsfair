@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 
 class Type(models.Model):
     type_name = models.CharField(max_length=255)
@@ -40,6 +40,9 @@ class Project(models.Model):
 
     def __str__(self):
         return self.project_name
+
+    def get_absolute_url(self):
+        return "/%i/" % self.id
 
 
 class AppForProject(models.Model):

@@ -1,7 +1,7 @@
-<html>
-<head>
+{% extends "fairapp/base_generic.html" %}
+{% block content %}
 
-</head>
+
 <body>
 <h1> Проект: {{ project.project_name }}</h1>
 <h2> Руководитель: {{ project.head }}</h2>
@@ -12,4 +12,4 @@
 <h3> Тип: {{ project.type }}</h3>
 <h4> Время окончания: {{ project.end_date }}</h4>
 </body>
-</html>
+{% endblock %}
