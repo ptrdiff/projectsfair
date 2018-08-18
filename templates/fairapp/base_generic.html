@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+{% load bootstrap3 %}
 <head>
 
   {% block title %}<title>Projects Fair</title>{% endblock %}
@@ -15,7 +16,6 @@
 </head>
 
 <body>
-
   <div class="container-fluid">
 
     <div class="row">
@@ -28,7 +28,9 @@
                <li><a href="{% url 'fairapp:project_create'%}">Create project</a></li>
           {% else %}
                <li><a href="{% url 'fairapp:login'%}?next={{request.path}}">Login</a></li>
+               <li><a href="{% url 'fairapp:signup'%}?next={{request.path}}">Sign Up</a></li>
           {% endif %}
+          <li><a href="{% url 'fairapp:search'%}?next={{request.path}}">Search</a></li>
           <li><a href="{% url 'fairapp:index'%}">Home</a></li>
 
 
