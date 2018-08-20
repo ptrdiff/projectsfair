@@ -1,7 +1,12 @@
 {% extends "fairapp/base_generic.html" %}
 {% block content %}
 
-{{ profile.id }}
-    {{ profile.about_me }}
-
+    <h3>{{ profile.user.first_name }}</h3>
+    <h3>{{ profile.user.last_name }}</h3>
+    <h3>{{ profile.interests }}</h3>
+    <h3>{{ profile.achievements }}</h3>
+    <h3>{{ profile.faculty }}</h3>
+    <h3>{{ profile.status }}</h3>
+    <h3>{{ profile.grade }}</h3>
+    <li><a href="{% url 'fairapp:update_profile'%}">Update My Profile</a></li>
 {% endblock %}

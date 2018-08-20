@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.urls import reverse
 
 
 class Type(models.Model):
@@ -28,9 +27,28 @@ class Skill(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    about_me = models.TextField(max_length=1000)
+    interests = models.TextField(max_length=1000)
     achievements = models.TextField(max_length=1000)
-    #picture = models.ImageField(upload_to='profile_images', blank=True)
+    FACULTY = (
+        ('a', 'ApMath'),
+        ('c', 'Chemistry'),
+        ('p', 'Physics'),
+        ('m', 'MathMech'),
+        ('b', 'Biology'),
+        ('l', 'Faculty of Law'),
+        ('s', 'Social Faculty'),
+    )
+    faculty = models.CharField(max_length=1, choices=FACULTY, blank=True, default=1, help_text='Faculty')
+
+    STATUS = (
+        ('b', 'Bachelor'),
+        ('m', 'Master'),
+        ('g', 'Graduate Student'),
+        ('t', 'Teacher'),
+    )
+    status = models.CharField(max_length=1, choices=STATUS, blank=True, default=1, help_text='Status')
+
+    grade = models.PositiveIntegerField(blank=True, null=True, )
 
     def __str__(self):
         return self.user.username
