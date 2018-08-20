@@ -1,47 +1,224 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="ru">
-{% load bootstrap3 %}
-<head>
+   <head>
+       {% block title %}{% endblock %}
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- Mobile settings-->
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      <meta name="yandex-verification" content="fa89561358a29ef3" />
+      <meta name="google-site-verification" content="9Jc6LSbQX9n3pd9rXk52WdgMOP4faBTXHRvyEvR8D6o" />
+      <meta property="og:title" content="Правовая помощь - Санкт-Петербургский государственный университет" />
+      <!-- Icons-->
+      <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-touch-icon-57x57.png' %}">
+      <link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/apple-touch-icon-60x60.png' %}">
+      <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-touch-icon-72x72.png' %}">
+      <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-touch-icon-76x76.png' %}">
+      <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/apple-touch-icon-114x114.png' %}">
+      <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/apple-touch-icon-120x120.png' %}">
+      <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/apple-touch-icon-144x144.png' %}">
+      <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-touch-icon-152x152.png' %}">
+      <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon-180x180.png' %}">
+      <link rel="icon" type="image/png" href="{% static 'img/favicon-32x32.png" sizes="32x32' %}">
+      <link rel="icon" type="image/png" href="{% static 'img/android-chrome-192x192.png'  %}">
+      <link rel="icon" type="image/png" href="{% static 'img/favicon-96x96.png' %}">
+      <link rel="icon" type="image/png" href="{% static 'img/favicon-16x16.png' %}">
+      <link rel="manifest" href="/sites/all/themes/spbgu/markup/dist/manifest.json">
+      <link rel="mask-icon" href="/sites/all/themes/spbgu/markup/dist/safari-pinned-tab.svg" color="#9f2d20">
+      <meta name="apple-mobile-web-app-title" content="SPBU">
+      <meta name="application-name" content="SPBU">
+      <meta name="msapplication-TileColor" content="#da532c">
+      <meta name="msapplication-TileImage" content="/sites/all/themes/spbgu/markup/dist/mstile-144x144.png">
+      <meta name="theme-color" content="#ffffff">
+      <meta name="apple-mobile-web-app-title" content="SPBU">
+      <meta name="application-name" content="SPBU">
+      <meta name="msapplication-TileColor" content="#da532c">
+      <meta name="msapplication-TileImage" content="/sites/all/themes/spbgu/markup/dist/mstile-144x144.png">
+      <meta name="theme-color" content="#ffffff">
+      <meta name="format-detection" content="telephone=no">
+      <!-- Fonts-->
+      <!-- Fonts-->
+      <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700,800" rel="stylesheet">
+      <link href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+      <link type="text/css" rel="stylesheet" href="https://spbu.ru/sites/default/files/css/css_xE-rWrJf-fncB6ztZfd2huxqgxu4WO-qwma6Xer30m4.css" media="all" />
+      <link type="text/css" rel="stylesheet" href="https://spbu.ru/sites/default/files/css/css_8I8tOCPjIVP6mfeMJ_e9IPVH1CnLb6wMloNuja55pnc.css" media="all" />
+      <link type="text/css" rel="stylesheet" href="https://spbu.ru/sites/default/files/css/css_oBU1rgk8WK2Xi9JRFBXOUtLw9qwPGBdodHh-HOqPNr0.css" media="all" />
+      <link type="text/css" rel="stylesheet" href="https://spbu.ru/sites/default/files/css/css_Lf4l1UtBFcy9-gJZb9rv2lmkWGdQ10rbpTlKdwpSUw0.css" media="all" />
+      <script type="text/javascript" src="https://spbu.ru/sites/default/files/js/js_x0MhBQfHNAIO1NwkQgzf_TGN4b8eMmKre3nqUfoQv3w.js"></script>
+      <script type="text/javascript" src="https://spbu.ru/sites/default/files/js/js_z_jbJYXIay8YAKcNvaXu1YtjMQ8cnX_wRIfEG-tRsYY.js"></script>
+      <script type="text/javascript" src="https://spbu.ru/sites/default/files/js/js_pYEcA1mi9OnZ6iBcCNQ0onr5yCNlyYcU6xzqJF8V6O4.js"></script>
+      <script type="text/javascript">
+         <!--//--><![CDATA[//><!--
+         jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"spbgu","theme_token":"Ti8G8KpsqGNZcC6P-t3RP4OZh3GaCsTfvV0oR_FSnHI","js":{"sites\/all\/modules\/jquery_update\/replace\/jquery\/1.8\/jquery.min.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"public:\/\/languages\/ru_uqldUOPrlkXD__53omVvuoltHlpbkua6MmPt3Fi86YI.js":1,"sites\/all\/themes\/spbgu\/custom_js\/jquery.toc.js":1,"sites\/all\/themes\/spbgu\/custom_js\/custom.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ckeditor\/css\/ckeditor.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/themes\/spbgu\/layouts\/twocol\/twocol.css":1,"sites\/all\/themes\/spbgu\/markup\/dist\/css\/main.css":1,"sites\/all\/themes\/spbgu\/custom_css\/custom_admin_css.css":1,"sites\/all\/themes\/spbgu\/custom_css\/custom.css":1}},"urlIsAjaxTrusted":{"\/postupayushchim\/pravovaya-pomoshch":true}});
+         //--><!]]>
+      </script>
+   </head>
+   <body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-41 node-type-panel"  ontouchstart="">
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T69K6W5"
+         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+      <div class="page-wrapper">
+      <!-- START: page header-->
+      <header class="page-header">
+         <div class="page-header__menu-bt bt-icon-menu bt-icon-menu--white">
+            <span></span>
+         </div>
+         <div class="g-container g-rel">
+            <a href="" class="page-header__logo">
+            <img src="{% static 'img/logo-big-color.svg' %}" alt="СПбГУ" class="page-header__logo--desktop" />
+            <img src="{% static 'img/logo-text-smal.svg' %}" alt="СПбГУ" class="page-header__logo--mobile" />
+            </a>
+            <div class="menu-mobile">
+               <!-- START: second menu-->
+               <!-- START: second menu-->
+               <ul class="menu-second ">
+                  <li class="menu-item  menu-item--highlight">
+                  </li>
+                  <li class="menu-item ">
+                  </li>
+                  <li class="menu-item ">
+                  </li>
+                  <li class="menu-item ">
+                  </li>
+                  <li class="menu-item">
+                     <a href="http://english.spbu.ru/">EN</a>
+                  </li>
+               </ul>
+               <ul class="menu-main ">
+                  <li class="menu-item ">
+                     <a href="/universitet" class="menu-bt">Пункт</a><i class="menu-item__line"></i>
+                  </li>
+                  <li class="menu-item menu-item--act">
+                     <a href="/postupayushchim" class="menu-bt">Пункт</a><i class="menu-item__line"></i>
+                  </li>
+                  <li class="menu-item ">
+                     <a href="/studentam" class="menu-bt">Пункт</a><i class="menu-item__line"></i>
+                  </li>
+                  <li class="menu-item ">
+                     <a href="/nauka" class="menu-bt">Пункт</a><i class="menu-item__line"></i>
+                  </li>
+                  <li class="menu-item ">
+                     <a href="/press-center">Пункт</a><i class="menu-item__line"></i>
+                  </li>
+                  <li class="menu-item ">
+                     <a href="/news-events">Пункт</a><i class="menu-item__line"></i>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section--offset">
+            <div class="bt-box bt-box--search js-open-page-search"></div>
+         </div>
+      </header>
+      <!-- START: mobile sidebar menu-->
+      <nav class="menu-selector-wrap menu-section-wrapper g-show-sm">
+         <div class="g-container">
+            <div class="g-rel">
+               <div class="menu-selector menu-selector--grey">
+                  <div class="menu-selector__bt bt-icon-menu">
+                     <span></span>
+                  </div>
+                  Поиск
+               </div>
+               <div class="menu-selector-drop">
+                  <nav class="menu-sidebar-wrap  block block-menu-block" id="block-menu-block-14--2">
+                     <ul class="menu-sidebar menu-sidebar--primary">
+                        <li class="first menu-mlid-1510 menu-item"><a href="http://abiturient.spbu.ru" title="">Приемная комиссия</a></li>
+                        <li class="menu-mlid-1199 menu-item"><a href="/postupayushchim/programms" title="">Образовательные программы</a></li>
+                        <li class="menu-mlid-1290 menu-item"><a href="/postupayushchim/calendar" title="">Календарь приема</a></li>
+                        <li class="active-trail active menu-mlid-718 menu-item menu-item--act"><a href="/postupayushchim/pravovaya-pomoshch" class="active-trail active-trail active-trail active">Правовая помощь</a></li>
+                        <li class="last menu-mlid-2080 menu-item"><a href="/postupayushchim/postuplenie-v-2018-godu">Поступление в 2018 году</a></li>
+                     </ul>
+                  </nav>
+               </div>
+            </div>
+         </div>
+      </nav>
+      <main class="page-main-content">
+         <div class="page-details g-container">
+             {% block heading %} {% endblock %}
+         </div>
+         <style>
+            .page-main-content > ul.links.inline {
+            display:none;
+            }
+         </style>
+         <section class="section-constructor" >
+            <div class="g-container">
+               <div class="g-row g-flex">
+                {% block content %} {% endblock %}
+               </div>
+            </div>
+         </section>
+      </main>
+      <footer class="page-footer">
+         <section class="social-link__wrap section--olive">
+            <a href="//vk.com/spb1724" target="_blank" class="social-link social-link--vk"></a>
+            <a href="//www.facebook.com/SaintPetersburgStateUniversity" target="_blank" class="social-link social-link--fb"></a>
+            <a href="//www.instagram.com/spb_university" target="_blank" class="social-link social-link--inst"></a>
+            <a href="//www.youtube.com/user/wwwspburu" target="_blank" class="social-link social-link--youtube"></a>
+            <a href="//twitter.com/spb_university" target="_blank" class="social-link social-link--tw"></a>
+         </section>
+         <section class="menu-footer section--dark">
+            <div class="g-container">
+               <div class="section-selector section-selector--dark">
+                  <select data-section="footer-section-0">
+                     <option value="footer-section-0">Поступающим</option>
+                     <option value="footer-section-1">Студентам</option>
+                     <option value="footer-section-2">Сотрудникам</option>
+                     <option value="footer-section-3">Партнерам</option>
+                  </select>
+               </div>
+            </div>
+         </section>
+         <section class="section section--light-dark">
+            <div class="g-container">
+               <div class="g-row">
+                  <div class="col-lg-10 g-fluid">
+                     <div class="col-md-7 col-lg-6 g-fluid u-text-center">
+                        <div class="page-footer__copyright">&copy;&nbsp;Санкт-Петербургский государственный университет, 2018            <br/>199034, Россия, Санкт-Петербург, Университетская набережная, д. 7–9</div>
+                        <div class="footer-links">
+                           <a href="/sveden" class="footer-links__item">Сведения об образовательной организации</a>
+                           <a href="/contacts" class="footer-links__item">Контактная информация</a>
+                        </div>
+                        <div class="sp-hide">
+                           <form action="/postupayushchim/pravovaya-pomoshch" method="post" id="spbgu-switch-theme-switch-form" accept-charset="UTF-8">
+                              <div>
+                                 <input type="hidden" name="theme" value="special" />
+                                 <div class="bt-flat bt-flat--glasses" itempop="copy"><input type="submit" id="switchtheme-submit" name="op" value="Версия для слабовидящих" class="form-submit" /></div>
+                                 <input type="hidden" name="form_build_id" value="form-UCsqAev3cjMlZdpt3rWj8GTBcQyoT2bkcfmLcJ7NB10" />
+                                 <input type="hidden" name="form_id" value="spbgu_switch_theme_switch_form" />
+                              </div>
+                           </form>
+                        </div>
 
-  {% block title %}<title>Projects Fair</title>{% endblock %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <!-- Добавление дополнительного статического CSS файла -->
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
-</head>
-
-<body>
-  <div class="container-fluid">
-
-    <div class="row">
-      <div class="col-sm-2">
-      {% block sidebar %}
-      <ul class="sidebar-nav">
-          {% if user.is_authenticated %}
-               <li>User: {{ user.get_username }}</li>
-               <li><a href="{% url 'fairapp:logout'%}?next={{request.path}}">Logout</a></li>
-               <li><a href="{% url 'fairapp:project_create'%}">Create project</a></li>
-          {% else %}
-               <li><a href="{% url 'fairapp:login'%}?next={{request.path}}">Login</a></li>
-               <li><a href="{% url 'fairapp:signup'%}?next={{request.path}}">Sign Up</a></li>
-          {% endif %}
-          <li><a href="{% url 'fairapp:search'%}?next={{request.path}}">Search</a></li>
-          <li><a href="{% url 'fairapp:index'%}">Home</a></li>
-
-
-      </ul>
-     {% endblock %}
+                     </div>
+                  </div>
+               </div>
+         </section>
+      </footer>
       </div>
-      <div class="col-sm-10 ">
-      {% block content %}{% endblock %}
-      </div>
-    </div>
-
-  </div>
-</body>
+      <script src="/sites/all/themes/spbgu/markup/dist/js/prime.js"></script>
+      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery.min.js"></script>
+      <script type="text/javascript">
+         jQuery.noConflict(true);
+      </script>
+      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery.bxslider.min.js"></script>
+      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery.dotdotdot.min.js"></script>
+      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery.mask.min.js"></script>
+      <script src="/sites/all/themes/spbgu/markup/dist/lib/chosen.jquery.min.js"></script>
+      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery-ui.min.js"></script>
+      <script src="/sites/all/themes/spbgu/markup/dist/lib/datepicker-ru.js"></script>
+      <script src="/sites/all/themes/spbgu/markup/dist/js/min/main.min.js"></script>
+      <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+         ga('create', 'UA-98102051-1', 'auto');
+         ga('send', 'pageview');
+      </script>
+   </body>
 </html>

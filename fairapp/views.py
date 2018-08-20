@@ -7,11 +7,10 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from .filters import ProjectFilter
 
-
 class IndexView(generic.ListView):
+
     template_name = 'fairapp/index.html'
     context_object_name = 'latest_project_list'
-
     def get_queryset(self):
         """Return the last five published questions."""
         return Project.objects.order_by('-pub_date')[:10]

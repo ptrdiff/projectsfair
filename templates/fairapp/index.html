@@ -1,24 +1,53 @@
 {% extends "fairapp/base_generic.html" %}
+{% block title %}
+<title>Ярмарка проектов - Санкт-Петербургский государственный университет</title>
+{% endblock %}
+{% block heading %}
+<h1 class="header-h1">Актуальные проекты</h1>
+{% endblock %}
 {% block content %}
-<h1>Projects Fair Home</h1>
-    <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-    mollit anim id est laborum. </p>
-
-
-{% if latest_project_list %}
-    <ul>
-        {% for project in latest_project_list %}
-            <div class="post">
-                <li><a href="{% url 'fairapp:detail' project.id %}">{{ project.project_name }}</a></li>
-                {{ project.brief_summary }}
-            </div>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+<aside class="constructor-aside col-xs-12 col-md-3">
+   <div class="g-hide-sm">
+      <nav class="menu-sidebar-wrap  block block-menu-block" id="block-menu-block-14">
+         <ul class="menu-sidebar menu-sidebar--primary">
+            <li class="first menu-mlid-1510 menu-item"><a href="" title="">Параметр</a></li>
+            <li class="menu-mlid-1199 menu-item"><a href="" title="">Параметр</a></li>
+            <li class="menu-mlid-1290 menu-item"><a href="" title="">Параметр</a></li>
+            <li class="last menu-mlid-2080 menu-item"><a href="">Параметр</a></li>
+         </ul>
+      </nav>
+   </div>
+</aside>
+<section class="constructor col-xs-12 col-md-9">
+   <article class="editor-wrap">
+      {% for project in latest_project_list %}
+      <section class="constructor-box constructor-box--flat">
+         <a href="{% url 'fairapp:detail' project.id %}" class="box-title ">
+         {{ project.project_name }}
+         </a>
+         <div class="table-float table-float--large">
+            <p>{{ project.brief_summary }}</p>
+         </div>
+      </section>
+      {% endfor %}
+   </article>
+</section>
+<div class="col-xs-12 pagination-wrapper">
+   <div class="divider-top">
+      <nav class="pagination">
+         <div class="item-list">
+            <ul class="pagination__items">
+               <li class="pagination__item pagination__prev pagination__item--disabled first"></li>
+               <li class="pagination__item pager-current"><span>1</span></li>
+               <li class="pagination__item"><a title="На страницу номер 2" href="/press-center?page=1">2</a></li>
+               <li class="pagination__item"><a title="На страницу номер 3" href="/press-center?page=2">3</a></li>
+               <li class="pagination__item"><a title="На страницу номер 4" href="/press-center?page=3">4</a></li>
+               <li class="pagination__item"><a title="На страницу номер 5" href="/press-center?page=4">5</a></li>
+               <li class="pager-ellipsis pagination__item">…</li>
+               <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/press-center?page=1">следующая ›</a></li>
+            </ul>
+         </div>
+      </nav>
+   </div>
+</div>
 {% endblock %}

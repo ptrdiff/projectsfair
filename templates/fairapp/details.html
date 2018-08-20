@@ -1,8 +1,6 @@
 {% extends "fairapp/base_generic.html" %}
 {% block content %}
-
-
-<body>
+<div>
 <h1> Проект: {{ project.project_name }}</h1>
 <h2> Руководитель: {{ project.head }}</h2>
 <h3> Время начала: {{ project.start_date }}</h3>
@@ -11,5 +9,5 @@
 <h3> Теги:</h3> <br/>{% for tag in project.tag.all %}{{ tag }}<br/>{% endfor %}
 <h3> Тип: {{ project.type }}</h3>
 <h4> Время окончания: {{ project.end_date }}</h4>
-</body>
+</div>
 {% endblock %}
