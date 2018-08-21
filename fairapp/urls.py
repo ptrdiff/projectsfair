@@ -3,8 +3,9 @@ from django.urls import include, path
 
 app_name = 'fairapp'
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
-    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+    path('', views.index, name='index'),
+    path('<int:page>/', views.index, name='index'),
+    path('projects/<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('create/', views.ProjectCreate.as_view(), name='project_create'),
     path('<int:pk>/update/', views.ProjectUpdate.as_view(), name='project_update'),

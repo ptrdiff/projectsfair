@@ -6,14 +6,21 @@ from fairapp.forms import SignUpForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from .filters import ProjectFilter
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-class IndexView(generic.ListView):
-
-    template_name = 'fairapp/index.html'
-    context_object_name = 'latest_project_list'
-    def get_queryset(self):
-        """Return the last five published questions."""
-        return Project.objects.order_by('-pub_date')[:10]
+def index(request, page = 1):
+    object_list = Project.objects.all()
+    paginator = Paginator(object_list, 10)
+    pages = paginator.page_range
+    if page > paginator.num_pages:
+        page = 1
+    try:
+        projects = paginator.get_page(page)
+    except EmptyPage:
+        projects = paginator.page(paginator.num_pages)
+    return render(request,'fairapp/index.html',{'page': page,
+                                                'projects': projects,
+                                                })
 
 
 class DetailView(generic.DetailView):
