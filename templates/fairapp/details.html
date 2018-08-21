@@ -1,14 +1,6 @@
-{% extends "fairapp/base_generic.html" %}
+{% extends "registration/base_generic.html" %}
 {% load staticfiles %}
-{% block links %}
-<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-{% endblock %}
-{% block content %}
-<div class="row valign-wrapper">
-   <div class="valign container col s12 ">
+{% block mainblock %}
       <div class="post__tags">
          <span class="post__date">
          <span class="date-display-single" property="dc:date" datatype="xsd:dateTime" content="2018-02-13T12:15:00+03:00">{{ project.pub_date }}</span>            </span>
@@ -32,8 +24,4 @@
       </h3>
       <p class = "post__desc"> Время окончания: {{ project.end_date }}
       </h4>
-   </div>
-</div>
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
 {% endblock %}
