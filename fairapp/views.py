@@ -11,7 +11,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def index(request, page = 1):
     object_list = Project.objects.all()
     paginator = Paginator(object_list, 10)
-    pages = paginator.page_range
     if page > paginator.num_pages:
         page = 1
     try:
@@ -21,7 +20,6 @@ def index(request, page = 1):
     return render(request,'fairapp/index.html',{'page': page,
                                                 'projects': projects,
                                                 })
-
 
 class DetailView(generic.DetailView):
     model = Project

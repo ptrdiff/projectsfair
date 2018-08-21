@@ -1,5 +1,8 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
+{% block menu4 %}
+ menu-item--act
+{% endblock %}
 {% block mainblock %}
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>

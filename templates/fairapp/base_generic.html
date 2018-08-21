@@ -71,7 +71,7 @@
             <img src="{% static 'img/logo-big-color.svg' %}" alt="СПбГУ" class="page-header__logo--desktop" />
             <img src="{% static 'img/logo-text-smal.svg' %}" alt="СПбГУ" class="page-header__logo--mobile" />
             </a>
-            <div class="menu-mobile">
+            <div class="menu-mobile ">
                <!-- START: second menu-->
                <!-- START: second menu-->
                <ul class="menu-second ">
@@ -113,30 +113,7 @@
             <div class="bt-box bt-box--search js-open-page-search"></div>
          </div>
       </header>
-      <!-- START: mobile sidebar menu-->
-      <nav class="menu-selector-wrap menu-section-wrapper g-show-sm">
-         <div class="g-container">
-            <div class="g-rel">
-               <div class="menu-selector menu-selector--grey">
-                  <div class="menu-selector__bt bt-icon-menu">
-                     <span></span>
-                  </div>
-                  Поиск
-               </div>
-               <div class="menu-selector-drop">
-                  <nav class="menu-sidebar-wrap  block block-menu-block" id="block-menu-block-14--2">
-                     <ul class="menu-sidebar menu-sidebar--primary">
-                        <li class="first menu-mlid-1510 menu-item"><a href="http://abiturient.spbu.ru" title="">Приемная комиссия</a></li>
-                        <li class="menu-mlid-1199 menu-item"><a href="/postupayushchim/programms" title="">Образовательные программы</a></li>
-                        <li class="menu-mlid-1290 menu-item"><a href="/postupayushchim/calendar" title="">Календарь приема</a></li>
-                        <li class="active-trail active menu-mlid-718 menu-item menu-item--act"><a href="/postupayushchim/pravovaya-pomoshch" class="active-trail active-trail active-trail active">Правовая помощь</a></li>
-                        <li class="last menu-mlid-2080 menu-item"><a href="/postupayushchim/postuplenie-v-2018-godu">Поступление в 2018 году</a></li>
-                     </ul>
-                  </nav>
-               </div>
-            </div>
-         </div>
-      </nav>
+
       <main class="page-main-content">
          <div class="page-details g-container">
              {% block heading %} {% endblock %}
@@ -154,7 +131,7 @@
             </div>
          </section>
       </main>
-      <footer class="page-footer" style="background-color: #ffffff;">
+      <footer class="page-footer" style="    background-color: #ffffff;">
          <section class="social-link__wrap section--olive">
             <a href="//vk.com/spb1724" target="_blank" class="social-link social-link--vk"></a>
             <a href="//www.facebook.com/SaintPetersburgStateUniversity" target="_blank" class="social-link social-link--fb"></a>
@@ -201,18 +178,10 @@
          </section>
       </footer>
       </div>
-      <script src="/sites/all/themes/spbgu/markup/dist/js/prime.js"></script>
-      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery.min.js"></script>
       <script type="text/javascript">
          jQuery.noConflict(true);
       </script>
-      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery.bxslider.min.js"></script>
-      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery.dotdotdot.min.js"></script>
-      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery.mask.min.js"></script>
-      <script src="/sites/all/themes/spbgu/markup/dist/lib/chosen.jquery.min.js"></script>
-      <script src="/sites/all/themes/spbgu/markup/dist/lib/jquery-ui.min.js"></script>
-      <script src="/sites/all/themes/spbgu/markup/dist/lib/datepicker-ru.js"></script>
-      <script src="/sites/all/themes/spbgu/markup/dist/js/min/main.min.js"></script>
+      <script src="{% static 'js/min.js' %}"></script>
       <script>
          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
