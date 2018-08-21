@@ -10,7 +10,22 @@ from .forms import UserForm, ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
+
+
+def index(request, page=1):
+    object_list = Project.objects.all()
+    paginator = Paginator(object_list.order_by('-pub_date'), 5)
+    if page > paginator.num_pages:
+        page = 1
+    try:
+        projects = paginator.get_page(page)
+    except EmptyPage:
+        projects = paginator.page(paginator.num_pages)
+    return render(request, 'fairapp/index.html', {'page': page,
+                                                  'projects': projects,
+                                                  })
 
 
 class IndexView(generic.ListView):
@@ -19,7 +34,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Project.objects.order_by('pub_date')[:10]
+        return Project.objects.order_by('pub_date')[:5]
 
 
 class DetailView(generic.DetailView):

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 
 class Type(models.Model):
@@ -66,18 +67,18 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Project(models.Model):
     project_name = models.TextField(max_length=255)
-    pub_date = models.DateTimeField('date published')
-    start_date = models.DateTimeField('starting date')
-    end_date = models.DateTimeField('ending date')
-    head = models.TextField(max_length=255)
+    pub_date = models.DateTimeField('date published', default=timezone.now)
+    start_date = models.DateTimeField('starting date', default=timezone.now)
+    end_date = models.DateTimeField('ending date', default=timezone.now)
+    head = models.ManyToManyField(User, related_name='head')
     brief_summary = models.TextField(max_length=1000)
     content = models.TextField(max_length=1000)
-    app_deadline = models.DateTimeField('application deadline')
-    num_places = models.PositiveIntegerField()
+    app_deadline = models.DateTimeField('application deadline', default=timezone.now)
+    num_places = models.PositiveIntegerField(default=1)
     type = models.ForeignKey(Type, null=True, blank=True, on_delete=models.CASCADE)
     skill = models.ManyToManyField(Skill, related_name='skills')
     tag = models.ManyToManyField(Tag, related_name='tags')
-    members = models.ManyToManyField(User, related_name='members')
+    members = models.ManyToManyField(User, related_name='members', blank=True)
     PROJECT_STATUS = (
         ('m', 'Moderation'),
         ('c', 'Collecting participants'),

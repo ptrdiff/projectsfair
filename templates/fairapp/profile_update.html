@@ -1,6 +1,6 @@
-{% extends "fairapp/base_generic.html" %}
-{% block content %}
-
+{% extends "registration/base_generic.html" %}
+{% load staticfiles %}
+{% block mainblock %}
 <form method="post">
   {% csrf_token %}
   {{ user_form.as_p }}

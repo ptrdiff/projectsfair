@@ -1,6 +1,6 @@
-{% extends 'fairapp/base_generic.html' %}
-
-{% block content %}
+{% extends "registration/base_generic.html" %}
+{% load staticfiles %}
+{% block mainblock %}
   <form method="get">
     {{ filter.form.as_p }}
     <button type="submit">Search</button>

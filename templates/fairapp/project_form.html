@@ -1,5 +1,9 @@
-{% extends "fairapp/base_generic.html" %}
-{% block content %}
+{% extends "registration/base_generic.html" %}
+{% load staticfiles %}
+{% block menu3 %}
+ menu-item--act
+{% endblock %}
+{% block mainblock %}
     <form action="" method="post">
         {% csrf_token %}
         <table>
