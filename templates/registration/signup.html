@@ -1,24 +1,72 @@
 {% extends 'registration/base_generic.html' %}
 {% load staticfiles %}
-{% block menu5 %}
+{% block menu6 %}
  menu-item--act
 {% endblock %}
 {% block mainblock %}
-<h2>Sign up</h2>
-<form method="post">
-   {% csrf_token %}
-   {% for field in form %}
-   <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-      <small style="color: grey">{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-   <p style="color: red">{{ error }}</p>
-   {% endfor %}
-   </p>
-   {% endfor %}
-   <button type="submit">Sign up</button>
-</form>
+{#<form method="post">#}
+{#   {% csrf_token %}#}
+{#   {% for field in form %}#}
+{#   <p>#}
+{#      {{ field.label_tag }}<br>#}
+{#      {{ field }}#}
+{#      {% if field.help_text %}#}
+{#      <small style="color: grey">{{ field.help_text }}</small>#}
+{#      {% endif %}#}
+{#      {% for error in field.errors %}#}
+{#   <p style="color: red">{{ error }}</p>#}
+{#   {% endfor %}#}
+{#   </p>#}
+{#   {% endfor %}#}
+{#   <button type="submit">Sign up</button>#}
+{#</form>#}
+     <div class="container " id="register">
+        <div class="row ">
+            <div class="col s10 m10 offset-m1">
+                <div class="card-panel " style="border:3px solid; border-color: #9f2d20;">
+                    <form action="{% url 'fairapp:signup' %}"  method='post' id="form1">{% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input name="username" id="username" type="text" class="validate">
+                                <label for="username">Имя пользователя</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input name="username" id="username" type="text" class="validate">
+                                <label for="username">Имя</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input name="username" id="username" type="text" class="validate">
+                                <label for="username">Фамилия</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input name="email" id="email" type="email" class="validate">
+                                <label for="email" data-error="Email is invalid" data-success="">Email</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">lock</i>
+                                <input name="password" id="password" type="password" class="validate">
+                                <label for="password">Пароль</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">lock</i>
+                                <input name="password" id="password" type="password" class="validate">
+                                <label for="password">Подтверждение пароля</label>
+                            </div>
+                            <div class="center">
+                                <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Регистрация
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                         </div>
+
+                    </form>
+                </div>
+                <p class="flow-text center" style="font-size: 18px;">Есть аккаунт? <a href="{% url 'fairapp:login' %}" style="cursor: pointer; color:#9f2d20;" id="log">Войдите</a> </p>
+            </div>
+        </div>
+     </div>
 {% endblock %}
