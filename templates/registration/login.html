@@ -5,18 +5,6 @@
  menu-item--act
 {% endblock %}
 {% block mainblock %}
-{#{% if form.errors %}#}
-{#<p>Your username and password didn't match. Please try again.</p>#}
-{#{% endif %}#}
-{#{% if next %}#}
-{#{% if user.is_authenticated %}#}
-{#<p>Your account doesn't have access to this page. To proceed,#}
-{#   please login with an account that has access.#}
-{#</p>#}
-{#{% else %}#}
-{#<p>Please login to see this page.</p>#}
-{#{% endif %}#}
-{#{% endif %}#}
 <div class="container" id="log_in" >
    <div class="row ">
         {% if form.errors %}
@@ -24,9 +12,7 @@
         {% endif %}
         {% if next %}
         {% if user.is_authenticated %}
-        <p class="flow-text center" style="font-size: 18px;">Your account doesn't have access to this page. To proceed,
-           please login with an account that has access.
-        </p>
+        <p class="flow-text center" style="font-size: 18px;">У вас нет доступа к этой странице</p>
         {% endif %}
         {% endif %}
       <div class="col s12 m12 " >
