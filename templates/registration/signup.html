@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">account_circle</i>
-                                {% render_field form.username class="validate" %}
+                                {% render_field form.username class="validate"%}
                                 <label for="username">Имя пользователя</label>
                             </div>
                             <div class="input-field col s12">
@@ -47,7 +47,6 @@
                                 </button>
                             </div>
                          </div>
-
                     </form>
                 </div>
                 <p class="flow-text center" style="font-size: 18px;">Есть аккаунт? <a href="{% url 'fairapp:login' %}" style="cursor: pointer; color:#9f2d20;" id="log">Войдите</a> </p>

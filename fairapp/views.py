@@ -18,7 +18,7 @@ def index(request, page=1):
     object_list = Project.objects.all()
     project_filter = ProjectFilter(request.GET, queryset=object_list)
     project_list = project_filter.qs
-    paginator = Paginator(project_list.order_by('-pub_date'),5)
+    paginator = Paginator(project_list.order_by('-pub_date'), 5)
     if page > paginator.num_pages:
         page = 1
     try:
