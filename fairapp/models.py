@@ -60,6 +60,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
@@ -84,8 +85,15 @@ class Project(models.Model):
         ('c', 'Collecting participants'),
         ('p', 'In progress'),
         ('f', 'Finished'),
+        ('r', 'Rejected'),
     )
     status = models.CharField(max_length=1, choices=PROJECT_STATUS, blank=True, default=1, help_text='Project status')
+
+    class Meta:
+        permissions = (
+            ("approve_project", "Can approve project"),
+            ("reject_project", "Can reject project"),
+        )
 
     def __str__(self):
         return self.project_name
@@ -105,3 +113,9 @@ class AppForProject(models.Model):
     )
     status = models.CharField(max_length=1, choices=APPLICATION_STATUS, blank=True, default=1, help_text='Application '
                                                                                                          'status')
+
+    class Meta:
+        permissions = (
+            ("approve_application", "Can approve application"),
+            ("reject_application", "Can reject application"),
+        )

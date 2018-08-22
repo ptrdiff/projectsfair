@@ -12,7 +12,7 @@
       <h1 class="post__title">
          {{ project.project_name }}
       </h1>
-      <p class = "post__desc"> Руководитель: {{ project.head }}
+      <p class = "post__desc"> Руководитель: {% for head in project.head.all %}{{ head }}<br/>{% endfor %}
       </h2>
       <p class = "post__desc"> Время начала: {{ project.start_date }}
       </h3>
