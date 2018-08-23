@@ -1,6 +1,7 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
 {% block mainblock %}
+
 <div class="post__tags">
    <span class="post__date">
    <span class="date-display-single" property="dc:date" datatype="xsd:dateTime" content="2018-02-13T12:15:00+03:00">{{ project.pub_date }}</span>            </span>
@@ -27,4 +28,11 @@
 </p>
 <p class = "post__desc"> Время окончания: {{ project.end_date }}
 </p>
+ <form method="post" action="{% url 'fairapp:approveproject' project.id %}">
+   {% csrf_token %}
+   <div>
+      <input type="submit" value="approve" name="Decision"/>
+      <input type="submit" value="reject" name="Decision"/>
+   </div>
+</form>
 {% endblock %}

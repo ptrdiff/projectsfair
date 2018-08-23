@@ -1,8 +1,9 @@
-from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
 
 
 class Type(models.Model):
@@ -60,6 +61,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
@@ -84,8 +86,15 @@ class Project(models.Model):
         ('c', 'Collecting participants'),
         ('p', 'In progress'),
         ('f', 'Finished'),
+        ('r', 'Rejected'),
     )
     status = models.CharField(max_length=1, choices=PROJECT_STATUS, blank=True, default=1, help_text='Project status')
+
+    class Meta:
+        permissions = (
+            ("approve_project", "Can approve project"),
+            ("reject_project", "Can reject project"),
+        )
 
     def __str__(self):
         return self.project_name
@@ -105,3 +114,11 @@ class AppForProject(models.Model):
     )
     status = models.CharField(max_length=1, choices=APPLICATION_STATUS, blank=True, default=1, help_text='Application '
                                                                                                          'status')
+
+    class Meta:
+        permissions = (
+            ("approve_application", "Can approve application"),
+            ("reject_application", "Can reject application"),
+        )
+
+
