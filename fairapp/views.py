@@ -12,11 +12,14 @@ from django.db import transaction
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.models import User
 
 
 def index(request, page=1):
     object_list = Project.objects.all().exclude(status__in=['m', 'r'])
-    paginator = Paginator(object_list.order_by('-pub_date'), 5)
+    project_filter = ProjectFilter(request.GET, queryset=object_list)
+    project_list = project_filter.qs
+    paginator = Paginator(project_list.order_by('-pub_date'), 5)
     if page > paginator.num_pages:
         page = 1
     try:
@@ -25,6 +28,7 @@ def index(request, page=1):
         projects = paginator.page(paginator.num_pages)
     return render(request, 'fairapp/index.html', {'page': page,
                                                   'projects': projects,
+                                                  'filter': project_filter,
                                                   })
 
 
