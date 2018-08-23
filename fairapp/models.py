@@ -1,8 +1,9 @@
-from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
 
 
 class Type(models.Model):
@@ -119,3 +120,5 @@ class AppForProject(models.Model):
             ("approve_application", "Can approve application"),
             ("reject_application", "Can reject application"),
         )
+
+

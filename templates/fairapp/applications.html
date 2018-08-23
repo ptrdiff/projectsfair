@@ -1,0 +1,100 @@
+{% extends "fairapp/base_generic.html" %}
+{% load staticfiles %}
+{% block links %}
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+{% endblock %}
+{% block menu1 %}
+ menu-item--act
+{% endblock %}
+{% block title %}
+<title>Ярмарка проектов - Санкт-Петербургский государственный университет</title>
+{% endblock %}
+{% block heading %}
+<h1 class="header-h1">Актуальные заявки</h1>
+{% endblock %}
+{% block content %}
+<aside class="constructor-aside col-xs-12 col-md-3  container ">
+   <div class="g-hide-sm card-content" style="border:3px solid; border-color: #9f2d20;">
+      <form method="get" style="margin:5%;">
+         <!---<p><label for="id_pub_date">Date published:</label> <input type="text" class="datepicker"  name="pub_date" id="id_pub_date"></p>
+         <p><label for="id_start_date">Starting date:</label> <input type="text" class="datepicker" name="start_date" id="id_start_date"></p>
+         <p><label for="id_end_date">Ending date:</label> <input type="text" class="datepicker" name="end_date" id="id_end_date"></p>
+         <p><label for="id_app_deadline">Application deadline:</label> <input type="text" class="datepicker" name="app_deadline" id="id_app_deadline"></p>
+        ---> <p>
+            <label for="id_type">Type:</label>
+            <select name="type" id="id_type">
+               <option value="" selected="">---------</option>
+               <option value="1">Research &amp; Development</option>
+               <option value="2">Social Activity</option>
+            </select>
+         </p>
+         <p>
+            <label for="id_skill">Skill:</label>
+            <select name="skill" id="id_skill" multiple="">
+               <option value="1">Programming</option>
+               <option value="2">Speaking</option>
+               <option value="3">Thinking</option>
+            </select>
+         </p>
+         <p>
+            <label for="id_tag">Tag:</label>
+            <select multiple name="tag" id="id_tag">
+               <option value="1">Software</option>
+               <option value="2">Social Activity</option>
+               <option value="3">Team Work</option>
+            </select>
+         </p>
+         <div class="center">
+            <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Поиск
+            <i class="material-icons right">search</i>
+            </button>
+         </div>
+      </form>
+   </div>
+</aside>
+<section class="constructor col-xs-12 col-md-9">
+   <article class="editor-wrap">
+      {% for app in apps %}
+      <section class="constructor-box constructor-box--flat "  >
+         <a href="{% url 'fairapp:moderdetailapplication' app.id %}" class="box-title ">
+         {{ app.id }}
+         </a>
+         <div class="table-float table-float--large">
+            <p>{{ app.covering_letter }}</p>
+         </div>
+      </section>
+      {% endfor %}
+   </article>
+</section>
+<div class="col-xs-12 pagination-wrapper">
+   <div class="divider-top">
+      <ul class="pagination">
+         <div class="item-list">
+            <ul class="pagination__items" >
+                {% if apps.has_previous %}
+                <li class="pagination__item pagination__prev first"><a title="На предыдущую страницу" href="/{{ apps.previous_page_number }}"></a></li>
+                {% endif %}
+                <li class="pagination__item" style="line-height: 0; height: 50px;"><a title="На страницу номер 1" href="/">{{ page }}</a></li>
+                {% if apps.has_next %}
+                <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/{{ apps.next_page_number }}"></a></li>
+                {% endif %}
+            </ul>
+         </div>
+      </ul>
+   </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
+{% endblock %}

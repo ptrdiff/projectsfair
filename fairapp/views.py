@@ -15,7 +15,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 
 
 def index(request, page=1):
-    object_list = Project.objects.all().exclude(status='m')
+    object_list = Project.objects.all().exclude(status__in=['m', 'r'])
     paginator = Paginator(object_list.order_by('-pub_date'), 5)
     if page > paginator.num_pages:
         page = 1
@@ -29,7 +29,7 @@ def index(request, page=1):
 
 
 @permission_required('fairapp.approve_project')
-def moderatorview(request, page=1):
+def moderator_index(request, page=1):
     object_list = Project.objects.all().filter(status='m')
     paginator = Paginator(object_list.order_by('-pub_date'), 5)
     if page > paginator.num_pages:
@@ -38,9 +38,36 @@ def moderatorview(request, page=1):
         projects = paginator.get_page(page)
     except EmptyPage:
         projects = paginator.page(paginator.num_pages)
-    return render(request, 'fairapp/moderindex.html', {'page': page,
+    return render(request, 'fairapp/index.html', {'page': page,
                                                   'projects': projects,
                                                   })
+
+
+@permission_required('fairapp.approve_application')
+def moderator_applications(request, page=1):
+    object_list = AppForProject.objects.all().filter(status='m')
+    paginator = Paginator(object_list.order_by('-id'), 5)
+    if page > paginator.num_pages:
+        page = 1
+    try:
+        apps = paginator.get_page(page)
+    except EmptyPage:
+        apps = paginator.page(paginator.num_pages)
+    return render(request, 'fairapp/applications.html', {'page': page,
+                                                         'apps': apps,
+                                                         })
+
+
+class ModerDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'fairapp.approve_project'
+    model = Project
+    template_name = 'fairapp/moderdetails.html'
+
+
+class ModerAppDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'fairapp.approve_application'
+    model = AppForProject
+    template_name = 'fairapp/moderappdetails.html'
 
 
 class IndexView(generic.ListView):
@@ -129,13 +156,25 @@ class ApplicationCreate(LoginRequiredMixin, CreateView):
 
 
 @permission_required('fairapp.approve_project')
-def approve_project(request, obj):
-    obj.status = 'c'
+def approve_project(request, pk):
+    obj = Project.objects.get(pk=pk)
+    if request.POST['Decision'] == 'approve':
+        obj.status = 'c'
+    elif request.POST['Decision'] == 'reject':
+        obj.status = 'r'
+    obj.save()
+    return redirect('fairapp:index')
 
 
 @permission_required('fairapp.approve_application')
-def approve_application(request, obj):
-    obj.status = 'a'
+def approve_application(request, pk):
+    obj = AppForProject.objects.get(pk=pk)
+    if request.POST['Decision'] == 'approve':
+        obj.status = 'a'
+    elif request.POST['Decision'] == 'reject':
+        obj.status = 'r'
+    obj.save()
+    return redirect('fairapp:index')
 
 
 class ApplicationView(LoginRequiredMixin, generic.DetailView):
