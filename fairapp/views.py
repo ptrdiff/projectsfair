@@ -33,6 +33,36 @@ def index(request, page=1):
                                                   })
 
 
+@login_required
+def view_profile_projects(request, page=1):
+    project_list = Project.objects.all().filter(members__in=[request.user.id])
+    paginator = Paginator(project_list.order_by('-pub_date'), 5)
+    if page > paginator.num_pages:
+        page = 1
+    try:
+        projects = paginator.get_page(page)
+    except EmptyPage:
+        projects = paginator.page(paginator.num_pages)
+    return render(request, 'fairapp/myprojects.html', {'page': page,
+                                                       'projects': projects,
+                                                       })
+
+
+@login_required
+def view_profile_applications(request, page=1):
+    object_list = AppForProject.objects.all().filter(user__in=[request.user])
+    paginator = Paginator(object_list.order_by('-id'), 5)
+    if page > paginator.num_pages:
+        page = 1
+    try:
+        apps = paginator.get_page(page)
+    except EmptyPage:
+        apps = paginator.page(paginator.num_pages)
+    return render(request, 'fairapp/myapplications.html', {'page': page,
+                                                         'apps': apps,
+                                                         })
+
+
 @permission_required('fairapp.approve_project')
 def moderator_index(request, page=1):
     object_list = Project.objects.all().filter(status='m')
@@ -194,6 +224,7 @@ def approve_project(request, pk):
 def approve_application(request, pk):
     obj = AppForProject.objects.get(pk=pk)
     if request.POST['Decision'] == 'approve':
+        obj.project.members.add(obj.user)
         obj.status = 'a'
     elif request.POST['Decision'] == 'reject':
         obj.status = 'r'

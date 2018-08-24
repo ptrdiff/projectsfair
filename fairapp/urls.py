@@ -16,6 +16,8 @@ urlpatterns = [
     path('projects/search/', views.index, name='search'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('profile/', views.view_profile, name='view_profile'),
+    path('profile/myprojects', views.view_profile_projects, name='myprojects'),
+    path('profile/myapplications', views.view_profile_applications, name='myapplications'),
     path('profile/update/', views.update_profile, name='update_profile'),
     path('moderation/applications/apps/<int:pk>/approve/', views.approve_application, name='approveapp'),
     path('moderation/', views.moderator_index, name='moderindex'),

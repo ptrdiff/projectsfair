@@ -1,10 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "fairapp/base_generic.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block links %}
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+{% endblock %}
+{% block menu1 %}
+ menu-item--act
+{% endblock %}
+{% block title %}
+<title>Ярмарка проектов - Санкт-Петербургский государственный университет</title>
+{% endblock %}
+{% block heading %}
+<h1 class="header-h1">Мои проекты</h1>
+{% endblock %}
+{% block content %}
+<aside class="constructor-aside col-xs-12 col-md-3  container ">
+   <div class="g-hide-sm card-content" style="border:3px solid; border-color: #9f2d20;">
+      <form method="get" action="{% url 'fairapp:search' %}" style="margin:5%;">
+         <p><label for="id_pub_date">Дата публикации:</label> {% render_field filter.form.pub_date class="datepicker" %}</p>
+         <p><label for="id_start_date">Дата начала:</label> {% render_field filter.form.start_date class="datepicker" %}</p>
+         <p><label for="id_end_date">Дата окончания:</label> {% render_field filter.form.end_date class="datepicker" %}</p>
+         <p><label for="id_app_deadline">Конец срока подачи заявок:</label> {% render_field filter.form.app_deadline class="datepicker" %}</p>
+         <p>
+            <label for="id_type">Тип:</label>
+            {% render_field filter.form.type  %}
+         </p>
+         <p>
+            <label for="id_skill">Умения:</label>
+            {% render_field filter.form.skill  %}
+         </p>
+         <p>
+            <label for="id_tag">Теги:</label>
+            {% render_field filter.form.tag  %}
+         </p>
+         <div class="center">
+            <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Поиск
+            <i class="material-icons right">search</i>
+            </button>
+         </div>
+      </form>
+   </div>
+</aside>
+<section class="constructor col-xs-12 col-md-9">
+   <article class="editor-wrap">
+      {% for project in projects %}
+      <section class="constructor-box constructor-box--flat "  >
+         <a href="{% url 'fairapp:detail' project.id %}" class="box-title ">
+         {{ project.project_name }}
+         </a>
+         <div class="table-float table-float--large">
+            <p>{{ project.brief_summary }}</p>
+         </div>
+      </section>
+      {% endfor %}
+   </article>
+</section>
+<div class="col-xs-12 pagination-wrapper">
+   <div class="divider-top">
+      <ul class="pagination">
+         <div class="item-list">
+            <ul class="pagination__items" >
+                {% if projects.has_previous %}
+                <li class="pagination__item pagination__prev first"><a title="На предыдущую страницу" href="/{{ projects.previous_page_number }}"></a></li>
+                {% endif %}
+                <li class="pagination__item" style="line-height: 0; height: 50px;"><a title="На страницу номер 1" href="/">{{ page }}</a></li>
+                {% if projects.has_next %}
+                <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/{{ projects.next_page_number }}"></a></li>
+                {% endif %}
+            </ul>
+         </div>
+      </ul>
+   </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
+{% endblock %}

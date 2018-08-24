@@ -103,8 +103,6 @@ class Project(models.Model):
         return "/%i/" % self.id
 
 
-
-
 class AppForProject(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
