@@ -1,0 +1,24 @@
+{% extends "registration/base_generic.html" %}
+{% load staticfiles %}
+{% block menu4 %}
+ menu-item--act
+{% endblock %}
+{% block mainblock %}
+<p class = "post__desc"> Имя: {{ profile.user.first_name }}
+</p>
+<p class = "post__desc"> Фамилия: {{ profile.user.last_name }}
+</p>
+<p class = "post__desc"> Интересы:</br>{{ profile.interests }}
+</p>
+<p class = "post__desc"> Достижения:</br>{{ profile.achievements }}
+</p>
+<p class = "post__desc"> Факультет: {{ profile.faculty }}
+</p>
+<p class = "post__desc"> Статус: {{ profile.status }}
+</p>
+<p class = "post__desc"> Уровень образования: {{ profile.grade }}
+</p>
+<p class="flow-text center" style="font-size: 18px;"><a href="{% url 'fairapp:update_profile' %}" style="cursor: pointer; color:#9f2d20;" id="log">Изменить профиль</a> </p>
+    <a href="{% url 'fairapp:myprojects' %}">Посмотреть мои проекты</a>
+    <a href="{% url 'fairapp:myapplications' %}">Посмотреть мои заявки</a>
+{% endblock %}

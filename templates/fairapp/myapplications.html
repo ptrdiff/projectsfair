@@ -1,0 +1,65 @@
+{% extends "fairapp/base_generic.html" %}
+{% load staticfiles %}
+{% block links %}
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+{% endblock %}
+{% block menu1 %}
+ menu-item--act
+{% endblock %}
+{% block title %}
+<title>Ярмарка проектов - Санкт-Петербургский государственный университет</title>
+{% endblock %}
+{% block heading %}
+<h1 class="header-h1">Мои заявки</h1>
+{% endblock %}
+{% block content %}
+<section class="constructor col-xs-12 col-md-9">
+   <article class="editor-wrap">
+      {% for app in apps %}
+      <section class="constructor-box constructor-box--flat "  >
+      <div class="table-float table-float--large">
+            <p>{{ app.project }}</p>
+         </div>
+         <div class="table-float table-float--large">
+            <p>{{ app.covering_letter }}</p>
+         </div>
+
+      <div class="table-float table-float--large">
+           Статус: {{ app.status }}
+         </div>
+      </section>
+      {% endfor %}
+   </article>
+</section>
+<div class="col-xs-12 pagination-wrapper">
+   <div class="divider-top">
+      <ul class="pagination">
+         <div class="item-list">
+            <ul class="pagination__items" >
+                {% if apps.has_previous %}
+                <li class="pagination__item pagination__prev first"><a title="На предыдущую страницу" href="/{{ apps.previous_page_number }}"></a></li>
+                {% endif %}
+                <li class="pagination__item" style="line-height: 0; height: 50px;"><a title="На страницу номер 1" href="/">{{ page }}</a></li>
+                {% if apps.has_next %}
+                <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/{{ apps.next_page_number }}"></a></li>
+                {% endif %}
+            </ul>
+         </div>
+      </ul>
+   </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
+{% endblock %}

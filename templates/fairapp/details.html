@@ -1,15 +1,45 @@
-{% extends "fairapp/base_generic.html" %}
-{% block content %}
+{% extends "registration/base_generic.html" %}
+{% load staticfiles %}
+{% block mainblock %}
 
-
-<body>
-<h1> Проект: {{ project.project_name }}</h1>
-<h2> Руководитель: {{ project.head }}</h2>
-<h3> Время начала: {{ project.start_date }}</h3>
-<h3> Содержимое проекта: {{ project.content }}</h3>
-<h3> Требуемые навыки:</h3> <br/>{% for skill in project.skill.all %}{{ skill }}<br/>{% endfor %}
-<h3> Теги:</h3> <br/>{% for tag in project.tag.all %}{{ tag }}<br/>{% endfor %}
-<h3> Тип: {{ project.type }}</h3>
-<h4> Время окончания: {{ project.end_date }}</h4>
-</body>
+<div class="post__tags">
+   <span class="post__date">
+   <span class="date-display-single" property="dc:date" datatype="xsd:dateTime" content="2018-02-13T12:15:00+03:00">{{ project.pub_date }}</span>            </span>
+   <span class="tag tag--grey">
+   {%   for t in project.tag.all %}
+   #{{  t }}
+   {%   endfor %}</span>
+</div>
+<h1 class="post__title">
+   {{ project.project_name }}
+</h1>
+<p class = "post__desc"> Руководитель: {{ project.head }}
+</p>
+<p class = "post__desc"> Время начала: {{ project.start_date }}
+</p>
+<p class = "post__desc"> Содержимое проекта:</br>{{ project.content }}
+</p>
+<p class = "post__desc"> Требуемые навыки:</br>
+ {% for skill in project.skill.all %}{{ skill }}
+     </br>
+ {% endfor %}
+</p>
+<p class = "post__desc"> Тип: {{ project.type }}
+</p>
+<p class = "post__desc"> Время окончания: {{ project.end_date }}
+</p>
+ <form method="post" action="{% url 'fairapp:approveproject' project.id %}">
+   {% csrf_token %}
+   <div>
+      <input type="submit" value="approve" name="Decision"/>
+      <input type="submit" value="reject" name="Decision"/>
+   </div>
+</form>
+</form>
+<form method="post" action="{% url 'fairapp:application_create' project.id%}">
+    {% csrf_token %}
+    <div>
+        <input type="submit" value="send app" name="SendApp"/>
+    </div>
+</form>
 {% endblock %}

@@ -1,15 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from .models import Project, Profile, AppForProject
 from django.contrib.auth.models import User
-from .models import Project
+from django.db import transaction
 
-
-class ProjectForm(forms.ModelForm):
-
-    class Meta:
-        model = Project
-        fields = ('project_name', 'pub_date', 'start_date', 'end_date', 'head', 'brief_summary', 'content',
-                  'app_deadline', 'num_places', 'type',)
 
 
 class SignUpForm(UserCreationForm):
@@ -20,3 +14,15 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('interests', 'achievements', 'faculty', 'status', 'grade')

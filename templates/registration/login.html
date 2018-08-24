@@ -1,39 +1,47 @@
-{% extends "fairapp/base_generic.html" %}
-
-{% block content %}
-
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
-
-<form method="post" action="{% url 'fairapp:login' %}">
-{% csrf_token %}
-
-<div>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
+{% extends "registration/base_generic.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block menu5 %}
+ menu-item--act
+{% endblock %}
+{% block mainblock %}
+<div class="container" id="log_in" >
+   <div class="row ">
+        {% if form.errors %}
+        <p class="flow-text center" style="font-size: 18px;">Некорректные данные</p>
+        {% endif %}
+        {% if next %}
+        {% if user.is_authenticated %}
+        <p class="flow-text center" style="font-size: 18px;">У вас нет доступа к этой странице</p>
+        {% endif %}
+        {% endif %}
+      <div class="col s12 m12 " >
+         <div class="card-panel " style="border:3px solid; border-color: #9f2d20;">
+            <form action="{% url 'fairapp:login' %}"  method='post' id="form1">
+               {% csrf_token %}
+               <div class="row">
+                  <div class="input-field col s12 m12">
+                     <i class="material-icons prefix">assignment_ind</i>
+                     {% render_field form.username class="validate" %}
+                     <label for="username" >Имя пользователя</label>
+                  </div>
+                  <div class="input-field col s12 m12">
+                     <i class="material-icons prefix">lock</i>
+                      {% render_field form.password class="validate" %}
+                     <label for="password">Пароль</label>
+                  </div>
+                  <div class="center">
+                     <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Войти
+                     <i class="material-icons right">send</i>
+                     </button>
+                  </div>
+               </div>
+            </form>
+         </div>
+         <p class="flow-text center" style="font-size: 18px;"><a href="{% url 'fairapp:signup' %}" style="cursor: pointer; color:#9f2d20; " id="reg">Зарегиструйтесь </a>, если нет аккаунта </p>
+      </div>
+   </div>
 </div>
-<div>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</div>
-
-<div>
-  <input type="submit" value="login" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</div>
-</form>
-
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'fairapp:password_reset' %}">Lost password?</a></p>
-
+{#<p><a href="{% url 'fairapp:password_reset' %}">Lost password?</a></p>#}
 {% endblock %}

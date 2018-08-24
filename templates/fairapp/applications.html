@@ -1,6 +1,5 @@
 {% extends "fairapp/base_generic.html" %}
 {% load staticfiles %}
-{% load widget_tweaks %}
 {% block links %}
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- Compiled and minified CSS -->
@@ -13,27 +12,39 @@
 <title>Ярмарка проектов - Санкт-Петербургский государственный университет</title>
 {% endblock %}
 {% block heading %}
-<h1 class="header-h1">Актуальные проекты</h1>
+<h1 class="header-h1">Актуальные заявки</h1>
 {% endblock %}
 {% block content %}
 <aside class="constructor-aside col-xs-12 col-md-3  container ">
    <div class="g-hide-sm card-content" style="border:3px solid; border-color: #9f2d20;">
-      <form method="get" action="{% url 'fairapp:search' %}" style="margin:5%;">
-         <p><label for="id_pub_date">Дата публикации:</label> {% render_field filter.form.pub_date class="datepicker" %}</p>
-         <p><label for="id_start_date">Дата начала:</label> {% render_field filter.form.start_date class="datepicker" %}</p>
-         <p><label for="id_end_date">Дата окончания:</label> {% render_field filter.form.end_date class="datepicker" %}</p>
-         <p><label for="id_app_deadline">Конец срока подачи заявок:</label> {% render_field filter.form.app_deadline class="datepicker" %}</p>
-         <p>
-            <label for="id_type">Тип:</label>
-            {% render_field filter.form.type  %}
+      <form method="get" style="margin:5%;">
+         <!---<p><label for="id_pub_date">Date published:</label> <input type="text" class="datepicker"  name="pub_date" id="id_pub_date"></p>
+         <p><label for="id_start_date">Starting date:</label> <input type="text" class="datepicker" name="start_date" id="id_start_date"></p>
+         <p><label for="id_end_date">Ending date:</label> <input type="text" class="datepicker" name="end_date" id="id_end_date"></p>
+         <p><label for="id_app_deadline">Application deadline:</label> <input type="text" class="datepicker" name="app_deadline" id="id_app_deadline"></p>
+        ---> <p>
+            <label for="id_type">Type:</label>
+            <select name="type" id="id_type">
+               <option value="" selected="">---------</option>
+               <option value="1">Research &amp; Development</option>
+               <option value="2">Social Activity</option>
+            </select>
          </p>
          <p>
-            <label for="id_skill">Умения:</label>
-            {% render_field filter.form.skill  %}
+            <label for="id_skill">Skill:</label>
+            <select name="skill" id="id_skill" multiple="">
+               <option value="1">Programming</option>
+               <option value="2">Speaking</option>
+               <option value="3">Thinking</option>
+            </select>
          </p>
          <p>
-            <label for="id_tag">Теги:</label>
-            {% render_field filter.form.tag  %}
+            <label for="id_tag">Tag:</label>
+            <select multiple name="tag" id="id_tag">
+               <option value="1">Software</option>
+               <option value="2">Social Activity</option>
+               <option value="3">Team Work</option>
+            </select>
          </p>
          <div class="center">
             <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Поиск
@@ -45,13 +56,13 @@
 </aside>
 <section class="constructor col-xs-12 col-md-9">
    <article class="editor-wrap">
-      {% for project in projects %}
+      {% for app in apps %}
       <section class="constructor-box constructor-box--flat "  >
-         <a href="{% url 'fairapp:detail' project.id %}" class="box-title ">
-         {{ project.project_name }}
+         <a href="{% url 'fairapp:moderdetailapplication' app.id %}" class="box-title ">
+         {{ app.id }}
          </a>
          <div class="table-float table-float--large">
-            <p>{{ project.brief_summary }}</p>
+            <p>{{ app.covering_letter }}</p>
          </div>
       </section>
       {% endfor %}
@@ -62,12 +73,12 @@
       <ul class="pagination">
          <div class="item-list">
             <ul class="pagination__items" >
-                {% if projects.has_previous %}
-                <li class="pagination__item pagination__prev first"><a title="На предыдущую страницу" href="/{{ projects.previous_page_number }}"></a></li>
+                {% if apps.has_previous %}
+                <li class="pagination__item pagination__prev first"><a title="На предыдущую страницу" href="/{{ apps.previous_page_number }}"></a></li>
                 {% endif %}
                 <li class="pagination__item" style="line-height: 0; height: 50px;"><a title="На страницу номер 1" href="/">{{ page }}</a></li>
-                {% if projects.has_next %}
-                <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/{{ projects.next_page_number }}"></a></li>
+                {% if apps.has_next %}
+                <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/{{ apps.next_page_number }}"></a></li>
                 {% endif %}
             </ul>
          </div>

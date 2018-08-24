@@ -1,0 +1,15 @@
+{% extends "registration/base_generic.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block menu3 %}
+ menu-item--act
+{% endblock %}
+{% block mainblock %}
+    <form action="{% url 'fairapp:application_create' pk %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock %}
+

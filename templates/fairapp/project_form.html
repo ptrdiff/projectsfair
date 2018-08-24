@@ -1,12 +1,33 @@
-{% extends "fairapp/base_generic.html" %}
-{% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        <table>
-        {{ form }}
-        </table>
-        <input type="submit" value="Submit" />
-    </form>
-
+{% extends "registration/base_generic.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block menu3 %}
+menu-item--act
 {% endblock %}
-
+{% block mainblock %}
+<p class="flow-text center" style="font-size: 28px;">Создание проекта</p>
+<form action="{% url 'fairapp:project_create' %}"  method='post' id="form1">
+   {% csrf_token %}
+   <div class="row">
+      <div class="row ">
+         {{ form }}
+      <footer class="center">
+         <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Опубликовать
+         <i class="material-icons right">send</i>
+         </button>
+      </footer>
+   </div>
+</form>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+     $('.datepicker').datepicker();
+   });
+   $(document).ready(function(){
+     $('select').formSelect();
+   });
+</script>
+{% endblock %}

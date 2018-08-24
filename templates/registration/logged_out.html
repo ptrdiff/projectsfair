@@ -1,7 +1,6 @@
-{% extends "fairapp/base_generic.html" %}
-
-{% block content %}
-<p>Logged out!</p>  
-
+{% extends "registration/base_generic.html" %}
+{% load staticfiles %}
+{% block mainblock %}
+<p>Logged out!</p>
 <a href="{% url 'fairapp:login'%}">Click here to login again.</a>
 {% endblock %}
