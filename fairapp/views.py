@@ -156,7 +156,19 @@ def view_profile(request):
 
 class ApplicationCreate(LoginRequiredMixin, CreateView):
     model = AppForProject
-    fields = '__all__'
+    fields = ('covering_letter', )
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
+        form.instance.status = 'm'
+        form.save()
+        return super(ApplicationCreate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(ApplicationCreate, self).get_context_data()
+        context['pk'] = self.kwargs['pk']
+        return context
 
 
 @permission_required('fairapp.approve_project')

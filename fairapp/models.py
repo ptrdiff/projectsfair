@@ -105,7 +105,7 @@ class Project(models.Model):
 
 class AppForProject(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     covering_letter = models.TextField(max_length=1000)
     APPLICATION_STATUS = (
         ('m', 'Moderation'),
@@ -120,5 +120,5 @@ class AppForProject(models.Model):
             ("approve_application", "Can approve application"),
             ("reject_application", "Can reject application"),
         )
-
+        unique_together = ('project', 'user')
 

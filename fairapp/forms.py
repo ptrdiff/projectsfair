@@ -33,9 +33,3 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('interests', 'achievements', 'faculty', 'status', 'grade')
-
-
-class ApplicationForm(forms.ModelForm):
-    class Meta:
-        model = AppForProject
-        fields = ('covering_letter', 'user', 'project', 'status')
