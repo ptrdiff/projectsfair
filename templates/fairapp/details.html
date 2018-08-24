@@ -35,4 +35,11 @@
       <input type="submit" value="reject" name="Decision"/>
    </div>
 </form>
+</form>
+<form method="post" action="{% url 'fairapp:application_create' project.id%}">
+    {% csrf_token %}
+    <div>
+        <input type="submit" value="send app" name="SendApp"/>
+    </div>
+</form>
 {% endblock %}
