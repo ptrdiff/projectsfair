@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.views import generic
 from .models import Project, AppForProject
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -90,7 +91,14 @@ class DetailView(generic.DetailView):
 
 class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
-    fields = '__all__'
+    fields = ('project_name', 'pub_date', 'start_date', 'end_date', 'brief_summary', 'content',
+              'app_deadline', 'num_places', 'type', 'tag', 'skill')
+
+    def form_valid(self, form):
+        form.save()
+        form.instance.head.add(self.request.user)
+        form.save()
+        return super(ProjectCreate, self).form_valid(form)
 
 
 class ProjectUpdate(PermissionRequiredMixin, UpdateView):

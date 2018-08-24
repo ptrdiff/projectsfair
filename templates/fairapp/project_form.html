@@ -10,47 +10,7 @@ menu-item--act
    {% csrf_token %}
    <div class="row">
       <div class="row ">
-         <div class="input-field col s12 ">
-            <input name="project_name" type="text">
-            <label for="project_name" >Название проекта</label>
-         </div>
-         <div class="input-field col s12 ">
-            <input name="start_date" type="text" class="datepicker">
-            <label for="start_date" >Дата начала</label>
-         </div>
-         <div class="input-field col s12 ">
-            <input name="end_date" type="text" class="datepicker">
-            <label for="end_date" >Дата окончания</label>
-         </div>
-         <div class="input-field col s12">
-            <textarea name="brief_summary" id="textarea1" class="materialize-textarea"></textarea>
-            <label for="brief_summary">Краткое описание</label>
-         </div>
-         <div class="input-field col s12">
-            <textarea name="content" id="textarea2" class="materialize-textarea"></textarea>
-            <label for="content">Содержание</label>
-         </div>
-         <div class="input-field col s12 ">
-            <input name="app_deadline" type="text" class="datepicker">
-            <label for="app_deadline" >Дата окончания приема заявок</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field form.num_places class="validate" %}
-            <label for="num_places" >Количество мест</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field form.type class="validate" %}
-            <label for="type">Тип</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field form.skill class="validate" %}
-            <label for="type">Требуемые умения</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field form.tag class="validate" %}
-            <label for="type">Теги</label>
-         </div>
-      </div>
+         {{ form }}
       <footer class="center">
          <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Опубликовать
          <i class="material-icons right">send</i>

@@ -5,13 +5,6 @@ from django.contrib.auth.models import User
 from django.db import transaction
 
 
-class ProjectForm(forms.ModelForm):
-
-    class Meta:
-        model = Project
-        fields = ('project_name', 'pub_date', 'start_date', 'end_date', 'head', 'brief_summary', 'content',
-                  'app_deadline', 'num_places', 'type', 'tag', 'skill')
-
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
