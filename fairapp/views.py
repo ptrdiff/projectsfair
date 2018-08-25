@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.views import generic
-from .models import Project, AppForProject
+from .models import Project, AppForProject, Skill
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from fairapp.forms import SignUpForm
@@ -14,13 +14,38 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.utils import six
+
+
+def ANDfilter(fieldToFilter,project_list, request):
+    q_dict = dict(six.iterlists(request.GET))
+    print(q_dict)
+    if( not 'skill' in q_dict):
+        return project_list
+    skills = q_dict.get(fieldToFilter)
+    print(skills)
+    etalon=[]
+    for s in skills:
+        etalon.append(Skill.objects.get(pk=s))
+    project_list2 = []
+    print(project_list)
+    for p in project_list:
+        print(etalon)
+        print(list(p.skill.all()))
+        print(set(list(p.skill.all()))&set(etalon)==set(etalon))
+        if set(list(p.skill.all()))&set(etalon)==set(etalon):
+                #list(p.skill.all()) == etalon:
+            project_list2.append(p)
+    return project_list2
+
 
 
 def index(request, page=1):
     object_list = Project.objects.all().exclude(status__in=['m', 'r'])
     project_filter = ProjectFilter(request.GET, queryset=object_list)
-    project_list = project_filter.qs
-    paginator = Paginator(project_list.order_by('-pub_date'), 5)
+    project_list = ANDfilter('skill', project_filter.qs, request)
+
+    paginator = Paginator(project_list, 5)
     if page > paginator.num_pages:
         page = 1
     try:
