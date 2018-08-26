@@ -40,7 +40,7 @@ class Profile(models.Model):
         ('l', 'Faculty of Law'),
         ('s', 'Social Faculty'),
     )
-    faculty = models.CharField(max_length=1, choices=FACULTY, blank=True, default=1, help_text='Faculty')
+    faculty = models.CharField(max_length=1, choices=FACULTY, blank=True, help_text='Faculty')
 
     STATUS = (
         ('b', 'Bachelor'),
@@ -48,7 +48,7 @@ class Profile(models.Model):
         ('g', 'Graduate Student'),
         ('t', 'Teacher'),
     )
-    status = models.CharField(max_length=1, choices=STATUS, blank=True, default=1, help_text='Status')
+    status = models.CharField(max_length=1, choices=STATUS, blank=True, help_text='Status')
 
     grade = models.PositiveIntegerField(blank=True, null=True, )
 
@@ -74,7 +74,7 @@ class Project(models.Model):
     end_date = models.DateTimeField('ending date', default=timezone.now)
     head = models.ManyToManyField(User, related_name='head')
     brief_summary = models.TextField(max_length=1000)
-    content = models.TextField(max_length=1000)
+    content = models.TextField(max_length=2000)
     app_deadline = models.DateTimeField('application deadline', default=timezone.now)
     num_places = models.PositiveIntegerField(default=1)
     type = models.ForeignKey(Type, null=True, blank=True, on_delete=models.CASCADE)
@@ -88,7 +88,7 @@ class Project(models.Model):
         ('f', 'Finished'),
         ('r', 'Rejected'),
     )
-    status = models.CharField(max_length=1, choices=PROJECT_STATUS, blank=True, default=1, help_text='Project status')
+    status = models.CharField(max_length=1, choices=PROJECT_STATUS, blank=True, default='m', help_text='Project status')
 
     class Meta:
         permissions = (
@@ -112,7 +112,7 @@ class AppForProject(models.Model):
         ('a', 'Approved'),
         ('r', 'Rejected'),
     )
-    status = models.CharField(max_length=1, choices=APPLICATION_STATUS, blank=True, default=1, help_text='Application '
+    status = models.CharField(max_length=1, choices=APPLICATION_STATUS, blank=True, default='m', help_text='Application '
                                                                                                          'status')
 
     class Meta:
