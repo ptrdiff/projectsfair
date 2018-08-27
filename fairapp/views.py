@@ -53,8 +53,6 @@ def ANDfilter(project_list, request, *fieldToFilter):
     return project_list
 
 
-
-
 def index(request, page=1):
     object_list = Project.objects.all().exclude(status__in=['m', 'r'])
     project_filter = ProjectFilter(request.GET, queryset=object_list)
