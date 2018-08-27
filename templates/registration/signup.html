@@ -7,6 +7,9 @@
 {% block mainblock %}
      <div class="container " id="register">
         <div class="row ">
+             {% if form.errors %}
+             <p class="flow-text center" style="font-size: 18px;">Не выполнены требования для пароля/пароли не совпадают</p>
+             {% endif %}
             <div class="col s8 m8 offset-m2">
                 <div class="card-panel " style="border:3px solid; border-color: #9f2d20;">
                     <form action="{% url 'fairapp:signup' %}"  method='post' id="form1">{% csrf_token %}
@@ -35,7 +38,11 @@
                                 <i class="material-icons prefix">lock</i>
                                  {% render_field form.password1 class="validate" %}
                                 <label for="password">Пароль</label>
+                                <span class="helper-text" data-error="wrong" data-success="right">Ваш пароль должен содержать как минимум 8 символов.
+Ваш пароль не должен быть слишком простым.
+Ваш пароль не должен состоять полностью из цифр.</span>
                             </div>
+
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">lock</i>
                                 {% render_field form.password2 class="validate" %}

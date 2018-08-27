@@ -7,9 +7,25 @@
 {% block mainblock %}
     <form action="{% url 'fairapp:application_create' pk %}" method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit" />
+          <div class="row col s12">
+               <p class="center" style="font-size: 18px;">Отправка заявки на проект. Расскажите, почему вы хотите участвовать в проекте.</p>
+      <div class="row">
+
+        <div class="input-field col s12 m12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="icon_prefix2" class="materialize-textarea" name="covering_letter"></textarea>
+          <label for="icon_prefix2">Сопроводительное письмо</label>
+        </div>
+      </div>
+  </div>
+
+       <div class="center">
+                     <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Отправить
+                     <i class="material-icons right">send</i>
+                     </button>
+                  </div>
     </form>
+
 
 {% endblock %}
 
