@@ -63,11 +63,11 @@
          <div class="item-list">
             <ul class="pagination__items" >
                 {% if projects.has_previous %}
-                <li class="pagination__item pagination__prev first"><a title="На предыдущую страницу" href="/{{ projects.previous_page_number }}"></a></li>
+                <li class="pagination__item pagination__prev first"><a title="На предыдущую страницу" href="/profile/myprojects/{{ projects.previous_page_number }}"></a></li>
                 {% endif %}
-                <li class="pagination__item" style="line-height: 0; height: 50px;"><a title="На страницу номер 1" href="/">{{ page }}</a></li>
+                <li class="pagination__item" style="line-height: 0; height: 50px;"><a title="На страницу номер 1" href="/profile/myprojects">{{ page }}</a></li>
                 {% if projects.has_next %}
-                <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/{{ projects.next_page_number }}"></a></li>
+                <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/profile/myprojects/{{ projects.next_page_number }}"></a></li>
                 {% endif %}
             </ul>
          </div>

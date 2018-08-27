@@ -1,7 +1,9 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
+{% block title %}
+ <title>{{ project.project_name }} - Ярмарка проектов</title>
+{% endblock %}
 {% block mainblock %}
-
 <div class="post__tags">
    <span class="post__date">
    <span class="date-display-single" property="dc:date" datatype="xsd:dateTime" content="2018-02-13T12:15:00+03:00">{{ project.pub_date }}</span>            </span>
@@ -13,7 +15,10 @@
 <h1 class="post__title">
    {{ project.project_name }}
 </h1>
-<p class = "post__desc"> Руководитель: {{ project.head }}
+<p class = "post__desc"> Руководитель:</br>
+ {% for h in project.head.all %}{{ h.first_name}} {{ h.last_name }}
+     </br>
+ {% endfor %}
 </p>
 <p class = "post__desc"> Время начала: {{ project.start_date }}
 </p>
@@ -28,6 +33,7 @@
 </p>
 <p class = "post__desc"> Время окончания: {{ project.end_date }}
 </p>
+    {% if perms.fairapp.approve_application %}
  <form method="post" action="{% url 'fairapp:approveproject' project.id %}">
    {% csrf_token %}
    <div>
@@ -35,11 +41,19 @@
       <input type="submit" value="reject" name="Decision"/>
    </div>
 </form>
+    {% endif %}
 </form>
-<form method="post" action="{% url 'fairapp:application_create' project.id%}">
-    {% csrf_token %}
-    <div>
-        <input type="submit" value="send app" name="SendApp"/>
-    </div>
-</form>
+{% endblock %}
+{% block bottom %}
+<div class="col-xs-12 pagination-wrapper">
+  <div class="divider-top">
+    <ul class="pagination">
+         <div class="item-list">
+            <ul class="pagination__items" >
+                <li><a title="Изменить профиль" style="cursor: pointer; color:#9f2d20;" href="{% url 'fairapp:application_create' project.id%}">Отправить заявку</a></li>
+            </ul>
+         </div>
+    </ul>
+  </div>
+</div>
 {% endblock %}

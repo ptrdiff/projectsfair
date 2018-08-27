@@ -53,7 +53,6 @@ def ANDfilter(project_list, request, *fieldToFilter):
     return project_list
 
 
-
 def index(request, page=1):
     object_list = Project.objects.all().exclude(status__in=['m', 'r'])
     project_filter = ProjectFilter(request.GET, queryset=object_list)
@@ -112,7 +111,7 @@ def moderator_index(request, page=1):
         projects = paginator.get_page(page)
     except EmptyPage:
         projects = paginator.page(paginator.num_pages)
-    return render(request, 'fairapp/index.html', {'page': page,
+    return render(request, 'fairapp/moderation_index.html', {'page': page,
                                                   'projects': projects,
                                                   })
 
@@ -160,7 +159,7 @@ class DetailView(generic.DetailView):
 
 class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
-    fields = ('project_name', 'pub_date', 'start_date', 'end_date', 'brief_summary', 'content',
+    fields = ('project_name', 'start_date', 'end_date', 'brief_summary', 'content',
               'app_deadline', 'num_places', 'type', 'tag', 'skill')
 
     def form_valid(self, form):

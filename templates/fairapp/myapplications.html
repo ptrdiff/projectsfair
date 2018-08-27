@@ -39,11 +39,11 @@
          <div class="item-list">
             <ul class="pagination__items" >
                 {% if apps.has_previous %}
-                <li class="pagination__item pagination__prev first"><a title="На предыдущую страницу" href="/{{ apps.previous_page_number }}"></a></li>
+                <li class="pagination__item pagination__prev first"><a title="На предыдущую страницу" href="/profile/myapplications/{{ apps.previous_page_number }}"></a></li>
                 {% endif %}
-                <li class="pagination__item" style="line-height: 0; height: 50px;"><a title="На страницу номер 1" href="/">{{ page }}</a></li>
+                <li class="pagination__item" style="line-height: 0; height: 50px;"><a title="На страницу номер 1" href="/profile/myapplications/">{{ page }}</a></li>
                 {% if apps.has_next %}
-                <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/{{ apps.next_page_number }}"></a></li>
+                <li class="pagination__item pagination__next last"><a title="На следующую страницу" href="/profile/myapplications/{{ apps.next_page_number }}"></a></li>
                 {% endif %}
             </ul>
          </div>
