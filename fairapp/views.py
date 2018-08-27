@@ -18,46 +18,42 @@ from django.utils import six
 from django.apps import apps
 
 
-def ANDfilter(project_list, request, *fieldToFilter):
+def and_filter(project_list, request, *fieldtofilter):
     q_dict = dict(six.iterlists(request.GET))
 #    print(q_dict)
-
-    for field in fieldToFilter:
+    for field in fieldtofilter:
         project_list2 = []
 
-        if(not field in q_dict):
+        if field not in q_dict:
             continue
 
-        skills = q_dict.get(field)
+        field_attribute = q_dict.get(field)
 #        print(skills)
         etalon=[]
-        for s in skills:
+        for s in field_attribute:
             etalon.append(apps.get_model('fairapp', field).objects.get(pk=s))
 
 #        print(project_list)
         length = len(project_list)
         for p in range(length):
-            attr=getattr(project_list[p], field)
-
-
+            attr = getattr(project_list[p], field)
 #            print(project_list[p])
 #            print(etalon)
 #            print(list(attr.all()))
 #            print(set(list(attr.all()))&set(etalon)==set(etalon))
-            if set(list(attr.all()))&set(etalon)==set(etalon):
+            if set(list(attr.all()))&set(etalon) == set(etalon):
                 #list(p.skill.all()) == etalon:
                 project_list2.append(project_list[p])
 
-        project_list=project_list2
-
+        if len(project_list2) > 0:
+            project_list = project_list2
     return project_list
-
 
 
 def index(request, page=1):
     object_list = Project.objects.all().exclude(status__in=['m', 'r'])
     project_filter = ProjectFilter(request.GET, queryset=object_list)
-    project_list = ANDfilter(project_filter.qs, request, 'skill', 'tag')
+    project_list = and_filter(project_filter.qs, request, 'skill', 'tag')
 
     paginator = Paginator(project_list, 5)
     if page > paginator.num_pages:
