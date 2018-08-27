@@ -68,7 +68,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Project(models.Model):
-    project_name = models.TextField(max_length=255)
+    project_name = models.CharField(max_length=255)
     pub_date = models.DateTimeField('date published', default=timezone.now)
     start_date = models.DateTimeField('starting date', default=timezone.now)
     end_date = models.DateTimeField('ending date', default=timezone.now)

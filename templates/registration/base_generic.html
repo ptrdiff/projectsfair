@@ -8,6 +8,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 {% endblock %}
 {% block content %}
+{% block notvalign %}
+{% endblock %}
 <div class="row valign-wrapper">
    <div class="valign container col s12 m12">
       {% block mainblock %}{% endblock %}
@@ -15,4 +17,8 @@
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+{% block bottom %}
+<div class="col-xs-12 pagination-wrapper">
 {% endblock %}
+{% endblock %}
+

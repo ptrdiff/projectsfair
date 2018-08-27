@@ -1,5 +1,8 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
+{% block title %}
+ <title>Создать проект - Ярмарка проектов</title>
+{% endblock %}
 {% load widget_tweaks %}
 {% block menu3 %}
 menu-item--act
@@ -10,7 +13,47 @@ menu-item--act
    {% csrf_token %}
    <div class="row">
       <div class="row ">
-         {{ form }}
+         <div class="input-field col s12 ">
+            {% render_field form.project_name class="validate" %}
+            <label for="project_name" >Название проекта</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field form.start_date class="datepicker" %}
+            <label for="start_date" >Дата начала</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field form.end_date class="datepicker" %}
+            <label for="end_date" >Дата окончания</label>
+         </div>
+         <div class="input-field col s12">
+             {% render_field form.brief_summary class="materialize-textarea" %}
+            <label for="brief_summary">Краткое описание</label>
+         </div>
+         <div class="input-field col s12">
+            {% render_field form.content class="materialize-textarea" %}
+            <label for="content">Содержание</label>
+         </div>
+         <div class="input-field col s12 ">
+             {% render_field form.app_deadline class="datepicker" %}
+            <label for="app_deadline" >Дата окончания приема заявок</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field form.num_places class="validate" %}
+            <label for="num_places" >Количество мест</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field form.type class="validate" %}
+            <label for="type">Тип</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field form.skill class="validate" %}
+            <label for="type">Требуемые умения</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field form.tag class="validate" %}
+            <label for="type">Теги</label>
+         </div>
+      </div>
       <footer class="center">
          <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Опубликовать
          <i class="material-icons right">send</i>
