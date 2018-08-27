@@ -1,4 +1,4 @@
-% extends 'base.html' %}
+
 
 {% block content %}
     <h2>Search</h2>
@@ -19,7 +19,7 @@
 
             {% for result in page.object_list %}
                 <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+                    <li>{{ result.project_name }} - {{result.brief_summary }}</li>
                 </p>
             {% empty %}
                 <p>No results found.</p>
