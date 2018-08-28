@@ -1,5 +1,8 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
+{% block title %}
+ <title>Мой профиль - Ярмарка проектов</title>
+{% endblock %}
 {% block menu4 %}
  menu-item--act
 {% endblock %}
@@ -12,13 +15,28 @@
 </p>
 <p class = "post__desc"> Достижения:</br>{{ profile.achievements }}
 </p>
-<p class = "post__desc"> Факультет: {{ profile.faculty }}
+<p class = "post__desc"> Факультет: {{ profile.get_faculty_display }}
 </p>
-<p class = "post__desc"> Статус: {{ profile.status }}
+<p class = "post__desc"> Статус: {{ profile.get_status_display }}
 </p>
+{% if profile.grade %}
 <p class = "post__desc"> Уровень образования: {{ profile.grade }}
 </p>
-<p class="flow-text center" style="font-size: 18px;"><a href="{% url 'fairapp:update_profile' %}" style="cursor: pointer; color:#9f2d20;" id="log">Изменить профиль</a> </p>
-    <a href="{% url 'fairapp:myprojects' %}">Посмотреть мои проекты</a>
-    <a href="{% url 'fairapp:myapplications' %}">Посмотреть мои заявки</a>
+{% endif %}
+
+{% endblock %}
+{% block bottom %}
+<div class="col-xs-12 pagination-wrapper">
+  <div class="divider-top">
+    <ul class="pagination">
+         <div class="item-list">
+            <ul class="pagination__items" >
+                <li><a title="Изменить профиль" style="cursor: pointer; color:#9f2d20;" href="{% url 'fairapp:update_profile' %}">Изменить профиль</a></li>
+                <li><a title="Мои заявки" style="cursor: pointer; color:#9f2d20;" href="/">Мои заявки</a></li>
+                <li><a title="Мои проекты" style="cursor: pointer; color:#9f2d20;" href="/{{ projects.next_page_number }}">Мои проекты</a></li>
+            </ul>
+         </div>
+    </ul>
+  </div>
+</div>
 {% endblock %}

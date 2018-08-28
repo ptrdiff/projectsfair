@@ -75,10 +75,16 @@
                <!-- START: second menu-->
                <!-- START: second menu-->
                <ul class="menu-second ">
-                  <li class="menu-item  menu-item--highlight">
+               {% if perms.fairapp.approve_application %}
+                  <li class="menu-item  {% block smenu1 %}{% endblock %}">
+                      <a href="{% url 'fairapp:moderapplications' %}">Посмотреть заявки</a>
                   </li>
-                  <li class="menu-item ">
+               {% endif %}
+               {% if perms.fairapp.approve_project %}
+                  <li class="menu-item {% block smenu2 %}{% endblock %}"">
+                      <a href="{% url 'fairapp:moderindex' %}">Посмотреть непроверенные проекты</a>
                   </li>
+               {% endif %}
                   <li class="menu-item ">
                   </li>
                   <li class="menu-item ">
@@ -116,8 +122,6 @@
             <div class="bt-box bt-box--search js-open-page-search"></div>
          </div>
       </header>
-    <a href="{% url 'fairapp:moderapplications' %}">Посмотреть заявки</a>
-    <a href="{% url 'fairapp:moderindex' %}">Посмотреть непроверенные проекты</a>
       <main class="page-main-content">
          <div class="page-details g-container">
              {% block heading %} {% endblock %}
@@ -143,39 +147,13 @@
             <a href="//www.youtube.com/user/wwwspburu" target="_blank" class="social-link social-link--youtube"></a>
             <a href="//twitter.com/spb_university" target="_blank" class="social-link social-link--tw"></a>
          </section>
-         <section class="menu-footer section--dark">
-            <div class="g-container">
-               <div class="section-selector section-selector--dark">
-                  <select data-section="footer-section-0">
-                     <option value="footer-section-0">Поступающим</option>
-                     <option value="footer-section-1">Студентам</option>
-                     <option value="footer-section-2">Сотрудникам</option>
-                     <option value="footer-section-3">Партнерам</option>
-                  </select>
-               </div>
-            </div>
-         </section>
+
          <section class="section section--light-dark">
             <div class="g-container">
                <div class="g-row">
                   <div class="col-lg-10 g-fluid">
                      <div class="col-md-7 col-lg-6 g-fluid u-text-center">
-                        <div class="page-footer__copyright">&copy;&nbsp;Санкт-Петербургский государственный университет, 2018            <br/>199034, Россия, Санкт-Петербург, Университетская набережная, д. 7–9</div>
-                        <div class="footer-links">
-                           <a href="/sveden" class="footer-links__item">Сведения об образовательной организации</a>
-                           <a href="/contacts" class="footer-links__item">Контактная информация</a>
-                        </div>
-                        <div class="sp-hide">
-                           <form action="/postupayushchim/pravovaya-pomoshch" method="post" id="spbgu-switch-theme-switch-form" accept-charset="UTF-8">
-                              <div>
-                                 <input type="hidden" name="theme" value="special" />
-                                 <div class="bt-flat bt-flat--glasses" itempop="copy"><input type="submit" id="switchtheme-submit" name="op" value="Версия для слабовидящих" class="form-submit" /></div>
-                                 <input type="hidden" name="form_build_id" value="form-UCsqAev3cjMlZdpt3rWj8GTBcQyoT2bkcfmLcJ7NB10" />
-                                 <input type="hidden" name="form_id" value="spbgu_switch_theme_switch_form" />
-                              </div>
-                           </form>
-                        </div>
-
+                        <div class="page-footer__copyright">&copy;&nbsp;Санкт-Петербургский государственный университет, 2018            <br/>Ярмарка проектов</div>
                      </div>
                   </div>
                </div>
