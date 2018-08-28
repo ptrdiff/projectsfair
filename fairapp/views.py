@@ -16,6 +16,8 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.contrib.auth.models import User
 from django.utils import six
 from django.apps import apps
+from django.db import IntegrityError
+from django.shortcuts import render_to_response
 
 
 def and_filter(project_list, request, *fieldtofilter):
@@ -94,8 +96,8 @@ def view_profile_applications(request, page=1):
     except EmptyPage:
         apps = paginator.page(paginator.num_pages)
     return render(request, 'fairapp/myapplications.html', {'page': page,
-                                                         'apps': apps,
-                                                         })
+                                                           'apps': apps,
+                                                           })
 
 
 @permission_required('fairapp.approve_project')
@@ -109,8 +111,8 @@ def moderator_index(request, page=1):
     except EmptyPage:
         projects = paginator.page(paginator.num_pages)
     return render(request, 'fairapp/moderation_index.html', {'page': page,
-                                                  'projects': projects,
-                                                  })
+                                                             'projects': projects,
+                                                             })
 
 
 @permission_required('fairapp.approve_application')
@@ -232,11 +234,14 @@ class ApplicationCreate(LoginRequiredMixin, CreateView):
     fields = ('covering_letter', )
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
-        form.instance.status = 'm'
-        form.save()
-        return super(ApplicationCreate, self).form_valid(form)
+        try:
+            form.instance.user = self.request.user
+            form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
+            form.instance.status = 'm'
+            form.save()
+            return super(ApplicationCreate, self).form_valid(form)
+        except IntegrityError as e:
+            return render_to_response("fairapp/error.html", {"message": e.args})
 
     def get_context_data(self, **kwargs):
         context = super(ApplicationCreate, self).get_context_data()
