@@ -53,8 +53,6 @@ def ANDfilter(project_list, request, *fieldToFilter):
     return project_list
 
 
-
-
 def index(request, page=1):
     object_list = Project.objects.all().exclude(status__in=['m', 'r'])
     project_filter = ProjectFilter(request.GET, queryset=object_list)
@@ -136,7 +134,7 @@ def moderator_applications(request, page=1):
 class ModerDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'fairapp.approve_project'
     model = Project
-    template_name = 'fairapp/moderdetails.html'
+    template_name = 'fairapp/details.html'
 
 
 class ModerAppDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -158,6 +156,11 @@ class DetailView(generic.DetailView):
     model = Project
     template_name = 'fairapp/details.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        project = Project.objects.get(pk=self.kwargs['pk'])
+        if project.status in ['m','r']:
+            return redirect('fairapp:index')
+        return super(DetailView, self).dispatch(request, *args, **kwargs)
 
 class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
