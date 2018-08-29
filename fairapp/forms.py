@@ -1,9 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Project, Profile, AppForProject
+from .models import Profile
 from django.contrib.auth.models import User
-from django.db import transaction
-
 
 
 class SignUpForm(UserCreationForm):
@@ -23,6 +21,8 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
+
     class Meta:
         model = Profile
         fields = ('interests', 'achievements', 'faculty', 'status', 'grade')
+

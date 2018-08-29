@@ -1,11 +1,70 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
+{% block title %}
+ <title>Изменить профиль - Ярмарка проектов</title>
+{% endblock %}
+{% load widget_tweaks %}
 {% block mainblock %}
-<form method="post">
-  {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
-  <button type="submit">Save changes</button>
+<p class="flow-text center" style="font-size: 28px;">Изменение профиля</p>
+<form action="{% url 'fairapp:update_profile' %}"  method='post' id="form1">
+   {% csrf_token %}
+   <div class="row">
+      <div class="row ">
+         <div class="input-field col s12 ">
+             {% render_field user_form.first_name class="validate" maxlength="255" %}
+            <label for="start_date" >Имя</label>
+         </div>
+         <div class="input-field col s12 ">
+             {% render_field user_form.last_name class="validate" maxlength="255" %}
+            <label for="end_date" >Фамилия</label>
+         </div>
+         <div class="input-field col s12">
+              {% render_field user_form.email class="validate" maxlength="255" %}
+            <label for="brief_summary">Email</label>
+         </div>
+         <div class="input-field col s12">
+            {% render_field profile_form.interests class="validate" maxlength="255" %}
+            <label for="content">Интересы</label>
+         </div>
+         <div class="input-field col s12 ">
+             {% render_field profile_form.achievements class="validate" maxlength="255" %}
+            <label for="app_deadline" >Достижения</label>
+         </div>
+         <div class="input-field col s12 ">
+              <select name="faculty">
+                {% for x,y in profile_form.fields.faculty.choices %}
+                <option value="{{ x }}" {% if profile_form.fields.faculty.value == x %} selected {% endif %}>{{ y }}</option>
+                {% endfor %}
+              </select>
+            <label for="num_places" >Факультет</label>
+         </div>
+         <div class="input-field col s12 ">
+              <select name="status">
+                {% for x,y in profile_form.fields.status.choices %}
+                <option value="{{ x }}" {% if profile_form.fields.status.value == x %} class="selected" {% endif %}>{{ y }}</option>
+                {% endfor %}
+              </select>
+            <label for="num_places" >Статус</label>
+         </div>
+         <div class="input-field col s12 " style="display: block">
+            {% render_field profile_form.grade class="validate" maxlength="255" %}
+            <label for="type">Курс</label>
+         </div>
+      </div>
+      <footer class="center">
+         <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Изменить
+         <i class="material-icons right">send</i>
+         </button>
+      </footer>
+   </div>
 </form>
-
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('select').formSelect();
+    });
+</script>
 {% endblock %}

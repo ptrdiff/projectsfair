@@ -23,6 +23,7 @@
       <link rel="icon" type="image/png" href="{% static 'img/android-chrome-192x192.png'  %}">
       <link rel="icon" type="image/png" href="{% static 'img/favicon-96x96.png' %}">
       <link rel="icon" type="image/png" href="{% static 'img/favicon-16x16.png' %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
       <link rel="manifest" href="/sites/all/themes/spbgu/markup/dist/manifest.json">
       <link rel="mask-icon" href="/sites/all/themes/spbgu/markup/dist/safari-pinned-tab.svg" color="#9f2d20">
       {% block links %} {% endblock %}
@@ -95,27 +96,28 @@
                </ul>
                <ul class="menu-main">
                   <li class="menu-item {% block menu1 %}{% endblock %}">
-                     <a href="{% url 'fairapp:index'%}" class="menu-bt">Главная</a><i class="menu-item__line"></i>
+                     <a href="{% url 'fairapp:index'%}" >Главная</a><i class="menu-item__line"></i>
                   </li>
                    {% if user.is_authenticated %}
                   <li class="menu-item {% block menu2 %}{% endblock %}">
-                     <a href="{% url 'fairapp:logout'%}?next={{request.path}}" class="menu-bt">Выйти</a><i class="menu-item__line"></i>
+                     <a href="{% url 'fairapp:logout'%}?next={{request.path}}" >Выйти</a><i class="menu-item__line"></i>
                   </li>
                   <li class="menu-item {% block menu3 %}{% endblock %}">
-                     <a href="{% url 'fairapp:project_create'%}" class="menu-bt">Создать проект</a><i class="menu-item__line"></i>
+                     <a href="{% url 'fairapp:project_create'%}" >Создать проект</a><i class="menu-item__line"></i>
                   </li>
                   <li class="menu-item {% block menu4 %}{% endblock %}">
-                     <a href="{% url 'fairapp:view_profile'%}" class="menu-bt">Мой профиль</a><i class="menu-item__line"></i>
+                     <a href="{% url 'fairapp:view_profile'%}" >Мой профиль</a><i class="menu-item__line"></i>
                   </li>
                    {% else %}
                   <li class="menu-item {% block menu5 %}{% endblock %}">
-                     <a href="{% url 'fairapp:login'%}?next={{request.path}}" class="menu-bt">Войти</a><i class="menu-item__line"></i>
+                     <a href="{% url 'fairapp:login'%}?next={{request.path}}" >Войти</a><i class="menu-item__line"></i>
                   </li>
                    <li class="menu-item {% block menu6 %}{% endblock %}">
-                     <a href="{% url 'fairapp:signup'%}?next={{request.path}}" class="menu-bt">Регистрация</a><i class="menu-item__line"></i>
+                     <a href="{% url 'fairapp:signup'%}?next={{request.path}}" >Регистрация</a><i class="menu-item__line"></i>
                   </li>
                    {% endif %}
                </ul>
+
             </div>
          </div>
          <div class="section--offset">
@@ -163,7 +165,7 @@
       <script type="text/javascript">
          jQuery.noConflict(true);
       </script>
-      <script src="{% static 'js/min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/min.js' %}"></script>
       <script>
          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

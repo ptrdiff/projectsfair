@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -29,8 +31,8 @@ class Skill(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    interests = models.TextField(max_length=1000)
-    achievements = models.TextField(max_length=1000)
+    interests = models.CharField(max_length=1000)
+    achievements = models.CharField(max_length=1000)
     FACULTY = (
         ('a', 'ApMath'),
         ('c', 'Chemistry'),
@@ -69,13 +71,13 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Project(models.Model):
     project_name = models.CharField(max_length=255)
-    pub_date = models.DateTimeField('date published', default=timezone.now)
-    start_date = models.DateTimeField('starting date', default=timezone.now)
-    end_date = models.DateTimeField('ending date', default=timezone.now)
+    pub_date = models.DateField('date published', default=date.today)
+    start_date = models.DateField('starting date', default=date.today)
+    end_date = models.DateField('ending date', default=date.today)
     head = models.ManyToManyField(User, related_name='head')
     brief_summary = models.TextField(max_length=1000)
     content = models.TextField(max_length=2000)
-    app_deadline = models.DateTimeField('application deadline', default=timezone.now)
+    app_deadline = models.DateField('application deadline', default=date.today)
     num_places = models.PositiveIntegerField(default=1)
     type = models.ForeignKey(Type, null=True, blank=True, on_delete=models.CASCADE)
     skill = models.ManyToManyField(Skill, related_name='skills')
@@ -112,8 +114,8 @@ class AppForProject(models.Model):
         ('a', 'Approved'),
         ('r', 'Rejected'),
     )
-    status = models.CharField(max_length=1, choices=APPLICATION_STATUS, blank=True, default='m', help_text='Application '
-                                                                                                         'status')
+    status = models.CharField(max_length=1, choices=APPLICATION_STATUS, blank=True, default='m',
+                              help_text='Application status')
 
     class Meta:
         permissions = (
@@ -121,4 +123,3 @@ class AppForProject(models.Model):
             ("reject_application", "Can reject application"),
         )
         unique_together = ('project', 'user')
-
