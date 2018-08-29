@@ -32,8 +32,8 @@
          <div class="item-list">
             <ul class="pagination__items" >
                 <li><a title="Изменить профиль" style="cursor: pointer; color:#9f2d20;" href="{% url 'fairapp:update_profile' %}">Изменить профиль</a></li>
-                <li><a title="Мои заявки" style="cursor: pointer; color:#9f2d20;" href="/">Мои заявки</a></li>
-                <li><a title="Мои проекты" style="cursor: pointer; color:#9f2d20;" href="/{{ projects.next_page_number }}">Мои проекты</a></li>
+                <li><a title="Мои заявки" style="cursor: pointer; color:#9f2d20;" href="{% url 'fairapp:myapplications' %}">Мои заявки</a></li>
+                <li><a title="Мои проекты" style="cursor: pointer; color:#9f2d20;" href="{% url 'fairapp:myprojects' %}">Мои проекты</a></li>
             </ul>
          </div>
     </ul>

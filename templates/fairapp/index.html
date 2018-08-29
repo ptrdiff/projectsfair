@@ -80,10 +80,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({format:'yyyy-mm-dd'});
+    $(".datepicker-date-display").css({ 'background-color': "#9f2d20" });
   });
   $(document).ready(function(){
     $('select').formSelect();
   });
 </script>
+<script type="text/javascript" src="{% static 'js/min.js' %}"></script>
 {% endblock %}

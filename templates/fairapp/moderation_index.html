@@ -16,11 +16,11 @@
 <h1 class="header-h1">Непроверенные проекты</h1>
 {% endblock %}
 {% block content %}
-<section class="constructor col-xs-12 col-md-9">
+<section class="constructor col-xs-12 col-md-9" style="min-height: 50vh;">
    <article class="editor-wrap">
       {% for project in projects %}
       <section class="constructor-box constructor-box--flat "  >
-         <a href="{% url 'fairapp:detail' project.id %}" class="box-title ">
+         <a href="{% url 'fairapp:moderdetail' project.id %}" class="box-title ">
          {{ project.project_name }}
          </a>
          <div class="table-float table-float--large">
@@ -51,6 +51,7 @@
 {% block scripts %}
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script type="text/javascript" src="{% static 'js/min.js' %}"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $('.datepicker').datepicker();

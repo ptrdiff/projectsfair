@@ -1,5 +1,8 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
+{% block title %}
+<title>Войти - Ярмарка проектов</title>
+{% endblock %}
 {% load widget_tweaks %}
 {% block menu5 %}
  menu-item--act
@@ -39,7 +42,7 @@
             </form>
          </div>
          <p class="flow-text center" style="font-size: 18px;"><a href="{% url 'fairapp:signup' %}" style="cursor: pointer; color:#9f2d20; " id="reg">Зарегиструйтесь </a>, если нет аккаунта </p>
-         <p class="flow-text center" style="font-size: 18px;"><a href="{% url 'fairapp:password_reset' %}" style="cursor: pointer; color:#9f2d20; " id="reg">Забыли пароль?</p>
+         <p class="flow-text center" style="font-size: 18px;"><a href="{% url 'fairapp:password_reset' %}" style="cursor: pointer; color:#9f2d20; " id="reg">Восстановить пароль </p>
       </div>
    </div>
 </div>

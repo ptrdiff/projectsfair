@@ -14,7 +14,7 @@ menu-item--act
    <div class="row">
       <div class="row ">
          <div class="input-field col s12 ">
-            {% render_field form.project_name class="validate" %}
+            {% render_field form.project_name class="validate" maxlength="255" %}
             <label for="project_name" >Название проекта</label>
          </div>
          <div class="input-field col s12 ">
@@ -30,7 +30,7 @@ menu-item--act
             <label for="brief_summary">Краткое описание</label>
          </div>
          <div class="input-field col s12">
-            {% render_field form.content class="materialize-textarea" %}
+            {% render_field form.content class="materialize-textarea" maxlength="2000" %}
             <label for="content">Содержание</label>
          </div>
          <div class="input-field col s12 ">
@@ -67,7 +67,8 @@ menu-item--act
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <script type="text/javascript">
    $(document).ready(function(){
-     $('.datepicker').datepicker();
+     $('.datepicker').datepicker({format:'yyyy-mm-dd'});
+     $(".datepicker-date-display").css({ 'background-color': "#9f2d20" });
    });
    $(document).ready(function(){
      $('select').formSelect();
