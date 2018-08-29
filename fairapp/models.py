@@ -114,8 +114,8 @@ class AppForProject(models.Model):
         ('a', 'Approved'),
         ('r', 'Rejected'),
     )
-    status = models.CharField(max_length=1, choices=APPLICATION_STATUS, blank=True, default='m', help_text='Application '
-                                                                                                         'status')
+    status = models.CharField(max_length=1, choices=APPLICATION_STATUS, blank=True, default='m',
+                              help_text='Application status')
 
     class Meta:
         permissions = (
@@ -123,4 +123,3 @@ class AppForProject(models.Model):
             ("reject_application", "Can reject application"),
         )
         unique_together = ('project', 'user')
-

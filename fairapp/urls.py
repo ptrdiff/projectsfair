@@ -1,5 +1,6 @@
 from . import views
 from django.urls import include, path
+from django.conf.urls import url
 
 app_name = 'fairapp'
 urlpatterns = [
@@ -28,4 +29,5 @@ urlpatterns = [
     path('moderation/applications/', views.moderator_applications, name='moderapplications'),
     path('moderation/applications/<int:page>/', views.moderator_applications, name='moderapplications'),
     path('moderation/applications/apps/<int:pk>/', views.ModerAppDetailView.as_view(), name='moderdetailapplication'),
+    url(r'^search/', include('haystack.urls')),
 ]
