@@ -5,10 +5,10 @@
 ### Используемые технологии:
 Python 3.6 + Django 2.1
 ### Команда:
-1. [Поваляев Никита](https://github.com/nikita03565) - backend
-2. [Салимов Тимур](https://github.com/ptrdiff) - teamlead
-3. [Моисеев Олег](https://github.com/OlegMoiseev) - frontend
-4. [Лысенко Артём](https://github.com/virrius) - backend
+1. [Салимов Тимур](https://github.com/ptrdiff) - teamlead 
+2. [Поваляев Никита](https://github.com/nikita03565) - backend & lead programmer
+3. [Лысенко Артём](https://github.com/virrius) - backend
+4. [Моисеев Олег](https://github.com/OlegMoiseev) - frontend
 5. Гаврилова Александра - analyst
 6. Плешканов Никита - tester
 ### Вопросы и поддержка
