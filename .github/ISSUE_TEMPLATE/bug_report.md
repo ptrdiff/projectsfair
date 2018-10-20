@@ -4,32 +4,48 @@ about: Create a report to help us improve
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+# Bug report
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+## Описание ошибки
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+Краткое описание того, в чём заключается проблема.
+<!-- Например: система логгирования после 5 минут работы приложения перестаёт выводить информацию в логи. -->
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## Воспроизводение ошибки
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+Действия по воспроизведению поведения:
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+1. Обратиться к "...";
+2. Нажмите на кнопку "...";
+3. Прокрутите страницу вниз до "...";
+4. Получаете ошибку.
 
-**Additional context**
-Add any other context about the problem here.
+## Либо
+
+Фрагмент кода, вызвавший ошибку:
+
+```Python
+run_the_method()
+```
+
+## Ожидаемое поведение
+
+Краткое описание того, что Вы ожидали.
+<!-- Например: ожидалось, что система логгирования завершит свою работу только после выключения приложения. -->
+
+## Скриншоты | логи
+
+Если это возможно, добавьте скриншоты, чтобы объяснить Вашу проблему.
+
+Если функционал, в котором Вы обнаружили ошибку, предусматирвает какое-либо логирование, то предостальвьте, пожалуйста, тексты логов.
+
+## Рабочее окружение (пожалуйста, заполните следующую информацию)
+
+- ОС: [напр. iOS, Windows]
+- Браузер [например, Chrome, Safari]
+- Версия [например, v64.0.5]
+- Интепретарор [например, Python v.3.6]
+
+## Дополнительный контекст или ссылки на связанные с данной задачей issues
+
+Добавьте сюда любой другой контекст проблемы.

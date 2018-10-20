@@ -1,17 +1,34 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: Suggest an concrete feature for this project
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+# Feature request
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## Почему Вы заинтересованы в данном функционале
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+Краткое описание проблемы, с которой Вы столкнулись или задачи, которую Вы хотели бы решить с помощью нового функционала.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+Если запрашиваемый функционал возникает из какого-то idea issue, напишите "На основании idea  #номер_issue_с_idea".
+<!-- Например: трудно отслеживать работоспособность Django-проекта в онлайн, было бы удобно иметь механизм логгирования. -->
+
+## Функционал, который Вы хотите
+
+Краткое описание того функционала, который Вы хотите, чтобы появился.
+<!-- Например: можно добавить поддержку стандартного механизма логгирования в Django. -->
+
+## Как Вы будете использовать этот функционал
+
+Краткое описание сценария, по которому Вы будете использовать новый функционал.
+<!-- Например: буду смотреть по логам, все ли компоненты работают нормально. -->
+
+## Кому будет интересен данный функционал
+
+Краткое описание заинтересованных в новом функционале лиц.
+<!-- Например: после введения новой системы логгирования разработчикам станет гораздо проще проводить отладку и отслеживать работоспособность системы. -->
+
+## Дополнительный контекст или ссылки на связанные с данной задачей issues
+
+Добавьте любой другой контекст или скриншоты о запросе feature здесь.
+<!-- Например: система логгирования не должна сильно нагружать приложение. -->
