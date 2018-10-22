@@ -1,5 +1,6 @@
 # Ярмарка Проектов
 [![CodeFactor](https://www.codefactor.io/repository/github/robot-lab/projectsfair/badge)](https://www.codefactor.io/repository/github/robot-lab/projectsfair)
+[![Build Status](https://travis-ci.com/robot-lab/projectsfair.svg?branch=master)](https://travis-ci.com/robot-lab/projectsfair) 
 ### "Веб-сервис подачи заявок студентов на участие в проектах ЦИТИК"
 Данная информационная система позволит пользователям (преподавателям, студентам, сторонним заинтересованным лицам) публиковать информацию о проектах и задачах, а другие пользователи в свою очередь будут иметь возможность записываться на эти проекты как участники/исполнители и отчитываться о проделанной работе.
 Подробное описание вы можете посмотреть в [вики](https://github.com/robot-lab/projectsfair/wiki).
