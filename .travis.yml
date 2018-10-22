@@ -11,6 +11,7 @@ before_script:
   - python manage.py makemigrations
   - python manage.py migrate 
 deploy:
+  skip_cleanup: true
   provider: heroku
   api_key: 
     secure: 7659ab05-9ee0-45c2-a07a-8705123b3562
