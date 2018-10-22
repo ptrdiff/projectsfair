@@ -19,7 +19,4 @@ deploy:
     repo: robot-lab/projectsfair  
 # command to run tests
 script:
-  - python manage.py test
-after_deploy:
-  - python manage.py runserver
-  
+  - python manage.py test 
