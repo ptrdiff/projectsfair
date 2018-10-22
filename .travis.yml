@@ -1,27 +1,25 @@
 language: python
 python:
   - "3.6"
-  
 branches:
   only:
-  - master
-    
+  - master  
 # command to install dependencies
 install:
-  - pip install -r requirements.txt
-  
+  - pip install -r requirements.txt 
 before_script:
   - python manage.py makemigrations
-  - python manage.py migrate
-  
+  - python manage.py migrate 
 deploy:
   provider: heroku
   api_key: 
     secure: 7659ab05-9ee0-45c2-a07a-8705123b3562
   app: projectsfair
   on:
-    repo: robot-lab/projectsfair
-    
+    repo: robot-lab/projectsfair  
 # command to run tests
 script:
   - python manage.py test
+after_deploy:
+  - python manage.py runserver
+  
