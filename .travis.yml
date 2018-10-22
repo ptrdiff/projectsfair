@@ -2,21 +2,10 @@ language: python
 python:
   - "3.6"
   
-addons:
-  sshknownhosts:
-  - 104.248.47.163
-  
 branches:
   only:
   - master
-  
-env:
-  global:
-  - REMOTEAPPDIR=/var/www/projectsfair.com/
-  - REMOTEUSER=deploy
-  - REMOTEHOST=104.248.47.163
-  - PORT=8080
-  
+    
 # command to install dependencies
 install:
   - pip install -r requirements.txt
@@ -24,8 +13,15 @@ install:
 before_script:
   - python manage.py makemigrations
   - python manage.py migrate
-  - chmod 600 deploy && mv deploy ~/.ssh/idrsa
   
+deploy:
+  provider: heroku
+  api_key: 
+    secure: 7659ab05-9ee0-45c2-a07a-8705123b3562
+  app: projectsfair
+  on:
+    repo: robot-lab/projectsfair
+    
 # command to run tests
 script:
   - python manage.py test
