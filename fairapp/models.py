@@ -15,14 +15,14 @@ class Type(models.Model):
         return self.type_name
 
 
-class Tag(models.Model):
+'''class Tag(models.Model):
     tag_name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.tag_name
 
 
-'''class Skill(models.Model):
+class Skill(models.Model):
     skill_name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -109,10 +109,20 @@ def save_user_profile(sender, instance, **kwargs):
 #=========================================================================
 
 
+class Tag(models.Model):
+    name = models.CharField(null=False, blank=False, max_length=255, help_text="Tag name", default="")
+
+    def __str__(self):
+        return self.name
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     mname = models.CharField(null=False, blank = True, max_length=255, help_text="Middle name")
     phone = models.CharField(null=False, blank = True, max_length=32, help_text="Phone number")
+
+    def __str__(self):
+        return self.user.username
 
 
 class EduInst(models.Model):
@@ -178,6 +188,10 @@ class Project(models.Model):
     date_start = models.DateField("Date of project start", default=date.today)
     date_end = models.DateField("Date of project end", default=date.today)
     date_req_end = models.DateField("Deadline for applications", default=date.today)
+    tag = models.ManyToManyField(Tag, related_name='tags')
+
+    def __str__(self):
+        return self.name
 
 
 class ProjApSkills(models.Model):
@@ -214,6 +228,9 @@ class UserProject(models.Model):
     id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
     id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
     is_lead = models.BooleanField(default=False)
+
+
+
 #=========================================================================
 
 
