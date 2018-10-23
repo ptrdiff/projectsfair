@@ -13,3 +13,11 @@ script:
   - python manage.py test
 after_success:
   - sh .travis/deploy_dockerhub.sh
+deploy: 
+  provider: heroku 
+  api_key: 
+    secure: KEY 
+  app: $HEROKU_APP_NAME 
+  on: 
+    repo: $TRAVIS_REPO_SLUG
+
