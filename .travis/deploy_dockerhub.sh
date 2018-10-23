@@ -1,6 +1,6 @@
 #!/bin/sh
 docker login -u $DOCKER_USER -p $DOCKER_PASS
-if [ "$TRAVIS_BRANCH" = "deploy-travis-cicd" ]; then
+if [ "$TRAVIS_BRANCH" = "$RELEASE_BRANCH" ]; then
     TAG="latest"
 else
     TAG="$TRAVIS_BRANCH"
