@@ -1,5 +1,6 @@
-FROM ubuntu:16.04
-RUN pip install --upgrade pip
+FROM ubuntu:18.04
+RUN apt-get install -y python3
+RUN apt-get install -y python3-pip
 COPY requirements.txt /src/requirements.txt
 RUN pip install -r /src/requirements.txt
 COPY fairapp /src/fairapp
