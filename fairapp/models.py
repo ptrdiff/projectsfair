@@ -22,7 +22,7 @@ class Tag(models.Model):
         return self.tag_name
 
 
-class Skill(models.Model):
+'''class Skill(models.Model):
     skill_name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -56,7 +56,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
-
+'''
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -69,7 +69,7 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-class Project(models.Model):
+'''class Project(models.Model):
     project_name = models.CharField(max_length=255)
     pub_date = models.DateField('date published', default=date.today)
     start_date = models.DateField('starting date', default=date.today)
@@ -103,6 +103,119 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return "/%i/" % self.id
+'''
+
+
+#=========================================================================
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    mname = models.CharField(null=False, blank = True, max_length=255, help_text="Middle name")
+    phone = models.CharField(null=False, blank = True, max_length=32, help_text="Phone number")
+
+
+class EduInst(models.Model):
+    name = models.CharField(null=False, blank=False, max_length=255, help_text="Institute name")
+
+
+class EduProg(models.Model):
+    name = models.CharField(null=False, blank=False, max_length=255, help_text="Program name")
+
+
+class Education(models.Model):
+    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    id_edu = models.OneToOneField(EduInst, on_delete=models.CASCADE)
+    id_prog = models.OneToOneField(EduProg, on_delete=models.CASCADE)
+    year = models.PositiveIntegerField(help_text="Graduation year")
+
+
+class Skill(models.Model):
+    name = models.CharField(null=False, blank=False, max_length=255, help_text="Skill name", default="")
+
+
+class Activities(models.Model):
+    name = models.CharField(null=False, blank=False, max_length=255, help_text="Activity name")
+
+
+class ApSkills(models.Model):
+    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+
+class SciSkills(models.Model):
+    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+
+class ExtSkills(models.Model):
+    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+
+class ApAct(models.Model):
+    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+
+
+class SciAct(models.Model):
+    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+
+
+class ExtAct(models.Model):
+    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+
+
+class Project(models.Model):
+    name = models.CharField(null=False, blank=False, max_length=255, help_text="Institute name", default="")
+    id_lead = models.OneToOneField(Profile, on_delete=models.CASCADE, default=0)
+    descrip_short = models.TextField(blank=False, max_length=1024, default="")
+    descrip_full = models.TextField(blank=False, max_length=8192, default="")
+    num_participants = models.PositiveSmallIntegerField(help_text="Full number of places", default=0)
+    places_left = models.PositiveSmallIntegerField(help_text="Number of left places", default=0)
+    date_start = models.DateField("Date of project start", default=date.today)
+    date_end = models.DateField("Date of project end", default=date.today)
+    date_req_end = models.DateField("Deadline for applications", default=date.today)
+
+
+class ProjApSkills(models.Model):
+    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+
+class ProjSciSkills(models.Model):
+    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+
+class ProjExtSkills(models.Model):
+    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+
+class ProjApAct(models.Model):
+    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+
+
+class ProjSciAct(models.Model):
+    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+
+
+class ProjExtAct(models.Model):
+    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+
+
+class UserProject(models.Model):
+    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    is_lead = models.BooleanField(default=False)
+#=========================================================================
+
 
 
 class AppForProject(models.Model):
