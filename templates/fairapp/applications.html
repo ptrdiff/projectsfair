@@ -20,7 +20,9 @@
       {% for app in apps %}
       <section class="constructor-box constructor-box--flat "  >
          <a href="{% url 'fairapp:moderdetailapplication' app.id %}" class="box-title ">
-         {{ app.id }}
+            {{ app.id }}
+            {{ app.project }}
+            {{ app.username }}
          </a>
          <div class="table-float table-float--large">
             <p>{{ app.covering_letter }}</p>

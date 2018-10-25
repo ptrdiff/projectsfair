@@ -118,7 +118,7 @@ class Tag(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    mname = models.CharField(null=False, blank = True, max_length=255, help_text="Middle name")
+    middle_name = models.CharField(null=False, blank = True, max_length=255, help_text="Middle name")
     phone = models.CharField(null=False, blank = True, max_length=32, help_text="Phone number")
 
     def __str__(self):
@@ -140,10 +140,13 @@ class EduProg(models.Model):
 
 
 class Education(models.Model):
-    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    id_edu = models.OneToOneField(EduInst, on_delete=models.CASCADE)
-    id_prog = models.OneToOneField(EduProg, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    edu = models.OneToOneField(EduInst, on_delete=models.CASCADE)
+    prog = models.OneToOneField(EduProg, on_delete=models.CASCADE)
     year = models.PositiveIntegerField(help_text="Graduation year")
+
+    def __str__(self):
+        return self.edu.__str__() + " " + self.prog.__str__() + " " + self.year.__str__()
 
 
 class Skill(models.Model):
@@ -153,41 +156,59 @@ class Skill(models.Model):
         return self.name
 
 
-class Activities(models.Model):
+class Activity(models.Model):
     name = models.CharField(null=False, blank=False, max_length=255, help_text="Activity name")
 
     def __str__(self):
         return self.name
 
 
-class ApSkills(models.Model):
-    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+class ApSkill(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.skill.__str__()
 
 
-class SciSkills(models.Model):
-    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+class SciSkill(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.skill.__str__()
 
 
-class ExtSkills(models.Model):
-    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+class ExtSkill(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.skill.__str__()
 
 
 class ApAct(models.Model):
-    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.act.__str__()
 
 
 class SciAct(models.Model):
-    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.act.__str__()
 
 
 class ExtAct(models.Model):
-    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.act.__str__()
 
 
 class Project(models.Model):
@@ -202,7 +223,8 @@ class Project(models.Model):
     date_req_end = models.DateField("Deadline for applications", default=date.today)
     tag = models.ManyToManyField(Tag, related_name='Tags')
     skill = models.ManyToManyField(Skill, related_name='Skills')
-    activity = models.ManyToManyField(Activities, related_name='Activities')
+    activity = models.ManyToManyField(Activity, related_name='Activities')
+    members = models.ManyToManyField(User, related_name='members', blank=True)
 
     PROJECT_STATUS = (
         ('m', 'Moderation'),
@@ -226,42 +248,60 @@ class Project(models.Model):
         return "/%i/" % self.id
 
 
-class ProjApSkills(models.Model):
-    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+class ProjApSkill(models.Model):
+    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.skill.__str__()
 
 
-class ProjSciSkills(models.Model):
-    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+class ProjSciSkill(models.Model):
+    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.skill.__str__()
 
 
-class ProjExtSkills(models.Model):
-    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    id_skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+class ProjExtSkill(models.Model):
+    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.skill.__str__()
 
 
 class ProjApAct(models.Model):
-    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.act.__str__()
 
 
 class ProjSciAct(models.Model):
-    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.act.__str__()
 
 
 class ProjExtAct(models.Model):
-    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    id_act = models.OneToOneField(Activities, on_delete=models.CASCADE)
+    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.act.__str__()
 
+'''
 class UserProject(models.Model):
-    id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
+    user = models.ManyToManyField(Profile, on_delete=models.CASCADE)
+    id_proj = models.ManyToManyField(Project, on_delete=models.CASCADE)
     is_lead = models.BooleanField(default=False)
 
-
+'''
 
 
 #=========================================================================

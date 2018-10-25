@@ -2,11 +2,15 @@
 {% load staticfiles %}
 {% block mainblock %}
       <p class = "post__desc"> От кого: {{ appforproject.user }}
-      </h2>
+      <p class = "post__desc"> Активности:
+      {% for skill in appforproject.user.extskill_set.all %}
+        {{ skill.skill }}
+      {% endfor %}
+      <p class = "post__desc"> Образование: {{ appforproject.user.education }}
+      <p class = "post__desc"> Проект: {{ appforproject.project.name }}
+
       <p class = "post__desc"> Сопроводительное письмо: {{ appforproject.covering_letter }}
-      </h3>
-      <p class = "post__desc"> Проект: {{ appforproject.project.project_name }}
-      </h3>
+
 
     <form method="post" action="{% url 'fairapp:approveapp' appforproject.id %}">
    {% csrf_token %}

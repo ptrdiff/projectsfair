@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Project, Skill, Profile, AppForProject, Education, EduInst, EduProg,\
-    Activities, ApSkills, SciSkills, ExtSkills, ApAct, SciAct, ExtAct, ProjApSkills, ProjSciSkills,\
-    ProjExtSkills, ProjApAct, ProjSciAct, ProjExtAct, UserProject, Tag
+    Activity, ApSkill, SciSkill, ExtSkill, ApAct, SciAct, ExtAct, ProjApSkill, ProjSciSkill,\
+    ProjExtSkill, ProjApAct, ProjSciAct, ProjExtAct, Tag
 
 
 '''class SkillInline(admin.TabularInline):
@@ -32,17 +32,16 @@ admin.site.register(AppForProject)
 admin.site.register(Education)
 admin.site.register(EduInst)
 admin.site.register(EduProg)
-admin.site.register(Activities)
-admin.site.register(ApSkills)
-admin.site.register(SciSkills)
-admin.site.register(ExtSkills)
+admin.site.register(Activity)
+admin.site.register(ApSkill)
+admin.site.register(SciSkill)
+admin.site.register(ExtSkill)
 admin.site.register(ApAct)
 admin.site.register(SciAct)
 admin.site.register(ExtAct)
-admin.site.register(ProjApSkills)
-admin.site.register(ProjSciSkills)
-admin.site.register(ProjExtSkills)
+admin.site.register(ProjApSkill)
+admin.site.register(ProjSciSkill)
+admin.site.register(ProjExtSkill)
 admin.site.register(ProjApAct)
 admin.site.register(ProjSciAct)
 admin.site.register(ProjExtAct)
-admin.site.register(UserProject)

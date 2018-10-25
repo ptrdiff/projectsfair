@@ -66,7 +66,7 @@ def index(request, page=1):
 @login_required
 def view_profile_projects(request, page=1):
     project_list = Project.objects.all().filter(members__in=[request.user.id])
-    paginator = Paginator(project_list.order_by('-pub_date'), 5)
+    paginator = Paginator(project_list.order_by('-date_start'), 5)
     if page > paginator.num_pages:
         page = 1
     try:
@@ -140,7 +140,6 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_project_list'
 
     def get_queryset(self):
-        """Return the last five published questions."""
         return Project.objects.order_by('date_req_end')[:5]
 
 
@@ -159,11 +158,6 @@ class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
     fields = ('name', 'descrip_short', 'descrip_full', 'num_participants', 'date_start',
               'date_end', 'date_req_end', 'tag', 'skill', 'activity')
-    '''def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.id_lead.add(self.request.user)
-        self.object.save()
-        return super(ModelFormMixin, self).form_valid(form)'''
 
     def form_valid(self, form):
         form.save()
