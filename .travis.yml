@@ -12,5 +12,5 @@ before_script:
 script:
   - python manage.py test
 after_success:
-  - sh .travis/deploy_dockerhub.sh
-  - sh .travis/deploy_heroku.sh
+  - bash .travis/deploy_dockerhub.sh
+  - bash .travis/deploy_heroku.sh
