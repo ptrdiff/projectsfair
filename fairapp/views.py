@@ -22,7 +22,6 @@ from django.shortcuts import render_to_response
 
 def and_filter(project_list, request, *fieldtofilter):
     q_dict = dict(six.iterlists(request.GET))
-#    print(q_dict)
     for field in fieldtofilter:
         project_list2 = []
 
@@ -30,21 +29,15 @@ def and_filter(project_list, request, *fieldtofilter):
             continue
 
         field_attribute = q_dict.get(field)
-#        print(skills)
         etalon=[]
         for s in field_attribute:
             etalon.append(apps.get_model('fairapp', field).objects.get(pk=s))
 
-#        print(project_list)
         length = len(project_list)
         for p in range(length):
             attr = getattr(project_list[p], field)
-#            print(project_list[p])
-#            print(etalon)
-#            print(list(attr.all()))
-#            print(set(list(attr.all()))&set(etalon)==set(etalon))
+
             if set(list(attr.all()))&set(etalon) == set(etalon):
-                #list(p.skill.all()) == etalon:
                 project_list2.append(project_list[p])
 
         if len(project_list2) > 0:
@@ -103,7 +96,7 @@ def view_profile_applications(request, page=1):
 @permission_required('fairapp.approve_project')
 def moderator_index(request, page=1):
     object_list = Project.objects.all().filter(status='m')
-    paginator = Paginator(object_list.order_by('-pub_date'), 5)
+    paginator = Paginator(object_list.order_by('-date_req_end'), 5)
     if page > paginator.num_pages:
         page = 1
     try:
@@ -148,7 +141,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Project.objects.order_by('pub_date')[:5]
+        return Project.objects.order_by('date_req_end')[:5]
 
 
 class DetailView(generic.DetailView):
@@ -161,14 +154,16 @@ class DetailView(generic.DetailView):
             return redirect('fairapp:index')
         return super(DetailView, self).dispatch(request, *args, **kwargs)
 
+
 class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
-    fields = ('project_name', 'start_date', 'end_date', 'brief_summary', 'content',
-              'app_deadline', 'num_places', 'type', 'tag', 'skill')
+    fields = ('name', 'descrip_short', 'descrip_full', 'num_participants', 'date_start',
+              'date_end', 'date_req_end', 'tag', 'skill', 'activity')
 
     def form_valid(self, form):
         form.save()
-        form.instance.head.add(self.request.user)
+        form.instance.places_left = form.instance.num_participants
+        form.instance.id_lead.add(self.request.user.id)  # apply user id as id_lead
         form.save()
         return super(ProjectCreate, self).form_valid(form)
 

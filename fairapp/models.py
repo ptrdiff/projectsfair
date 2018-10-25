@@ -8,14 +8,14 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 
-class Type(models.Model):
+'''class Type(models.Model):
     type_name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.type_name
 
 
-'''class Tag(models.Model):
+class Tag(models.Model):
     tag_name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -128,9 +128,15 @@ class Profile(models.Model):
 class EduInst(models.Model):
     name = models.CharField(null=False, blank=False, max_length=255, help_text="Institute name")
 
+    def __str__(self):
+        return self.name
+
 
 class EduProg(models.Model):
     name = models.CharField(null=False, blank=False, max_length=255, help_text="Program name")
+
+    def __str__(self):
+        return self.name
 
 
 class Education(models.Model):
@@ -143,9 +149,15 @@ class Education(models.Model):
 class Skill(models.Model):
     name = models.CharField(null=False, blank=False, max_length=255, help_text="Skill name", default="")
 
+    def __str__(self):
+        return self.name
+
 
 class Activities(models.Model):
     name = models.CharField(null=False, blank=False, max_length=255, help_text="Activity name")
+
+    def __str__(self):
+        return self.name
 
 
 class ApSkills(models.Model):
@@ -179,16 +191,27 @@ class ExtAct(models.Model):
 
 
 class Project(models.Model):
-    name = models.CharField(null=False, blank=False, max_length=255, help_text="Institute name", default="")
-    id_lead = models.OneToOneField(Profile, on_delete=models.CASCADE, default=0)
+    name = models.TextField(null=False, blank=False, max_length=255, help_text="Institute name", default="")
+    id_lead = models.ManyToManyField(Profile, related_name="id_lead")
     descrip_short = models.TextField(blank=False, max_length=1024, default="")
     descrip_full = models.TextField(blank=False, max_length=8192, default="")
-    num_participants = models.PositiveSmallIntegerField(help_text="Full number of places", default=0)
+    num_participants = models.PositiveSmallIntegerField(help_text="Full number of places")
     places_left = models.PositiveSmallIntegerField(help_text="Number of left places", default=0)
     date_start = models.DateField("Date of project start", default=date.today)
     date_end = models.DateField("Date of project end", default=date.today)
     date_req_end = models.DateField("Deadline for applications", default=date.today)
-    tag = models.ManyToManyField(Tag, related_name='tags')
+    tag = models.ManyToManyField(Tag, related_name='Tags')
+    skill = models.ManyToManyField(Skill, related_name='Skills')
+    activity = models.ManyToManyField(Activities, related_name='Activities')
+
+    PROJECT_STATUS = (
+        ('m', 'Moderation'),
+        ('c', 'Collecting participants'),
+        ('p', 'In progress'),
+        ('f', 'Finished'),
+        ('r', 'Rejected'),
+    )
+    status = models.CharField(max_length=1, choices=PROJECT_STATUS, blank=True, default='m', help_text='Project status')
 
     def __str__(self):
         return self.name
@@ -228,6 +251,7 @@ class UserProject(models.Model):
     id_user = models.OneToOneField(Profile, on_delete=models.CASCADE)
     id_proj = models.OneToOneField(Project, on_delete=models.CASCADE)
     is_lead = models.BooleanField(default=False)
+
 
 
 

@@ -19,13 +19,18 @@
 <aside class="constructor-aside col-xs-12 col-md-3  container ">
    <div class="g-hide-sm card-content" style="border:3px solid; border-color: #9f2d20;">
       <form method="get" action="{% url 'fairapp:search' %}" style="margin:5%;">
-         <p><label for="id_pub_date">Дата публикации:</label> {% render_field filter.form.pub_date class="datepicker" %}</p>
-         <p><label for="id_start_date">Дата начала:</label> {% render_field filter.form.start_date class="datepicker" %}</p>
-         <p><label for="id_end_date">Дата окончания:</label> {% render_field filter.form.end_date class="datepicker" %}</p>
-         <p><label for="id_app_deadline">Конец срока подачи заявок:</label> {% render_field filter.form.app_deadline class="datepicker" %}</p>
+         <p><label for="id_date_start">Дата начала:</label>
+            {% render_field filter.form.date_start class="datepicker" %}
+         </p>
+         <p><label for="id_date_end">Дата завершения:</label>
+            {% render_field filter.form.date_end class="datepicker" %}
+         </p>
+         <p><label for="id_date_req_end">Конец срока подачи заявок:</label>
+            {% render_field filter.form.date_req_end class="datepicker" %}
+         </p>
          <p>
-            <label for="id_type">Тип:</label>
-            {% render_field filter.form.type  %}
+            <label for="id_activity">Опыт:</label>
+            {% render_field filter.form.activity  %}
          </p>
          <p>
             <label for="id_skill">Умения:</label>
@@ -48,10 +53,10 @@
       {% for project in projects %}
       <section class="constructor-box constructor-box--flat "  >
          <a href="{% url 'fairapp:detail' project.id %}" class="box-title ">
-         {{ project.project_name }}
+         {{ project.name }}
          </a>
          <div class="table-float table-float--large">
-            <p>{{ project.brief_summary }}</p>
+            <p>{{ project.descrip_short }}</p>
          </div>
       </section>
       {% endfor %}

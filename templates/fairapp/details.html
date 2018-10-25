@@ -13,25 +13,22 @@
    {%   endfor %}</span>
 </div>
 <h1 class="post__title">
-   {{ project.project_name }}
+   {{ project.name }}
 </h1>
 <p class = "post__desc"> Руководитель:</br>
- {% for h in project.head.all %}{{ h.first_name}} {{ h.last_name }}
-     </br>
- {% endfor %}
+ {{ project.id_lead.fname }} {{ project.id_lead.lname }}
+    </br>
 </p>
-<p class = "post__desc"> Время начала: {{ project.start_date }}
+<p class = "post__desc"> Время начала: {{ project.date_start }}
 </p>
-<p class = "post__desc"> Содержимое проекта:</br>{{ project.content }}
+<p class = "post__desc"> Содержимое проекта:</br>{{ project.descrip_full }}
 </p>
 <p class = "post__desc"> Требуемые навыки:</br>
  {% for skill in project.skill.all %}{{ skill }}
      </br>
  {% endfor %}
 </p>
-<p class = "post__desc"> Тип: {{ project.type }}
-</p>
-<p class = "post__desc"> Время окончания: {{ project.end_date }}
+<p class = "post__desc"> Время окончания: {{ project.date_end }}
 </p>
     {% if perms.fairapp.approve_application %}
  <form method="post" action="{% url 'fairapp:approveproject' project.id %}">

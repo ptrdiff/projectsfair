@@ -14,44 +14,47 @@ menu-item--act
    <div class="row">
       <div class="row ">
          <div class="input-field col s12 ">
-            {% render_field form.project_name class="validate" maxlength="255" %}
-            <label for="project_name" >Название проекта</label>
+            {% render_field form.name class="materialize-textarea" maxlength="10" placeholder="Введите название проекта"%}
+            <label for="name">Название проекта</label>
          </div>
          <div class="input-field col s12 ">
-            {% render_field form.start_date class="datepicker" %}
-            <label for="start_date" >Дата начала</label>
+            {% render_field form.date_start class="datepicker" %}
+            <label for="date_start" >Дата начала</label>
          </div>
          <div class="input-field col s12 ">
-            {% render_field form.end_date class="datepicker" %}
-            <label for="end_date" >Дата окончания</label>
+            {% render_field form.date_end class="datepicker" %}
+            <label for="date_end" >Дата окончания</label>
          </div>
+
          <div class="input-field col s12">
-             {% render_field form.brief_summary class="materialize-textarea" %}
-            <label for="brief_summary">Краткое описание</label>
+             {% render_field form.descrip_short class="materialize-textarea" maxlength="1024" placeholder="Введите краткое описание проекта"%}
+            <label for="descrip_short">Краткое описание</label>
          </div>
+
          <div class="input-field col s12">
-            {% render_field form.content class="materialize-textarea" maxlength="2000" %}
-            <label for="content">Содержание</label>
+            {% render_field form.descrip_full  class="materialize-textarea" maxlength="8192" placeholder="Введите содержание проекта" %}
+            <label for="descrip_full">Содержание</label>
+         </div>
+
+         <div class="input-field col s12 ">
+             {% render_field form.date_req_end class="datepicker" %}
+            <label for="date_req_end" >Дата окончания приема заявок</label>
          </div>
          <div class="input-field col s12 ">
-             {% render_field form.app_deadline class="datepicker" %}
-            <label for="app_deadline" >Дата окончания приема заявок</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field form.num_places class="validate" %}
-            <label for="num_places" >Количество мест</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field form.type class="validate" %}
-            <label for="type">Тип</label>
+            {% render_field form.num_participants placeholder="Введите количество мест" %}
+            <label for="num_participants" >Общее количество мест</label>
          </div>
          <div class="input-field col s12 ">
             {% render_field form.skill class="validate" %}
-            <label for="type">Требуемые умения</label>
+            <label for="skill">Требуемые умения</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field form.activity class="validate" %}
+            <label for="activity">Требуемый опыт</label>
          </div>
          <div class="input-field col s12 ">
             {% render_field form.tag class="validate" %}
-            <label for="type">Теги</label>
+            <label for="tag">Теги</label>
          </div>
       </div>
       <footer class="center">

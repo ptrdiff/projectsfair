@@ -21,10 +21,10 @@
       {% for project in projects %}
       <section class="constructor-box constructor-box--flat "  >
          <a href="{% url 'fairapp:moderdetail' project.id %}" class="box-title ">
-         {{ project.project_name }}
+         {{ project.name }}
          </a>
          <div class="table-float table-float--large">
-            <p>{{ project.brief_summary }}</p>
+            <p>{{ project.descrip_short }}</p>
          </div>
       </section>
       {% endfor %}

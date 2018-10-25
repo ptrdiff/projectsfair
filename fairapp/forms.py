@@ -24,5 +24,4 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        #fields = ('interests', 'achievements', 'faculty', 'status', 'grade')
         fields = ('mname', 'phone')

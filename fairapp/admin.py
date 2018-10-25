@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Skill, Type, Profile, AppForProject, Education, EduInst, EduProg,\
+from .models import Project, Skill, Profile, AppForProject, Education, EduInst, EduProg,\
     Activities, ApSkills, SciSkills, ExtSkills, ApAct, SciAct, ExtAct, ProjApSkills, ProjSciSkills,\
     ProjExtSkills, ProjApAct, ProjSciAct, ProjExtAct, UserProject, Tag
 
@@ -24,11 +24,9 @@ class ProjectAdmin(admin.ModelAdmin):
     exclude = ['Tag']
 
 
-
 admin.site.register(Project)
 admin.site.register(Skill)
 admin.site.register(Tag)
-admin.site.register(Type)
 admin.site.register(Profile)
 admin.site.register(AppForProject)
 admin.site.register(Education)
