@@ -6,7 +6,7 @@ then
         HEROKU_APP_NAME = "$HEROKU_APP_NAME-debug"
     else
         HEROKU_APP_NAME = "$HEROKU_APP_NAME-staging"
-    if
+    fi
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     heroku container:login
     heroku create $HEROKU_APP_NAME
