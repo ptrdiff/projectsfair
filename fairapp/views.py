@@ -163,7 +163,7 @@ class ProjectCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.save()
         form.instance.places_left = form.instance.num_participants
-        form.instance.id_lead.add(self.request.user.id)  # apply user id as id_lead
+        form.instance.id_lead.add(self.request.user)  # apply user id as id_lead
         form.save()
         return super(ProjectCreate, self).form_valid(form)
 

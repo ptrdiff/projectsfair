@@ -192,10 +192,10 @@ class ExtAct(models.Model):
 
 class Project(models.Model):
     name = models.TextField(null=False, blank=False, max_length=255, help_text="Institute name", default="")
-    id_lead = models.ManyToManyField(Profile, related_name="id_lead")
+    id_lead = models.ManyToManyField(User, related_name="id_lead")
     descrip_short = models.TextField(blank=False, max_length=1024, default="")
     descrip_full = models.TextField(blank=False, max_length=8192, default="")
-    num_participants = models.PositiveSmallIntegerField(help_text="Full number of places")
+    num_participants = models.PositiveSmallIntegerField(help_text="Full number of places", default=5)
     places_left = models.PositiveSmallIntegerField(help_text="Number of left places", default=0)
     date_start = models.DateField("Date of project start", default=date.today)
     date_end = models.DateField("Date of project end", default=date.today)
@@ -203,6 +203,7 @@ class Project(models.Model):
     tag = models.ManyToManyField(Tag, related_name='Tags')
     skill = models.ManyToManyField(Skill, related_name='Skills')
     activity = models.ManyToManyField(Activities, related_name='Activities')
+
 
     PROJECT_STATUS = (
         ('m', 'Moderation'),

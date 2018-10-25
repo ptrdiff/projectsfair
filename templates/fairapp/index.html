@@ -40,6 +40,13 @@
             <label for="id_tag">Теги:</label>
             {% render_field filter.form.tag  %}
          </p>
+         <p style="margin: 15px" >
+            <label>
+              <input type="checkbox" class="filled-in" checked="checked" id="check"/>
+              <span>Есть свободные места</span>
+            </label>
+          </p>
+
          <div class="center">
             <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Поиск
             <i class="material-icons right">search</i>
