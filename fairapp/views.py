@@ -21,35 +21,38 @@ from django.shortcuts import render_to_response
 
 
 def and_filter(project_list, request, *fieldtofilter):
+    # print(len(project_list))
     q_dict = dict(six.iterlists(request.GET))
-#    print(q_dict)
+    requestedFields=[]
     for field in fieldtofilter:
-        project_list2 = []
-
         if field not in q_dict:
             continue
-
+        # [1,2,3...] - ids of field
         field_attribute = q_dict.get(field)
-#        print(skills)
-        etalon=[]
+
         for s in field_attribute:
-            etalon.append(apps.get_model('fairapp', field).objects.get(pk=s))
+            # get field name from theirs id
+            requestedFields.append(apps.get_model('fairapp', field).objects.get(pk=s))
+    if not requestedFields:
+        print("No attributes to search")
+        return project_list
+    print("Searching by: ", requestedFields)
 
-#        print(project_list)
-        length = len(project_list)
-        for p in range(length):
-            attr = getattr(project_list[p], field)
-#            print(project_list[p])
-#            print(etalon)
-#            print(list(attr.all()))
-#            print(set(list(attr.all()))&set(etalon)==set(etalon))
-            if set(list(attr.all()))&set(etalon) == set(etalon):
-                #list(p.skill.all()) == etalon:
-                project_list2.append(project_list[p])
-
-        if len(project_list2) > 0:
-            project_list = project_list2
-    return project_list
+    relevancePositions = [0]*(len(requestedFields)+1)
+    sortedProjects = []
+    for p in range(len(project_list)):
+        project_attrs = []
+        for field in fieldtofilter:
+            project_attrs.extend(list(getattr(project_list[p], field).all()))
+        print("id: ", p, "Project: ", project_list[p], "attrib: ", project_attrs)
+        print(set(requestedFields) & set(project_attrs))
+        numberOfMatches = len(set(requestedFields) & set(project_attrs))
+        print("number of matches: ", numberOfMatches, "project added to ", relevancePositions[numberOfMatches])
+        sortedProjects.insert(relevancePositions[numberOfMatches], project_list[p])
+        for pos in range(numberOfMatches+1):
+            relevancePositions[pos] += 1
+        print("Positions: ", relevancePositions)
+    return sortedProjects
 
 
 def index(request, page=1):
