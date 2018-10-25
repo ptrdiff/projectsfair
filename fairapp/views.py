@@ -161,7 +161,8 @@ class ProjectCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.save()
-        form.instance.id_lead.add(self.request.user)  # apply user id as id_lead
+        form.instance.id_lead.add(self.request.user)
+        form.instance.places_left = int(form.instance.num_participants)
         form.save()
         return super(ProjectCreate, self).form_valid(form)
 
@@ -263,9 +264,12 @@ def approve_application(request, pk):
     obj = AppForProject.objects.get(pk=pk)
     if request.POST['Decision'] == 'approve':
         obj.project.members.add(obj.user)
+        places = obj.project.places_left
+        obj.project.places_left = places - 1
         obj.status = 'a'
     elif request.POST['Decision'] == 'reject':
         obj.status = 'r'
+    obj.project.save()
     obj.save()
     return redirect('fairapp:index')
 
