@@ -1,9 +1,8 @@
 #!/bin/sh
-docker login -u $DOCKER_USER -p $DOCKER_PASS
-if [ "$TRAVIS_BRANCH" = "$RELEASE_BRANCH" ]; then
+if [[ "$TRAVIS_BRANCH" = "$RELEASE_BRANCH" && "$TRAVIS_PULL_REQUEST" = false ]] 
+then
     TAG="latest"
-else
-    TAG="$TRAVIS_BRANCH"
+    docker login -u $DOCKER_USER -p $DOCKER_PASS
+    docker build -f Dockerfile -t $DOCKER_USER/$REPO_NAME:$TAG .
+    docker push $DOCKER_USER/$REPO_NAME  
 fi
-docker build -f Dockerfile -t $DOCKER_USER/$REPO_NAME:$TAG .
-docker push $DOCKER_USER/$REPO_NAME
