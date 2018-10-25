@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [[ "$TRAVIS_BRANCH" = "$STAGING_BRANCH" ]]
 then
     if [[ "$TRAVIS_PULL_REQUEST" != false ]]

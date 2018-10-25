@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [[ "$TRAVIS_BRANCH" = "$RELEASE_BRANCH" && "$TRAVIS_PULL_REQUEST" = false ]] 
 then
     TAG="latest"
