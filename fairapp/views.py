@@ -21,22 +21,17 @@ from django.shortcuts import render_to_response
 
 
 def and_filter(project_list, request, *fieldtofilter):
-    # print(len(project_list))
     q_dict = dict(six.iterlists(request.GET))
     requestedFields=[]
     for field in fieldtofilter:
         if field not in q_dict:
             continue
-        # [1,2,3...] - ids of field
         field_attribute = q_dict.get(field)
 
         for s in field_attribute:
-            # get field name from theirs id
             requestedFields.append(apps.get_model('fairapp', field).objects.get(pk=s))
     if not requestedFields:
-        print("No attributes to search")
         return project_list
-    print("Searching by: ", requestedFields)
 
     relevancePositions = [0]*(len(requestedFields)+1)
     sortedProjects = []
@@ -44,14 +39,10 @@ def and_filter(project_list, request, *fieldtofilter):
         project_attrs = []
         for field in fieldtofilter:
             project_attrs.extend(list(getattr(project_list[p], field).all()))
-        print("id: ", p, "Project: ", project_list[p], "attrib: ", project_attrs)
-        print(set(requestedFields) & set(project_attrs))
         numberOfMatches = len(set(requestedFields) & set(project_attrs))
-        print("number of matches: ", numberOfMatches, "project added to ", relevancePositions[numberOfMatches])
         sortedProjects.insert(relevancePositions[numberOfMatches], project_list[p])
         for pos in range(numberOfMatches+1):
             relevancePositions[pos] += 1
-        print("Positions: ", relevancePositions)
     return sortedProjects
 
 
