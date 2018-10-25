@@ -18,7 +18,7 @@ from django.utils import six
 from django.apps import apps
 from django.db import IntegrityError
 from django.shortcuts import render_to_response
-
+from django.views.generic.edit import ModelFormMixin
 
 def and_filter(project_list, request, *fieldtofilter):
     q_dict = dict(six.iterlists(request.GET))
@@ -159,10 +159,14 @@ class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
     fields = ('name', 'descrip_short', 'descrip_full', 'num_participants', 'date_start',
               'date_end', 'date_req_end', 'tag', 'skill', 'activity')
+    '''def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.id_lead.add(self.request.user)
+        self.object.save()
+        return super(ModelFormMixin, self).form_valid(form)'''
 
     def form_valid(self, form):
         form.save()
-        form.instance.places_left = form.instance.num_participants
         form.instance.id_lead.add(self.request.user)  # apply user id as id_lead
         form.save()
         return super(ProjectCreate, self).form_valid(form)

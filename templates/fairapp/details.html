@@ -15,9 +15,10 @@
 <h1 class="post__title">
    {{ project.name }}
 </h1>
-<p class = "post__desc"> Руководитель:</br>
- {{ project.id_lead }} {{ project.id_lead.first_name }} {{ project.id_lead.last_name }}
-    </br>
+<p class = "post__desc"> Руководитель:
+    {% for lead in project.id_lead.all %}
+        {{ lead.first_name}} {{ lead.last_name }}
+    {% endfor %}
 </p>
 <p class = "post__desc"> Время начала: {{ project.date_start }}
 </p>

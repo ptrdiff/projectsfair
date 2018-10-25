@@ -10,11 +10,11 @@ menu-item--act
 {% block mainblock %}
 <p class="flow-text center" style="font-size: 28px;">Создание проекта</p>
 <form action="{% url 'fairapp:project_create' %}"  method='post' id="form1">
-   {% csrf_token %}
+{% csrf_token %}
    <div class="row">
       <div class="row ">
          <div class="input-field col s12 ">
-            {% render_field form.name class="materialize-textarea" maxlength="10" placeholder="Введите название проекта"%}
+            {% render_field form.name class="materialize-textarea" maxlength="255" placeholder="Введите название проекта"%}
             <label for="name">Название проекта</label>
          </div>
          <div class="input-field col s12 ">

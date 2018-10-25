@@ -204,7 +204,6 @@ class Project(models.Model):
     skill = models.ManyToManyField(Skill, related_name='Skills')
     activity = models.ManyToManyField(Activities, related_name='Activities')
 
-
     PROJECT_STATUS = (
         ('m', 'Moderation'),
         ('c', 'Collecting participants'),
@@ -216,6 +215,15 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = (
+            ("approve_project", "Can approve project"),
+            ("reject_project", "Can reject project"),
+        )
+
+    def get_absolute_url(self):
+        return "/%i/" % self.id
 
 
 class ProjApSkills(models.Model):
