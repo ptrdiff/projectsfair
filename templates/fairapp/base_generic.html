@@ -98,23 +98,28 @@
                   <li class="menu-item {% block menu1 %}{% endblock %}">
                      <a href="{% url 'fairapp:index'%}" >Главная</a><i class="menu-item__line"></i>
                   </li>
+
                    {% if user.is_authenticated %}
-                  <li class="menu-item {% block menu2 %}{% endblock %}">
-                     <a href="{% url 'fairapp:logout'%}?next={{request.path}}" >Выйти</a><i class="menu-item__line"></i>
-                  </li>
+
                   <li class="menu-item {% block menu3 %}{% endblock %}">
                      <a href="{% url 'fairapp:project_create'%}" >Создать проект</a><i class="menu-item__line"></i>
                   </li>
                   <li class="menu-item {% block menu4 %}{% endblock %}">
                      <a href="{% url 'fairapp:view_profile'%}" >Мой профиль</a><i class="menu-item__line"></i>
                   </li>
+                   <li class="menu-item {% block menu2 %}{% endblock %}">
+                     <a href="{% url 'fairapp:logout'%}?next={{request.path}}" >Выйти</a><i class="menu-item__line"></i>
+                  </li>
+
                    {% else %}
+
                   <li class="menu-item {% block menu5 %}{% endblock %}">
                      <a href="{% url 'fairapp:login'%}?next={{request.path}}" >Войти</a><i class="menu-item__line"></i>
                   </li>
                    <li class="menu-item {% block menu6 %}{% endblock %}">
                      <a href="{% url 'fairapp:signup'%}?next={{request.path}}" >Регистрация</a><i class="menu-item__line"></i>
                   </li>
+
                    {% endif %}
                </ul>
 

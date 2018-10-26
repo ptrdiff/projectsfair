@@ -25,23 +25,23 @@
                <div class="row">
                   <div class="input-field col s12 m12">
                      <i class="material-icons prefix">assignment_ind</i>
-                     {% render_field form.username class="validate" %}
+                     {% render_field form.username class="validate" placeholder="Введите имя пользователя" %}
                      <label for="username" >Имя пользователя</label>
                   </div>
                   <div class="input-field col s12 m12">
                      <i class="material-icons prefix">lock</i>
-                      {% render_field form.password class="validate" %}
+                      {% render_field form.password class="validate" placeholder="Введите пароль" %}
                      <label for="password">Пароль</label>
                   </div>
                   <div class="center">
-                     <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Войти
+                     <button class="btn waves-effect waves-light grey darken-4" type="submit" name="action">Войти
                      <i class="material-icons right">send</i>
                      </button>
                   </div>
                </div>
             </form>
          </div>
-         <p class="flow-text center" style="font-size: 18px;"><a href="{% url 'fairapp:signup' %}" style="cursor: pointer; color:#9f2d20; " id="reg">Зарегиструйтесь </a>, если нет аккаунта </p>
+         <p class="flow-text center" style="font-size: 18px;"><a href="{% url 'fairapp:signup' %}" style="cursor: pointer; color:#9f2d20; " id="reg">Зарегиструйтесь</a>, если нет аккаунта </p>
          <p class="flow-text center" style="font-size: 18px;"><a href="{% url 'fairapp:password_reset' %}" style="cursor: pointer; color:#9f2d20; " id="reg">Восстановить пароль </p>
       </div>
    </div>

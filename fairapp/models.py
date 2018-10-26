@@ -140,9 +140,9 @@ class EduProg(models.Model):
 
 
 class Education(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    edu = models.OneToOneField(EduInst, on_delete=models.CASCADE)
-    prog = models.OneToOneField(EduProg, on_delete=models.CASCADE)
+    user = models.ManyToManyField(User, default=0)
+    edu = models.ManyToManyField(EduInst, default=0)
+    prog = models.ManyToManyField(EduProg, default=0)
     year = models.PositiveIntegerField(help_text="Graduation year")
 
     def __str__(self):
