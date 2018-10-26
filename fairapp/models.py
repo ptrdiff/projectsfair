@@ -152,13 +152,11 @@ class Activity(models.Model):
     def __str__(self):
         return self.name
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     middle_name = models.CharField(null=False, blank=True, max_length=255, help_text="Middle name")
     phone = models.CharField(null=False, blank=True, max_length=32, help_text="Phone number")
     education = models.ManyToManyField(Education, default=0)
-
     ap_skill = models.ManyToManyField(Skill, default=0, related_name="ap_skill", through="ApSkill", through_fields=('user', 'skill'))
     sci_skill = models.ManyToManyField(Skill, default=0, related_name="sci_skill", through="SciSkill",through_fields=('user', 'skill'))
     ext_skill = models.ManyToManyField(Skill, default=0, related_name="ext_skill", through="ExtSkill",through_fields=('user', 'skill'))

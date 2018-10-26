@@ -2,10 +2,16 @@
 {% load staticfiles %}
 {% block mainblock %}
       <p class = "post__desc"> От кого: {{ appforproject.user }}
-      <p class = "post__desc"> Активности:
+      <p class = "post__desc"> E-mail: {{ appforproject.user.email }}
+
+      <p class = "post__desc"> Опыт:
       {% for skill in appforproject.user.extskill_set.all %}
         {{ skill.skill }}
       {% endfor %}
+
+      <p class = "post__desc"> Активности:
+      <!-- Добавить сюда вывод списка активностей, возможно, табличкой -->
+
       <p class = "post__desc"> Образование: {{ appforproject.user.education }}
       <p class = "post__desc"> Проект: {{ appforproject.project.name }}
 
@@ -15,8 +21,8 @@
     <form method="post" action="{% url 'fairapp:approveapp' appforproject.id %}">
    {% csrf_token %}
    <div>
-      <input type="submit" value="approve" name="Decision"/>
-       <input type="submit" value="reject" name="Decision"/>
+       <button class="btn waves-effect waves-light" type="submit" value="approve" name="Decision">Approve</button>
+       <button class="btn waves-effect waves-light" type="submit" value="reject" name="Decision" style="background-color: #9f2d20">Reject</button>
    </div>
 </form>
 {% endblock %}

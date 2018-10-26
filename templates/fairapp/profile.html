@@ -11,16 +11,37 @@
 </p>
 <p class = "post__desc"> Фамилия: {{ profile.user.last_name }}
 </p>
-<p class = "post__desc"> Интересы:</br>{{ profile.interests }}
+{% if profile.user.mname %}
+<p class = "post__desc"> Отчество: {{ profile.user.mname }}
 </p>
-<p class = "post__desc"> Достижения:</br>{{ profile.achievements }}
-</p>
-<p class = "post__desc"> Факультет: {{ profile.get_faculty_display }}
-</p>
-<p class = "post__desc"> Статус: {{ profile.get_status_display }}
-</p>
+{% endif %}
+
+<div class="row">
+    <div class="col-sm-4">
+      <p class = "post__desc"> Прикладные навыки: </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Научные навыки: </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Внеучебные навыки: </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+      <p class = "post__desc"> Прикладные активности: </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Научные активности: </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Внеучебные активности: </p>
+    </div>
+  </div>
+
+
 {% if profile.grade %}
-<p class = "post__desc"> Уровень образования: {{ profile.grade }}
+<p class = "post__desc"> Образование: <!-- Вывести список учреждений и программ -->
 </p>
 {% endif %}
 
