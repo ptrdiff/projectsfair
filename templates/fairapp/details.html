@@ -35,8 +35,11 @@
  <form method="post" action="{% url 'fairapp:approveproject' project.id %}">
    {% csrf_token %}
    <div>
-      <input type="submit" value="approve" name="Decision"/>
-      <input type="submit" value="reject" name="Decision"/>
+       <button class="btn waves-effect waves-light" type="submit" value="approve" name="Decision">Approve</button>
+       <button class="btn waves-effect waves-light" type="submit" value="reject" name="Decision" style="background-color: #9f2d20">Reject</button>
+
+      <!--<input type="submit" class="btn waves-effect waves-light" value="approve" name="Decision"/>
+      <input type="submit" class="btn waves-effect waves-light" value="reject" name="Decision"/>-->
    </div>
 </form>
     {% endif %}
