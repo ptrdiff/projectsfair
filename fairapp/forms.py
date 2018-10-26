@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
+from .models import Profile, Skill, Activity
 from django.contrib.auth.models import User
 
 
@@ -25,3 +25,15 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('middle_name', 'phone')
+
+
+class SkillForm(forms.ModelForm):
+    class Meta:
+        model = Skill
+        fields = ('name', )
+
+
+class ActivityForm(forms.ModelForm):
+    class Meta:
+        model = Activity
+        fields = ('name', )

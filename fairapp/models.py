@@ -116,15 +116,6 @@ class Tag(models.Model):
         return self.name
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    middle_name = models.CharField(null=False, blank = True, max_length=255, help_text="Middle name")
-    phone = models.CharField(null=False, blank = True, max_length=32, help_text="Phone number")
-
-    def __str__(self):
-        return self.user.username
-
-
 class EduInst(models.Model):
     name = models.CharField(null=False, blank=False, max_length=255, help_text="Institute name")
 
@@ -140,7 +131,6 @@ class EduProg(models.Model):
 
 
 class Education(models.Model):
-    user = models.ManyToManyField(User, default=0)
     edu = models.ManyToManyField(EduInst, default=0)
     prog = models.ManyToManyField(EduProg, default=0)
     year = models.PositiveIntegerField(help_text="Graduation year")
@@ -163,49 +153,66 @@ class Activity(models.Model):
         return self.name
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    middle_name = models.CharField(null=False, blank=True, max_length=255, help_text="Middle name")
+    phone = models.CharField(null=False, blank=True, max_length=32, help_text="Phone number")
+    education = models.ManyToManyField(Education, default=0)
+
+    ap_skill = models.ManyToManyField(Skill, default=0, related_name="ap_skill", through="ApSkill", through_fields=('user', 'skill'))
+    sci_skill = models.ManyToManyField(Skill, default=0, related_name="sci_skill", through="SciSkill",through_fields=('user', 'skill'))
+    ext_skill = models.ManyToManyField(Skill, default=0, related_name="ext_skill", through="ExtSkill",through_fields=('user', 'skill'))
+    ap_act = models.ManyToManyField(Activity, default=0, related_name="ap_act",through="ApAct")
+    sci_act = models.ManyToManyField(Activity, default=0, related_name="sci_act",through="SciAct")
+    ext_act = models.ManyToManyField(Activity, default=0, related_name="ext_act",through="ExtAct")
+
+    def __str__(self):
+        return self.user.username
+
+
 class ApSkill(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.skill.__str__()
 
 
 class SciSkill(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.skill.__str__()
 
 
 class ExtSkill(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.skill.__str__()
 
 
 class ApAct(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    act = models.ForeignKey(Activity, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.act.__str__()
 
 
 class SciAct(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    act = models.ForeignKey(Activity, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.act.__str__()
 
 
 class ExtAct(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    act = models.ForeignKey(Activity, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.act.__str__()
@@ -249,48 +256,48 @@ class Project(models.Model):
 
 
 class ProjApSkill(models.Model):
-    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+    proj = models.ManyToManyField(Project, default=0)
+    skill = models.ManyToManyField(Skill, default=0)
 
     def __str__(self):
         return self.skill.__str__()
 
 
 class ProjSciSkill(models.Model):
-    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+    proj = models.ManyToManyField(Project, default=0)
+    skill = models.ManyToManyField(Skill, default=0)
 
     def __str__(self):
         return self.skill.__str__()
 
 
 class ProjExtSkill(models.Model):
-    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
+    proj = models.ManyToManyField(Project, default=0)
+    skill = models.ManyToManyField(Skill, default=0)
 
     def __str__(self):
         return self.skill.__str__()
 
 
 class ProjApAct(models.Model):
-    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+    proj = models.ManyToManyField(Project, default=0)
+    act = models.ManyToManyField(Activity, default=0)
 
     def __str__(self):
         return self.act.__str__()
 
 
 class ProjSciAct(models.Model):
-    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+    proj = models.ManyToManyField(Project, default=0)
+    act = models.ManyToManyField(Activity, default=0)
 
     def __str__(self):
         return self.act.__str__()
 
 
 class ProjExtAct(models.Model):
-    proj = models.OneToOneField(Project, on_delete=models.CASCADE)
-    act = models.OneToOneField(Activity, on_delete=models.CASCADE)
+    proj = models.ManyToManyField(Project, default=0)
+    act = models.ManyToManyField(Activity, default=0)
 
     def __str__(self):
         return self.act.__str__()

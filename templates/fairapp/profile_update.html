@@ -11,24 +11,36 @@
    <div class="row">
       <div class="row ">
          <div class="input-field col s12 ">
-             {% render_field user_form.first_name class="validate" maxlength="255" %}
+             {% render_field user_form.first_name class="validate" maxlength="255" placeholder="Введите имя" %}
             <label for="start_date" >Имя</label>
          </div>
          <div class="input-field col s12 ">
-             {% render_field user_form.last_name class="validate" maxlength="255" %}
+             {% render_field user_form.last_name class="validate" maxlength="255" placeholder="Введите фамилию" %}
             <label for="end_date" >Фамилия</label>
          </div>
          <div class="input-field col s12">
-              {% render_field user_form.email class="validate" maxlength="255" %}
+              {% render_field user_form.email class="validate" maxlength="255" placeholder="Введите e-mail" %}
             <label for="brief_summary">Email</label>
          </div>
-         <div class="input-field col s12">
-            {% render_field profile_form.interests class="validate" maxlength="255" %}
-            <label for="content">Интересы</label>
+
+
+          <div class="input-field col s12 ">
+            {% render_field skill_form.name class="validate" %}
+            <label for="tag">Скиллы</label>
          </div>
+
+
+
+         <div class="input-field col s12">
+            {% render_field profile_form.ApSkill class="validate" maxlength="255" %}
+            <label for="content">Прикладной опыт</label>
+         </div>
+
+
+
          <div class="input-field col s12 ">
-             {% render_field profile_form.achievements class="validate" maxlength="255" %}
-            <label for="app_deadline" >Достижения</label>
+             {% render_field project_form.ApAct class="validate" maxlength="255" %}
+            <label for="app_deadline" >Прикладные активности</label>
          </div>
          <div class="input-field col s12 ">
               <select name="faculty">
