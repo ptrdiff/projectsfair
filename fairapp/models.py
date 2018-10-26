@@ -152,6 +152,7 @@ class Activity(models.Model):
     def __str__(self):
         return self.name
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     middle_name = models.CharField(null=False, blank=True, max_length=255, help_text="Middle name")
