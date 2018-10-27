@@ -1,87 +1,116 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
 {% block title %}
- <title>Изменить профиль - Ярмарка проектов</title>
+<title>Изменить профиль - Ярмарка проектов</title>
 {% endblock %}
 {% load widget_tweaks %}
 {% block mainblock %}
 <p class="flow-text center" style="font-size: 28px;">Изменение профиля</p>
-<form action="{% url 'fairapp:update_profile' %}"  method='post' id="form1">
-   {% csrf_token %}
-   <div class="row">
-      <div class="row ">
-         <div class="input-field col s12 ">
-             {% render_field user_form.first_name class="validate" maxlength="255" placeholder="Введите имя" %}
-            <label for="start_date" >Имя</label>
-         </div>
-         <div class="input-field col s12 ">
-             {% render_field user_form.last_name class="validate" maxlength="255" placeholder="Введите фамилию" %}
-            <label for="end_date" >Фамилия</label>
-         </div>
-         <div class="input-field col s12">
-              {% render_field user_form.email class="validate" maxlength="255" placeholder="Введите e-mail" %}
-            <label for="brief_summary">Email</label>
-         </div>
-      Образование:
-        <div class="input-field col s12 ">
-            {% render_field education_form.edu class="validate" %}
-            <label for="edu">ВУЗ</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field education_form.faculty class="validate" %}
-            <label for="faculty">Факультет</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field education_form.prog class="validate" %}
-            <label for="prog">Программа</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field education_form.stage class="validate" %}
-            <label for="stage">Ступень</label>
-         </div>
-        <div class="input-field col s12 ">
-            {% render_field education_form.year class="validate" placeholder="Введите год выпуска"%}
-            <label for="year">Год выпуска</label>
-         </div>
-         <div class="input-field col s12 ">
-            {% render_field skill_form.name class="validate" %}
-            <label for="tag">Скиллы</label>
-         </div>
-         <div class="input-field col s12">
-            {% render_field profile_form.ApSkill class="validate" maxlength="255" %}
-            <label for="content">Прикладной опыт</label>
-         </div>
-         <div class="input-field col s12 ">
-             {% render_field project_form.ApAct class="validate" maxlength="255" %}
-            <label for="app_deadline" >Прикладные активности</label>
-         </div>
-         <div class="input-field col s12 ">
-              <select name="faculty">
-                {% for x,y in profile_form.fields.faculty.choices %}
-                <option value="{{ x }}" {% if profile_form.fields.faculty.value == x %} selected {% endif %}>{{ y }}</option>
-                {% endfor %}
-              </select>
-            <label for="num_places" >Факультет</label>
-         </div>
-         <div class="input-field col s12 ">
-              <select name="status">
-                {% for x,y in profile_form.fields.status.choices %}
-                <option value="{{ x }}" {% if profile_form.fields.status.value == x %} class="selected" {% endif %}>{{ y }}</option>
-                {% endfor %}
-              </select>
-            <label for="num_places" >Статус</label>
-         </div>
-         <div class="input-field col s12 " style="display: block">
-            {% render_field profile_form.grade class="validate" maxlength="255" %}
-            <label for="type">Курс</label>
-         </div>
-      </div>
-      <footer class="center">
-         <button class="btn waves-effect waves-light grey darken-4"  type="submit" name="action">Изменить
-         <i class="material-icons right">send</i>
-         </button>
-      </footer>
-   </div>
+<form action="{% url 'fairapp:update_profile' %}" method='post' id="form1">
+    {% csrf_token %}
+    <div class="row">
+        <div class="row ">
+            <div class="input-field col s12 ">
+                {% render_field user_form.first_name class="validate" maxlength="255" placeholder="Введите имя" %}
+                <label for="start_date">Имя</label>
+            </div>
+            <div class="input-field col s12 ">
+                {% render_field user_form.last_name class="validate" maxlength="255" placeholder="Введите фамилию" %}
+                <label for="end_date">Фамилия</label>
+            </div>
+            <div class="input-field col s12">
+                {% render_field user_form.email class="validate" maxlength="255" placeholder="Введите e-mail" %}
+                <label for="brief_summary">Email</label>
+            </div>
+            Образование:
+
+            <div class="input-field col s12 ">
+                {% render_field education_form.edu class="validate" %}
+                <label for="edu">ВУЗ</label>
+            </div>
+            <div class="input-field col s12 ">
+                {% render_field education_form.faculty class="validate" %}
+                <label for="faculty">Факультет</label>
+            </div>
+            <div class="input-field col s12 ">
+                {% render_field education_form.prog class="validate" %}
+                <label for="prog">Программа</label>
+            </div>
+            <div class="input-field col s12 ">
+                {% render_field education_form.stage class="validate" %}
+                <label for="stage">Ступень</label>
+            </div>
+            <div class="input-field col s12 ">
+                {% render_field education_form.year class="validate" placeholder="Введите год выпуска"%}
+                <label for="year">Год выпуска</label>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="name">Прикладные навыки:</label>
+                    {% render_field filter.form.ap_skill %}
+                </div>
+                <div class="col-sm-4">
+                    <label for="name">Научные скиллы</label>
+                    {% render_field filter.form.sci_skill %}
+                </div>
+                <div class="col-sm-4">
+                    <label for="name">Внеучебные скиллы</label>
+                    {% render_field filter.form.ext_skill %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="name">Прикладные активности:</label>
+                    {% render_field filter.form.ap_act %}
+                </div>
+                <div class="col-sm-4">
+                    <label for="name">Научные активности</label>
+                    {% render_field filter.form.sci_act %}
+                </div>
+                <div class="col-sm-4">
+                    <label for="name">Внеучебные активности</label>
+                    {% render_field filter.form.ext_act %}
+                </div>
+            </div>
+
+
+            <!--<div class="input-field col s12">
+               {% render_field profile_form.ApSkill class="validate" maxlength="255" %}
+               <label for="content">Прикладной опыт</label>
+            </div>
+            <div class="input-field col s12 ">
+                {% render_field project_form.ApAct class="validate" maxlength="255" %}
+               <label for="app_deadline" >Прикладные активности</label>
+            </div>
+            <div class="input-field col s12 ">
+                 <select name="faculty">
+                   {% for x,y in profile_form.fields.faculty.choices %}
+                   <option value="{{ x }}" {% if profile_form.fields.faculty.value == x %} selected {% endif %}>{{ y }}</option>
+                   {% endfor %}
+                 </select>
+               <label for="num_places" >Факультет</label>
+            </div>
+            <div class="input-field col s12 ">
+                 <select name="status">
+                   {% for x,y in profile_form.fields.status.choices %}
+                   <option value="{{ x }}" {% if profile_form.fields.status.value == x %} class="selected" {% endif %}>{{ y }}</option>
+                   {% endfor %}
+                 </select>
+               <label for="num_places" >Статус</label>
+            </div>
+            <div class="input-field col s12 " style="display: block">
+               {% render_field profile_form.grade class="validate" maxlength="255" %}
+               <label for="type">Курс</label>
+            </div>-->
+        </div>
+        <footer class="center">
+            <button class="btn waves-effect waves-light grey darken-4" type="submit" name="action">Изменить
+                <i class="material-icons right">send</i>
+            </button>
+        </footer>
+    </div>
 </form>
 {% endblock %}
 {% block scripts %}
@@ -91,5 +120,6 @@
     $(document).ready(function(){
     $('select').formSelect();
     });
+
 </script>
 {% endblock %}

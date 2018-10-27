@@ -1,12 +1,12 @@
 from django.http import HttpResponseRedirect
 from django.views import generic
-from .models import Project, AppForProject, Education, Skill
+from .models import Project, AppForProject, Education, ApSkill, Skill
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from fairapp.forms import SignUpForm, EducationForm
+from fairapp.forms import SignUpForm, EducationForm, ApSkillForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
-from .filters import ProjectFilter
+from .filters import ProjectFilter, SkillFilter
 from .forms import UserForm, ProfileForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
@@ -216,10 +216,19 @@ def update_profile(request):
             print("THERE")
             education_form = EducationForm(request.POST, instance=education)
 
-        if user_form.is_valid() and profile_form.is_valid() and education_form.is_valid():
+        apskills = request.user.profile.ap_skill.all()
+        if apskills:
+            apskills_form = ApSkillForm(request.POST, instance=request.user.profile.ap_skill.get_or_create(pk=apskills[0].id))
+        else:
+            apskill = request.user.profile.ap_skill.get_or_create(pk=0)
+            apskill.save()
+            apskills_form = ApSkillForm(request.POST, instance=ap_skill)
+
+        if user_form.is_valid() and profile_form.is_valid() and education_form.is_valid() and apskills_form.is_valid():
             user_form.save()
             profile_form.save()
             education_form.save()
+            apskills_form.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('/profile')
         else:
@@ -228,10 +237,17 @@ def update_profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
         education_form = EducationForm()
+        apskills_form = ApSkillForm()
+
+        skill_list = Skill.objects.all()
+        skill_filter = SkillFilter(request.GET, queryset=skill_list)
+        print(skill_filter.qs)
     return render(request, 'fairapp/profile_update.html', {
         'user_form': user_form,
         'profile_form': profile_form,
-        'education_form': education_form
+        'education_form': education_form,
+        'apskills_form': apskills_form,
+        'filter': skill_filter,
     })
 
 

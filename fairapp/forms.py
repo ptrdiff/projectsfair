@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, Education, EduInst, EduProg, Skill, Activity
+from .models import Profile, Education, EduInst, EduProg, ApSkill, Activity
 from django.contrib.auth.models import User
 
 
@@ -27,9 +27,15 @@ class ProfileForm(forms.ModelForm):
         fields = ('middle_name', 'phone')
 
 
-class EducationForm (forms.ModelForm):
+class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
+        fields = '__all__'
+
+
+class ApSkillForm(forms.ModelForm):
+    class Meta:
+        model = ApSkill
         fields = '__all__'
 
     '''def __init__(self, *args, **kwargs):
