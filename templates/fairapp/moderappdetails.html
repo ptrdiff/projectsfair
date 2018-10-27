@@ -1,28 +1,81 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
 {% block mainblock %}
-      <p class = "post__desc"> От кого: {{ appforproject.user }}
-      <p class = "post__desc"> E-mail: {{ appforproject.user.email }}
+<p class="post__desc"> От кого: {{ appforproject.user }}
+<p class="post__desc"> E-mail: {{ appforproject.user.email }}
 
-      <p class = "post__desc"> Опыт:
-      {% for skill in appforproject.user.extskill_set.all %}
-        {{ skill.skill }}
+<div class="row">
+    <div class="col-sm-4">
+      <p class = "post__desc"> Прикладные навыки:
+          {% for skill in appforproject.user.profile.ap_skill.all %}
+              <br>{{ skill }}
+          {% endfor %}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Научные навыки:
+          {% for skill in appforproject.user.profile.sci_skill.all %}
+              <br>{{ skill }}
+          {% endfor %}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Внеучебные навыки:
+          {% for skill in appforproject.user.profile.ext_skill.all %}
+              <br>{{ skill }}
+          {% endfor %}
+      </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+      <p class = "post__desc"> Прикладные активности:
+      {% for act in appforproject.user.profile.ap_act.all %}
+          <br>{{ act }}
       {% endfor %}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Научные активности:
+      {% for act in appforproject.user.profile.sci_act.all %}
+          <br>{{ act }}
+      {% endfor %}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Внеучебные активности:
+      {% for act in profile.ext_act.all %}
+          <br>{{ act }}
+      {% endfor %}
+      </p>
+    </div>
+</div>
 
-      <p class = "post__desc"> Активности:
-      <!-- Добавить сюда вывод списка активностей, возможно, табличкой -->
+<p class = "post__desc"> Образование:
+    {% if profile.education %}
+    {% for ed in appforproject.user.profile.education.all %}
+        <br>ВУЗ: {{ ed.edu }}
+        <br>Факультет: {{ ed.faculty }}
+        <br>Программа: {{ ed.prog }}
+        <br>Ступень: {{ ed.stage }}
+        <br>Год выпуска: {{ ed.year }}
+    {% endfor %}
+    {% endif %}
 
-      <p class = "post__desc"> Образование: {{ appforproject.user.education }}
-      <p class = "post__desc"> Проект: {{ appforproject.project.name }}
+</p>
+<!--<p class="post__desc"> Образование: {{ appforproject.user.education }}-->
+<p class="post__desc"> Проект: {{ appforproject.project.name }}
 
-      <p class = "post__desc"> Сопроводительное письмо: {{ appforproject.covering_letter }}
+<p class="post__desc"> Сопроводительное письмо: {{ appforproject.covering_letter }}
 
 
-    <form method="post" action="{% url 'fairapp:approveapp' appforproject.id %}">
-   {% csrf_token %}
-   <div>
-       <button class="btn waves-effect waves-light" type="submit" value="approve" name="Decision">Approve</button>
-       <button class="btn waves-effect waves-light" type="submit" value="reject" name="Decision" style="background-color: #9f2d20">Reject</button>
-   </div>
+<form method="post" action="{% url 'fairapp:approveapp' appforproject.id %}">
+    {% csrf_token %}
+    <div>
+        <button class="btn waves-effect waves-light" type="submit" value="approve" name="Decision">Approve</button>
+        <button class="btn waves-effect waves-light" type="submit" value="reject" name="Decision"
+                style="background-color: #9f2d20">Reject
+        </button>
+    </div>
 </form>
 {% endblock %}
