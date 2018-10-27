@@ -22,10 +22,15 @@
 </p>
 <p class="post__desc"> Время начала: {{ project.date_start }}
 </p>
-<p class="post__desc"> Содержимое проекта:</br>{{ project.descrip_full }}
+<p class="post__desc"> Содержимое проекта: {{ project.descrip_full }}
 </p>
-<p class="post__desc"> Требуемые навыки:</br>
+<p class="post__desc"> Требуемые навыки:<br>
     {% for skill in project.skill.all %}{{ skill }}
+    </br>
+    {% endfor %}
+</p>
+<p class="post__desc"> Требуемые активности:<br>
+    {% for activity in project.activity.all %}{{ activity }}
     </br>
     {% endfor %}
 </p>
