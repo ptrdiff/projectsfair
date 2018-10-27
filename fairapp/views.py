@@ -237,17 +237,14 @@ def update_profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
         education_form = EducationForm()
-        apskills_form = ApSkillForm()
 
         skill_list = Skill.objects.all()
         skill_filter = SkillFilter(request.GET, queryset=skill_list)
-        print(skill_filter.qs)
     return render(request, 'fairapp/profile_update.html', {
         'user_form': user_form,
         'profile_form': profile_form,
         'education_form': education_form,
-        'apskills_form': apskills_form,
-        'filter': skill_filter,
+        'filter': skill_filter
     })
 
 
