@@ -1,9 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.views import generic
-from .models import Project, AppForProject, Skill
+from .models import Project, AppForProject, Education, Skill
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from fairapp.forms import SignUpForm, SkillForm, ActivityForm
+from fairapp.forms import SignUpForm, EducationForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from .filters import ProjectFilter
@@ -206,16 +206,20 @@ def update_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        eds = request.user.profile.education.all()
+        if eds:
+            education_form = EducationForm(request.POST, instance=request.user.profile.education.get_or_create(pk=eds[0].id))
+        else:
+            print("HERE")
+            education = request.user.profile.education.get_or_create(pk=0)
+            education.save()
+            print("THERE")
+            education_form = EducationForm(request.POST, instance=education)
 
-        #skill_form = SkillForm(request.POST, instance=request.user.profile.ap_skill)
-        #activity_form = SkillForm(request.POST, instance=request.user.profile.ap_act)
-
-        if user_form.is_valid() and profile_form.is_valid():#\
-             #   and skill_form.is_valid() and activity_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid() and education_form.is_valid():
             user_form.save()
             profile_form.save()
-            #skill_form.save()
-            #activity_form.save()
+            education_form.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('/profile')
         else:
@@ -223,14 +227,11 @@ def update_profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-        #skill_form = SkillForm(instance=request.user.profile.ap_skill)
-        #activity_form = SkillForm(instance=request.user.profile.ap_act)
-
+        education_form = EducationForm()
     return render(request, 'fairapp/profile_update.html', {
         'user_form': user_form,
         'profile_form': profile_form,
-        #'skill_form': skill_form,
-        #'activity_form': activity_form
+        'education_form': education_form
     })
 
 

@@ -22,22 +22,35 @@
               {% render_field user_form.email class="validate" maxlength="255" placeholder="Введите e-mail" %}
             <label for="brief_summary">Email</label>
          </div>
-
-
-          <div class="input-field col s12 ">
+      Образование:
+        <div class="input-field col s12 ">
+            {% render_field education_form.edu class="validate" %}
+            <label for="edu">ВУЗ</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field education_form.faculty class="validate" %}
+            <label for="faculty">Факультет</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field education_form.prog class="validate" %}
+            <label for="prog">Программа</label>
+         </div>
+         <div class="input-field col s12 ">
+            {% render_field education_form.stage class="validate" %}
+            <label for="stage">Ступень</label>
+         </div>
+        <div class="input-field col s12 ">
+            {% render_field education_form.year class="validate" placeholder="Введите год выпуска"%}
+            <label for="year">Год выпуска</label>
+         </div>
+         <div class="input-field col s12 ">
             {% render_field skill_form.name class="validate" %}
             <label for="tag">Скиллы</label>
          </div>
-
-
-
          <div class="input-field col s12">
             {% render_field profile_form.ApSkill class="validate" maxlength="255" %}
             <label for="content">Прикладной опыт</label>
          </div>
-
-
-
          <div class="input-field col s12 ">
              {% render_field project_form.ApAct class="validate" maxlength="255" %}
             <label for="app_deadline" >Прикладные активности</label>

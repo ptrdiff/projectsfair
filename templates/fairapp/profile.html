@@ -7,6 +7,10 @@
  menu-item--act
 {% endblock %}
 {% block mainblock %}
+<p class = "post__desc"> Имя пользователя: {{ profile.user.username }}
+</p>
+<p class = "post__desc"> Почта: {{ profile.user.email }}
+</p>
 <p class = "post__desc"> Имя: {{ profile.user.first_name }}
 </p>
 <p class = "post__desc"> Фамилия: {{ profile.user.last_name }}
@@ -67,15 +71,15 @@
 {% if profile.education %}
 <p class = "post__desc"> Образование:
     {% for ed in profile.education.all %}
-        {% for inst in ed.edu.all %}
-            <br>ВУЗ: {{ inst }}
-            {% for prog in ed.prog.all %}
-                <br>Программа: {{ prog }}
-                <br>Год выпуска: {{ ed.year }}
-            {% endfor %}
-        {% endfor %}
+        <br>ВУЗ: {{ ed.edu }}
+        <br>Факультет: {{ ed.faculty }}
+        <br>Программа: {{ ed.prog }}
+        <br>Ступень: {{ ed.stage }}
+        <br>Год выпуска: {{ ed.year }}
     {% endfor %}
 </p>
+
+
 {% endif %}
 
 {% endblock %}
