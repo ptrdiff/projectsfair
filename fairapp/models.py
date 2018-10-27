@@ -55,14 +55,14 @@ class EduStage(models.Model):
 
 
 class Education(models.Model):
-    edu = models.ForeignKey(EduInst, on_delete=models.CASCADE, default='', related_name='edu')
-    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, default='', related_name='faculty')
-    prog = models.ForeignKey(EduProg, on_delete=models.CASCADE, default='', related_name='prog')
-    stage = models.ForeignKey(EduStage, on_delete=models.CASCADE, default='', related_name='stage')
+    edu = models.ForeignKey(EduInst, on_delete=models.CASCADE,       related_name='edu')
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE,   related_name='faculty')
+    prog = models.ForeignKey(EduProg, on_delete=models.CASCADE,      related_name='prog')
+    stage = models.ForeignKey(EduStage, on_delete=models.CASCADE,    related_name='stage')
     year = models.PositiveIntegerField(help_text="Graduation year", default=int(date.today().year))
 
     def __str__(self):
-        return self.edu.__str__() + " " + self.prog.__str__() + " " + self.year.__str__()
+        return str(self.edu.__str__() + " " + self.prog.__str__() + " " + self.year.__str__())
 
 
 class Skill(models.Model):
