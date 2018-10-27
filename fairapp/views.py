@@ -208,12 +208,11 @@ def update_profile(request):
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
         eds = request.user.profile.education.all()
         if eds:
-            education_form = EducationForm(request.POST, instance=request.user.profile.education.get_or_create(pk=eds[0].id))
+            education_form = EducationForm(request.POST, instance=request.user.profile.education.get(pk=eds[0].id))
         else:
-            print("HERE")
-            education = request.user.profile.education.get_or_create(pk=0)
+            education = Education(edu_id=0, faculty_id=0, prog_id=0, stage_id=0)
             education.save()
-            print("THERE")
+            request.user.profile.education.add(education)
             education_form = EducationForm(request.POST, instance=education)
 
         apskills = request.user.profile.ap_skill.all()
@@ -222,7 +221,7 @@ def update_profile(request):
         else:
             apskill = request.user.profile.ap_skill.get_or_create(pk=0)
             apskill.save()
-            apskills_form = ApSkillForm(request.POST, instance=ap_skill)
+            apskills_form = ApSkillForm(request.POST, instance=apskill)
 
         if user_form.is_valid() and profile_form.is_valid() and education_form.is_valid() and apskills_form.is_valid():
             user_form.save()
