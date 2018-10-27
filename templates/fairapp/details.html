@@ -31,32 +31,35 @@
 </p>
 <p class="post__desc"> Время окончания: {{ project.date_end }}
 </p>
-{% if perms.fairapp.approve_application %}
-<form method="post" action="{% url 'fairapp:approveproject' project.id %}">
-    {% csrf_token %}
-    <div>
+
+<div>
+    {% if perms.fairapp.approve_application %}
+    <form method="post" action="{% url 'fairapp:approveproject' project.id %}">
+        {% csrf_token %}
         {% if project.status == 'm' %}
         <button class="btn waves-effect waves-light" type="submit" value="approve" name="Decision">Approve</button>
         {% endif %}
         <button class="btn waves-effect waves-light" type="submit" value="reject" name="Decision"
                 style="background-color: #9f2d20">Reject
         </button>
-    </div>
-</form>
-{% endif %}
-</form>
+    </form>
+    {% endif %}
+</div>
+
 {% endblock %}
 {% block bottom %}
-<div class="col-xs-12 pagination-wrapper">
-    <div class="divider-top">
-        <ul class="pagination">
-            <div class="item-list">
-                <ul class="pagination__items">
-                    <li><a title="Изменить профиль" style="cursor: pointer; color:#9f2d20;"
-                           href="{% url 'fairapp:application_create' project.id%}">Отправить заявку</a></li>
-                </ul>
-            </div>
-        </ul>
+{% if project.status == 'c' %}
+    <div class="col-xs-12 pagination-wrapper">
+        <div class="divider-top">
+            <ul class="pagination">
+                <div class="item-list">
+                    <ul class="pagination__items">
+                        <li><a title="Изменить профиль" style="cursor: pointer; color:#9f2d20;"
+                               href="{% url 'fairapp:application_create' project.id%}">Отправить заявку</a></li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
     </div>
-</div>
+{% endif %}
 {% endblock %}

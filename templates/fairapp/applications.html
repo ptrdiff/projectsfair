@@ -15,14 +15,12 @@
 <h1 class="header-h1">Актуальные заявки</h1>
 {% endblock %}
 {% block content %}
-<section class="constructor col-xs-12 col-md-9" style="min-height: 50vh;">
+<section class="constructor col-xs-12 col-md-12" style="min-height: 50vh;">
    <article class="editor-wrap">
       {% for app in apps %}
       <section class="constructor-box constructor-box--flat "  >
          <a href="{% url 'fairapp:moderdetailapplication' app.id %}" class="box-title ">
-            {{ app.id }}
-            {{ app.project }}
-            {{ app.username }}
+            #{{ app.id }}. Проект {{ app.project }}
          </a>
          <div class="table-float table-float--large">
             <p>{{ app.covering_letter }}</p>
