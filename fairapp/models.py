@@ -83,7 +83,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     middle_name = models.CharField(null=False, blank=True, max_length=255, help_text="Middle name")
     phone = models.CharField(null=False, blank=True, max_length=32, help_text="Phone number")
-    education = models.ManyToManyField(Education, default=0)
+    education = models.ManyToManyField(Education, default=0, related_name="education", through="EducationProfileRelation")
     ap_skill = models.ManyToManyField(Skill, default=0, related_name="ap_skill", through="ApSkill", through_fields=('user', 'skill'))
     sci_skill = models.ManyToManyField(Skill, default=0, related_name="sci_skill", through="SciSkill",through_fields=('user', 'skill'))
     ext_skill = models.ManyToManyField(Skill, default=0, related_name="ext_skill", through="ExtSkill",through_fields=('user', 'skill'))
@@ -93,6 +93,14 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class EducationProfileRelation(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    education = models.ForeignKey(Education, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.__str__() + " " + self.education.__str__()
 
 
 class ApSkill(models.Model):

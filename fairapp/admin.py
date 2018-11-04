@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Project, Skill, Profile, AppForProject, Education, EduInst, EduProg,\
     Activity, ApSkill, SciSkill, ExtSkill, ApAct, SciAct, ExtAct, ProjApSkill, ProjSciSkill,\
-    ProjExtSkill, ProjApAct, ProjSciAct, ProjExtAct, Tag, Faculty, EduStage
+    ProjExtSkill, ProjApAct, ProjSciAct, ProjExtAct, Tag, Faculty, EduStage, EducationProfileRelation
 
 
 '''class SkillInline(admin.TabularInline):
@@ -47,3 +47,4 @@ admin.site.register(ProjSciAct)
 admin.site.register(ProjExtAct)
 admin.site.register(Faculty)
 admin.site.register(EduStage)
+admin.site.register(EducationProfileRelation)

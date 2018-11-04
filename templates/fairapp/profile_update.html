@@ -9,6 +9,12 @@
 <form action="{% url 'fairapp:update_profile' %}" method='post' id="form1">
     {% csrf_token %}
     <div class="row ">
+        {{ education_formset.management_form }}
+         <table>
+        {% for form in education_formset %}
+        <tr><td><ul class="list-inline">{{ form.as_p }}</ul></td></tr>
+        {% endfor %}
+         </table>
         <div class="input-field col s12 ">
             {% render_field user_form.first_name class="validate" maxlength="255" placeholder="Введите имя" %}
             <label for="start_date">Имя</label>

@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.views import generic
-from .models import Project, AppForProject, Education, ApSkill, Skill
+from .models import Project, AppForProject, Education, EducationProfileRelation, ApSkill, Skill
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from fairapp.forms import SignUpForm, EducationForm, ApSkillForm
@@ -18,6 +18,7 @@ from django.utils import six
 from django.apps import apps
 from django.db import IntegrityError
 from django.shortcuts import render_to_response
+from django.forms.models import modelformset_factory
 from django.views.generic.edit import ModelFormMixin
 
 def and_filter(project_list, request, *fieldtofilter):
@@ -203,31 +204,23 @@ def search(request):
 @login_required
 @transaction.atomic
 def update_profile(request):
+    #skill_list = Skill.objects.all()
+    #skill_filter = SkillFilter(queryset=skill_list)
+    queryset = Education.objects.filter(id__in=request.user.profile.educationprofilerelation_set.all())
+    EducationFormset = modelformset_factory(Education, form=EducationForm, extra=0)
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        eds = request.user.profile.education.all()
-        if eds:
-            education_form = EducationForm(request.POST, instance=request.user.profile.education.get(pk=eds[0].id))
-        else:
-            education = Education(edu_id=0, faculty_id=0, prog_id=0, stage_id=0)
-            education.save()
-            request.user.profile.education.add(education)
-            education_form = EducationForm(request.POST, instance=education)
-
-        apskills = request.user.profile.ap_skill.all()
-        if apskills:
-            apskills_form = ApSkillForm(request.POST, instance=request.user.profile.ap_skill.get_or_create(pk=apskills[0].id))
-        else:
-            apskill = request.user.profile.ap_skill.get_or_create(pk=0)
-            apskill.save()
-            apskills_form = ApSkillForm(request.POST, instance=apskill)
-
-        if user_form.is_valid() and profile_form.is_valid() and education_form.is_valid() and apskills_form.is_valid():
+        education_formset = EducationFormset(request.POST, queryset)
+        #apskills_form = ApSkillForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid() and education_formset.is_valid():
+            edu_instances = education_formset.save(commit=False)
+            for instance in edu_instances:
+                instance.save()
             user_form.save()
             profile_form.save()
-            education_form.save()
-            apskills_form.save()
+
+            #apskills_form.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('/profile')
         else:
@@ -235,15 +228,14 @@ def update_profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-        education_form = EducationForm()
-
-        skill_list = Skill.objects.all()
-        skill_filter = SkillFilter(request.GET, queryset=skill_list)
+        education_formset = EducationFormset(queryset=queryset)
+        #apskills_form = ApSkillForm(instance=request.user.profile)
     return render(request, 'fairapp/profile_update.html', {
         'user_form': user_form,
         'profile_form': profile_form,
-        'education_form': education_form,
-        'filter': skill_filter
+        'education_formset': education_formset
+        #'apskill_form': apskills_form,
+        #'filter': skill_filter,
     })
 
 
