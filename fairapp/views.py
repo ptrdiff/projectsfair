@@ -206,8 +206,9 @@ def search(request):
 def update_profile(request):
     #skill_list = Skill.objects.all()
     #skill_filter = SkillFilter(queryset=skill_list)
-    queryset = Education.objects.filter(id__in=request.user.profile.educationprofilerelation_set.all())
-    EducationFormset = modelformset_factory(Education, form=EducationForm, extra=0)
+    qs = request.user.profile.educationprofilerelation_set.all()
+    queryset = Education.objects.filter(id__in=[ed.education.id for ed in qs])
+    EducationFormset = modelformset_factory(Education, form=EducationForm, extra=0, can_delete=True)
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
@@ -217,6 +218,7 @@ def update_profile(request):
             edu_instances = education_formset.save(commit=False)
             for instance in edu_instances:
                 instance.save()
+                request.user.profile.education.add(instance)
             user_form.save()
             profile_form.save()
 

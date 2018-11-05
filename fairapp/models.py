@@ -96,6 +96,9 @@ class Profile(models.Model):
 
 
 class EducationProfileRelation(models.Model):
+    class Meta:
+        auto_created = True
+
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     education = models.ForeignKey(Education, on_delete=models.CASCADE)
 

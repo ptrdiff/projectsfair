@@ -9,27 +9,12 @@
 <form action="{% url 'fairapp:update_profile' %}" method='post' id="form1">
     {% csrf_token %}
     <div class="row ">
-        {{ education_formset.management_form }}
-         <table>
-        {% for form in education_formset %}
-        <tr><td><ul class="list-inline">{{ form.as_p }}</ul></td></tr>
-        {% endfor %}
-         </table>
-        <div class="input-field col s12 ">
-            {% render_field user_form.first_name class="validate" maxlength="255" placeholder="Введите имя" %}
-            <label for="start_date">Имя</label>
-        </div>
-        <div class="input-field col s12 ">
-            {% render_field user_form.last_name class="validate" maxlength="255" placeholder="Введите фамилию" %}
-            <label for="end_date">Фамилия</label>
-        </div>
-        <div class="input-field col s12">
-            {% render_field user_form.email class="validate" maxlength="255" placeholder="Введите e-mail" %}
-            <label for="brief_summary">Email</label>
-        </div>
-        <div style="margin-bottom: 10px">Образование:</div>
 
-        <div class="row">
+        {{ education_formset.management_form }}
+        {% if education_formset.forms %}
+        {% for education_form in education_formset %}
+            <div class="education-formset">
+                <div class="row">
             <div class="input-field col-sm-4 ">
                 {% render_field education_form.edu class="validate" %}
                 <label for="edu" style="margin-left: 15px">ВУЗ</label>
@@ -53,6 +38,27 @@
             <label for="year" style="margin-left: 15px">Год выпуска</label>
             </div>
         </div>
+            </div>
+        {% endfor %}
+        {% else %}
+            <div class="education-formset"></div>
+        {% endif %}
+
+        <div class="input-field col s12 ">
+            {% render_field user_form.first_name class="validate" maxlength="255" placeholder="Введите имя" %}
+            <label for="start_date">Имя</label>
+        </div>
+        <div class="input-field col s12 ">
+            {% render_field user_form.last_name class="validate" maxlength="255" placeholder="Введите фамилию" %}
+            <label for="end_date">Фамилия</label>
+        </div>
+        <div class="input-field col s12">
+            {% render_field user_form.email class="validate" maxlength="255" placeholder="Введите e-mail" %}
+            <label for="brief_summary">Email</label>
+        </div>
+        <div style="margin-bottom: 10px">Образование:</div>
+
+
         <div style="margin-bottom: 10px">Навыки:</div>
         <div class="row">
             <div class="col-sm-4">
@@ -100,7 +106,15 @@
     $(document).ready(function(){
     $('select').formSelect();
     });
+</script>
 
 
+<!-- Include formset plugin - including jQuery dependency -->
+<script src="{% static 'js/jquery.formset.js' %}"></script>
+<script>
+    $('.education-formset').formset({
+        addText: 'Добавить сведения об образовании',
+        deleteText: 'Убрать сведения об образовании'
+    });
 </script>
 {% endblock %}
