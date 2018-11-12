@@ -23,27 +23,28 @@ from django.views.generic.edit import ModelFormMixin
 
 def and_filter(project_list, request, *fieldtofilter):
     q_dict = dict(six.iterlists(request.GET))
+    requestedFields=[]
     for field in fieldtofilter:
-        project_list2 = []
-
         if field not in q_dict:
             continue
-
         field_attribute = q_dict.get(field)
-        etalon=[]
         for s in field_attribute:
-            etalon.append(apps.get_model('fairapp', field).objects.get(pk=s))
+            requestedFields.append(apps.get_model('fairapp', field).objects.get(pk=s))
+    if not requestedFields:
+        return project_list
 
-        length = len(project_list)
-        for p in range(length):
-            attr = getattr(project_list[p], field)
+    relevancePositions = [0]*(len(requestedFields)+1)
+    sortedProjects = []
+    for p in range(len(project_list)):
+        project_attrs = []
+        for field in fieldtofilter:
+            project_attrs.extend(list(getattr(project_list[p], field).all()))
+        numberOfMatches = len(set(requestedFields) & set(project_attrs))
+        sortedProjects.insert(relevancePositions[numberOfMatches], project_list[p])
+        for pos in range(numberOfMatches+1):
+            relevancePositions[pos] += 1
+    return sortedProjects
 
-            if set(list(attr.all()))&set(etalon) == set(etalon):
-                project_list2.append(project_list[p])
-
-        if len(project_list2) > 0:
-            project_list = project_list2
-    return project_list
 
 
 def index(request, page=1):
