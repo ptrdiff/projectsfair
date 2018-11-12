@@ -1,12 +1,12 @@
 from django.http import HttpResponseRedirect
 from django.views import generic
-from .models import Project, AppForProject, Skill
+from .models import Project, AppForProject, Education, EducationProfileRelation, ApSkill, Skill
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from fairapp.forms import SignUpForm
+from fairapp.forms import SignUpForm, EducationForm, ApSkillForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
-from .filters import ProjectFilter
+from .filters import ProjectFilter, SkillFilter
 from .forms import UserForm, ProfileForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
@@ -18,7 +18,8 @@ from django.utils import six
 from django.apps import apps
 from django.db import IntegrityError
 from django.shortcuts import render_to_response
-
+from django.forms.models import modelformset_factory
+from django.views.generic.edit import ModelFormMixin
 
 def and_filter(project_list, request, *fieldtofilter):
     q_dict = dict(six.iterlists(request.GET))
@@ -27,7 +28,6 @@ def and_filter(project_list, request, *fieldtofilter):
         if field not in q_dict:
             continue
         field_attribute = q_dict.get(field)
-
         for s in field_attribute:
             requestedFields.append(apps.get_model('fairapp', field).objects.get(pk=s))
     if not requestedFields:
@@ -44,6 +44,7 @@ def and_filter(project_list, request, *fieldtofilter):
         for pos in range(numberOfMatches+1):
             relevancePositions[pos] += 1
     return sortedProjects
+
 
 
 def index(request, page=1):
@@ -67,7 +68,7 @@ def index(request, page=1):
 @login_required
 def view_profile_projects(request, page=1):
     project_list = Project.objects.all().filter(members__in=[request.user.id])
-    paginator = Paginator(project_list.order_by('-pub_date'), 5)
+    paginator = Paginator(project_list.order_by('-date_start'), 5)
     if page > paginator.num_pages:
         page = 1
     try:
@@ -97,7 +98,7 @@ def view_profile_applications(request, page=1):
 @permission_required('fairapp.approve_project')
 def moderator_index(request, page=1):
     object_list = Project.objects.all().filter(status='m')
-    paginator = Paginator(object_list.order_by('-pub_date'), 5)
+    paginator = Paginator(object_list.order_by('-date_req_end'), 5)
     if page > paginator.num_pages:
         page = 1
     try:
@@ -141,8 +142,7 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_project_list'
 
     def get_queryset(self):
-        """Return the last five published questions."""
-        return Project.objects.order_by('pub_date')[:5]
+        return Project.objects.order_by('date_req_end')[:5]
 
 
 class DetailView(generic.DetailView):
@@ -155,14 +155,16 @@ class DetailView(generic.DetailView):
             return redirect('fairapp:index')
         return super(DetailView, self).dispatch(request, *args, **kwargs)
 
+
 class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
-    fields = ('project_name', 'start_date', 'end_date', 'brief_summary', 'content',
-              'app_deadline', 'num_places', 'type', 'tag', 'skill')
+    fields = ('name', 'descrip_short', 'descrip_full', 'num_participants', 'date_start',
+              'date_end', 'date_req_end', 'tag', 'skill', 'activity')
 
     def form_valid(self, form):
         form.save()
-        form.instance.head.add(self.request.user)
+        form.instance.id_lead.add(self.request.user)
+        form.instance.places_left = int(form.instance.num_participants)
         form.save()
         return super(ProjectCreate, self).form_valid(form)
 
@@ -203,12 +205,25 @@ def search(request):
 @login_required
 @transaction.atomic
 def update_profile(request):
+    #skill_list = Skill.objects.all()
+    #skill_filter = SkillFilter(queryset=skill_list)
+    qs = request.user.profile.educationprofilerelation_set.all()
+    queryset = Education.objects.filter(id__in=[ed.education.id for ed in qs])
+    EducationFormset = modelformset_factory(Education, form=EducationForm, extra=0, can_delete=True)
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
+        education_formset = EducationFormset(request.POST, queryset)
+        #apskills_form = ApSkillForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid() and education_formset.is_valid():
+            edu_instances = education_formset.save(commit=False)
+            for instance in edu_instances:
+                instance.save()
+                request.user.profile.education.add(instance)
             user_form.save()
             profile_form.save()
+
+            #apskills_form.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('/profile')
         else:
@@ -216,9 +231,14 @@ def update_profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
+        education_formset = EducationFormset(queryset=queryset)
+        #apskills_form = ApSkillForm(instance=request.user.profile)
     return render(request, 'fairapp/profile_update.html', {
         'user_form': user_form,
-        'profile_form': profile_form
+        'profile_form': profile_form,
+        'education_formset': education_formset
+        #'apskill_form': apskills_form,
+        #'filter': skill_filter,
     })
 
 
@@ -264,9 +284,12 @@ def approve_application(request, pk):
     obj = AppForProject.objects.get(pk=pk)
     if request.POST['Decision'] == 'approve':
         obj.project.members.add(obj.user)
+        places = obj.project.places_left
+        obj.project.places_left = places - 1
         obj.status = 'a'
     elif request.POST['Decision'] == 'reject':
         obj.status = 'r'
+    obj.project.save()
     obj.save()
     return redirect('fairapp:index')
 

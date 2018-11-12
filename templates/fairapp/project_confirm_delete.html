@@ -2,9 +2,9 @@
 {% load staticfiles %}
 {% block mainblock %}
 
-<h1>Delete Project</h1>
+<h1>Удалить проект</h1>
 
-<p>Are you sure you want to delete the project: {{ project }}?</p>
+<p>Вы уверены, что хотите удалить проект: {{ project }}?</p>
 
 <form action="" method="POST">
   {% csrf_token %}

@@ -1,59 +1,70 @@
 {% extends "registration/base_generic.html" %}
 {% load staticfiles %}
 {% block title %}
- <title>{{ project.project_name }} - Ярмарка проектов</title>
+<title>{{ project.project_name }} - Ярмарка проектов</title>
 {% endblock %}
 {% block mainblock %}
 <div class="post__tags">
    <span class="post__date">
    <span class="date-display-single" property="dc:date" datatype="xsd:dateTime" content="2018-02-13T12:15:00+03:00">{{ project.pub_date }}</span>            </span>
-   <span class="tag tag--grey">
+    <span class="tag tag--grey">
    {%   for t in project.tag.all %}
    #{{  t }}
    {%   endfor %}</span>
 </div>
 <h1 class="post__title">
-   {{ project.project_name }}
+    {{ project.name }}
 </h1>
-<p class = "post__desc"> Руководитель:</br>
- {% for h in project.head.all %}{{ h.first_name}} {{ h.last_name }}
-     </br>
- {% endfor %}
+<p class="post__desc"> Руководитель:
+    {% for lead in project.id_lead.all %}
+    {{ lead.first_name}} {{ lead.last_name }}
+    {% endfor %}
 </p>
-<p class = "post__desc"> Время начала: {{ project.start_date }}
+<p class="post__desc"> Время начала: {{ project.date_start }}
 </p>
-<p class = "post__desc"> Содержимое проекта:</br>{{ project.content }}
+<p class="post__desc"> Содержимое проекта: {{ project.descrip_full }}
 </p>
-<p class = "post__desc"> Требуемые навыки:</br>
- {% for skill in project.skill.all %}{{ skill }}
-     </br>
- {% endfor %}
+<p class="post__desc"> Требуемые навыки:<br>
+    {% for skill in project.skill.all %}{{ skill }}
+    </br>
+    {% endfor %}
 </p>
-<p class = "post__desc"> Тип: {{ project.type }}
+<p class="post__desc"> Требуемые активности:<br>
+    {% for activity in project.activity.all %}{{ activity }}
+    </br>
+    {% endfor %}
 </p>
-<p class = "post__desc"> Время окончания: {{ project.end_date }}
+<p class="post__desc"> Время окончания: {{ project.date_end }}
 </p>
+
+<div>
     {% if perms.fairapp.approve_application %}
- <form method="post" action="{% url 'fairapp:approveproject' project.id %}">
-   {% csrf_token %}
-   <div>
-      <input type="submit" value="approve" name="Decision"/>
-      <input type="submit" value="reject" name="Decision"/>
-   </div>
-</form>
+    <form method="post" action="{% url 'fairapp:approveproject' project.id %}">
+        {% csrf_token %}
+        {% if project.status == 'm' %}
+        <button class="btn waves-effect waves-light" type="submit" value="approve" name="Decision">Approve</button>
+        {% endif %}
+        <button class="btn waves-effect waves-light" type="submit" value="reject" name="Decision"
+                style="background-color: #9f2d20">Reject
+        </button>
+    </form>
     {% endif %}
-</form>
+</div>
+
 {% endblock %}
 {% block bottom %}
-<div class="col-xs-12 pagination-wrapper">
-  <div class="divider-top">
-    <ul class="pagination">
-         <div class="item-list">
-            <ul class="pagination__items" >
-                <li><a title="Изменить профиль" style="cursor: pointer; color:#9f2d20;" href="{% url 'fairapp:application_create' project.id%}">Отправить заявку</a></li>
+{% if project.status == 'c' %}
+    <div class="col-xs-12 pagination-wrapper">
+        <div class="divider-top">
+            <ul class="pagination">
+                <div class="item-list">
+                    <ul class="pagination__items">
+                        <li><a title="Изменить профиль" style="cursor: pointer; color:#9f2d20;"
+                               href="{% url 'fairapp:application_create' project.id%}">Отправить заявку</a></li>
+                    </ul>
+                </div>
             </ul>
-         </div>
-    </ul>
-  </div>
-</div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}
