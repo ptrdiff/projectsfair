@@ -1,10 +1,18 @@
+sudo: required
 language: python
 python:
   - "3.6"
 install:
   - pip install -r requirements.txt 
+services:
+  - docker
+  - postgresql
 before_script:
+  - psql -c 'create database projectsfair_new;' -U postgres
   - python manage.py makemigrations
   - python manage.py migrate 
 script:
-  - python manage.py test 
+  - python manage.py test
+after_success:
+  - bash .travis/deploy_dockerhub.sh
+  - bash .travis/deploy_heroku.sh
