@@ -8,7 +8,7 @@
 {% endblock %}
 {% block menu1 %}
  menu-item--act
-{% endblock %}
+{% endblock %}class="btn waves-effect waves-light grey darken-4"
 {% block title %}
 <title>Ярмарка проектов - Санкт-Петербургский государственный университет</title>
 {% endblock %}
@@ -21,10 +21,11 @@
       {% for project in projects %}
       <section class="constructor-box constructor-box--flat "  >
          <a href="{% url 'fairapp:moderdetail' project.id %}" class="box-title ">
-         {{ project.project_name }}
+         {{ project.name }}
          </a>
          <div class="table-float table-float--large">
-            <p>{{ project.brief_summary }}</p>
+             <p>Краткое описание:</p>
+             <p>{{ project.descrip_short }}</p>
          </div>
       </section>
       {% endfor %}

@@ -7,20 +7,76 @@
  menu-item--act
 {% endblock %}
 {% block mainblock %}
+<p class = "post__desc"> Имя пользователя: {{ profile.user.username }}
+</p>
+<p class = "post__desc"> Почта: {{ profile.user.email }}
+</p>
 <p class = "post__desc"> Имя: {{ profile.user.first_name }}
 </p>
 <p class = "post__desc"> Фамилия: {{ profile.user.last_name }}
 </p>
-<p class = "post__desc"> Интересы:</br>{{ profile.interests }}
+{% if profile.middle_name %}
+<p class = "post__desc"> Отчество: {{ profile.middle_name }}
 </p>
-<p class = "post__desc"> Достижения:</br>{{ profile.achievements }}
-</p>
-<p class = "post__desc"> Факультет: {{ profile.get_faculty_display }}
-</p>
-<p class = "post__desc"> Статус: {{ profile.get_status_display }}
-</p>
-{% if profile.grade %}
-<p class = "post__desc"> Уровень образования: {{ profile.grade }}
+{% endif %}
+
+<div class="row">
+    <div class="col-sm-4">
+      <p class = "post__desc"> Прикладные навыки:
+          {% for skill in profile.ap_skill.all %}
+              <br>{{ skill }}
+          {% endfor %}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Научные навыки:
+          {% for skill in profile.sci_skill.all %}
+              <br>{{ skill }}
+          {% endfor %}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Внеучебные навыки:
+          {% for skill in profile.ext_skill.all %}
+              <br>{{ skill }}
+          {% endfor %}
+      </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+      <p class = "post__desc"> Прикладные активности:
+      {% for act in profile.ap_act.all %}
+          <br>{{ act }}
+      {% endfor %}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Научные активности:
+      {% for act in profile.sci_act.all %}
+          <br>{{ act }}
+      {% endfor %}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <p class = "post__desc"> Внеучебные активности:
+      {% for act in profile.ext_act.all %}
+          <br>{{ act }}
+      {% endfor %}
+      </p>
+    </div>
+  </div>
+
+
+{% if profile.education %}
+<p class = "post__desc"> Образование:
+    {% for ed in profile.education.all %}
+        <br>ВУЗ: {{ ed.edu }}
+        <br>Факультет: {{ ed.faculty }}
+        <br>Программа: {{ ed.prog }}
+        <br>Ступень: {{ ed.stage }}
+        <br>Год выпуска: {{ ed.year }}
+    {% endfor %}
 </p>
 {% endif %}
 

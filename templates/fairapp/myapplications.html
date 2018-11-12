@@ -15,15 +15,14 @@
 <h1 class="header-h1">Мои заявки</h1>
 {% endblock %}
 {% block content %}
-<section class="constructor col-xs-12 col-md-9" style="min-height: 50vh;">
+<section class="constructor col-xs-12 col-md-12" style="min-height: 50vh;">
    <article class="editor-wrap">
       {% for app in apps %}
       <section class="constructor-box constructor-box--flat "  >
       <div class="table-float table-float--large">
-            <p>{{ app.project }}</p>
-         </div>
-         <div class="table-float table-float--large">
-            <p>{{ app.covering_letter }}</p>
+            <p class="header-h3">{{ app.project }}</p>
+
+            <p>Сопроводительное письмо: {{ app.covering_letter }}</p>
          </div>
 
       <div class="table-float table-float--large">

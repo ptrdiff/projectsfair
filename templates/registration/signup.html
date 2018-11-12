@@ -19,27 +19,27 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">account_circle</i>
-                                {% render_field form.username class="validate"%}
+                                {% render_field form.username class="validate" placeholder="Введите имя пользователя" %}
                                 <label for="username">Имя пользователя</label>
                             </div>
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">account_circle</i>
-                                {% render_field form.first_name class="validate" %}
-                                <label for="username">Имя</label>
+                                {% render_field form.first_name class="validate" placeholder="Введите имя" %}
+                                <label for="first_name">Имя</label>
                             </div>
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">account_circle</i>
-                                 {% render_field form.last_name class="validate" %}
-                                <label for="username">Фамилия</label>
+                                 {% render_field form.last_name class="validate" placeholder="Введите фамилию" %}
+                                <label for="last_name">Фамилия</label>
                             </div>
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">email</i>
-                                 {% render_field form.email class="validate" %}
-                                <label for="email" data-error="Email is invalid" data-success="">Email</label>
+                                 {% render_field form.email class="validate" placeholder="Введите E-mail" %}
+                                <label for="email" data-error="Email is invalid" data-success="">E-mail</label>
                             </div>
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">lock</i>
-                                 {% render_field form.password1 class="validate" %}
+                                 {% render_field form.password1 class="validate" placeholder="Введите пароль" %}
                                 <label for="password">Пароль</label>
                                 <span class="helper-text" data-error="wrong" data-success="right">Ваш пароль должен содержать как минимум 8 символов.
 Ваш пароль не должен быть слишком простым.
@@ -48,7 +48,7 @@
 
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">lock</i>
-                                {% render_field form.password2 class="validate" %}
+                                {% render_field form.password2 class="validate" placeholder="Повторите пароль" %}
                                 <label for="password">Подтверждение пароля</label>
                             </div>
                             <div class="center">

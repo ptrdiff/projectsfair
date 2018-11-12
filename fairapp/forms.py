@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
+from .models import Profile, Education, EduInst, EduProg, ApSkill, Activity
 from django.contrib.auth.models import User
 
 
@@ -24,5 +24,26 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('interests', 'achievements', 'faculty', 'status', 'grade')
+        fields = ('middle_name', 'phone')
 
+
+class EducationForm(forms.ModelForm):
+    class Meta:
+        model = Education
+        fields = '__all__'
+
+
+class ApSkillForm(forms.ModelForm):
+    class Meta:
+        model = ApSkill
+        fields = '__all__'
+
+    '''def __init__(self, *args, **kwargs):
+        super(EducationForm, self).__init__(*args, **kwargs)
+        self.fields["edu"].widget = forms.widgets.CheckboxSelectMultiple()
+        self.fields["edu"].help_text = ""
+        self.fields["edu"].queryset = EduInst.objects.all()
+        self.fields["prog"].widget = forms.widgets.CheckboxSelectMultiple()
+        self.fields["prog"].help_text = ""
+        self.fields["prog"].queryset = EduProg.objects.all()
+        self.fields["year"].widget = forms.widgets.NumberInput()'''
